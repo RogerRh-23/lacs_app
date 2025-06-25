@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -27,34 +27,41 @@
                         <input type="password" id="login-password" required placeholder=" ">
                         <label for="login-password">Contraseña</label>
                     </div>
-                    <button class="login-button" type="submit">Iniciar
-                        sesión</button>
+                    <button class="login-button" type="submit">Iniciar sesión</button>
                 </form>
                 <form id="register-form" class="tab-form">
-                    <div class="input-group">
-                        <input type="text" id="reegister-name" required placeholder=" ">
-                        <label for="register-name">Nombre(s)</label>
+                    <div class="form-section">
+                        <div class="input-group">
+                            <input type="text" id="register-name" required placeholder=" ">
+                            <label for="register-name">Nombre(s)</label>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="register-lastname" required placeholder=" ">
+                            <label for="register-lastname">Apellido</label>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="register-phone" required placeholder=" ">
+                            <label for="register-phone">Telefono</label>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="register-email" required placeholder=" ">
+                            <label for="register-email">Correo</label>
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <input type="text" id="register-lastname" required placeholder=" ">
-                        <label for="register-lastname">Apellido</label>
-                    </div>
-                    <div class="input-group">
-                        <input type="text" id="register-phone" required placeholder=" ">
-                        <label for="register-phone">Telefono</label>
-                    </div>
-                    <div class="input-group">
-                        <input type="text" id="register-email" required placeholder=" ">
-                        <label for="register-email">Correo</label>
-                    </div>
-                    <div class="input-group" style="position: relative;">
-                        <input type="text" list="Empresas" style="margin-bottom: 10px;" required placeholder="">
-                        <label for="register-empresa">Empresa
-                            <datalist id="Empresas">
-                                <option value="E1"></option>
-                                <option value="E2"></option>
-                            </datalist>
-                        </label>
+                    <div class="form-section">
+                        <div class="input-group">
+                            <input type="password" id="register-password" required placeholder=" ">
+                            <label for="register-password">Contraseña</label>
+                        </div>
+                        <div class="input-group" style="position: relative;">
+                            <input type="text" list="Empresas" id="register-empresa" required placeholder="">
+                            <label for="register-empresa">Empresa
+                                <datalist id="Empresas">
+                                    <option value="E1"></option>
+                                    <option value="E2"></option>
+                                </datalist>
+                            </label>
+                        </div>
                     </div>
                     <button class="register-button" type="submit">Registrarse</button>
                 </form>

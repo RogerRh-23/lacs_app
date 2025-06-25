@@ -17,10 +17,9 @@
         </button>
         <ul>
             <li><a onclick="location.href='home.html'">Inicio</a></li>
-            <li><a onclick=" location.href='reports.html'">Reportes</a></li>
+            <li><a onclick=" location.href='reportes.html'">Reportes</a></li>
             <li><a onclick=" location.href='logs.html'">Historial</a></li>
             <li><a onclick=" location.href='bajas.html'">Bajas</a></li>
-
         </ul>
         <div class="sidebar-user">
             <span class="avatar">
@@ -34,6 +33,31 @@
             </div>
         </div>
     </nav>
+
+    <main class="content">
+        <nav class="reports-box">
+            <div class="reports-tabs">
+                <button class="newReport active" id="newReport-btn">Nuevo Reporte</button>
+                <button class="newReport" id="saveReport-btn">Guardar Reporte</button>
+                <div class="tab-indicator"></div>
+            </div>
+            <div class="reports-forms">
+                <form id="reports-form" class="tab-form-active">
+                    <div class="input-group">
+                        <input type="text" list="Tipos" id="reports-types" required placeholder=" ">
+                        <label for="reports-types">Tipo de reportes
+                            <datalist id="Tipos">
+                                <option value="T1"></option>
+                                <option value="T2"></option>
+                                <option value="T3"></option>
+                                <option value="T4"></option>
+                            </datalist>
+                        </label>
+                    </div>
+                </form>
+            </div>
+        </nav>
+    </main>
 
     <script src="animations.js"></script>
 </body>
