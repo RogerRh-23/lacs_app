@@ -26,18 +26,22 @@ public class User {
     private String phone;
 
     @Column(nullable = true)
+    private String email;
+
+    @Column(nullable = true)
     private String company;
 
     public User() {
     }
 
-    public User(String username, String password, String firstName, String lastName, String phone,
+    public User(String username, String password, String firstName, String lastName, String phone, String email,
             String company) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
+        this.email = email;
         this.company = company;
     }
 
@@ -75,6 +79,14 @@ public class User {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public void setLastName(String lastName) {
