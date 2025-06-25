@@ -1,5 +1,4 @@
-
-package main.java.com.lacs.lacs.Backend.config; // ¡Asegúrate de que este paquete sea el correcto!
+package com.lacs.lacs.Backend.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

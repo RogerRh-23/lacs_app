@@ -1,4 +1,4 @@
-package main.java.com.lacs.lacs.Backend.controller; // ¡Asegúrate de que este paquete sea el correcto!
+package com.lacs.lacs.Backend.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
