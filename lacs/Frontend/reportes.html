@@ -38,14 +38,13 @@
         <nav class="reports-box">
             <div class="reports-tabs">
                 <button class="newReport-tab active" id="newReport-tab-btn">Nuevo Reporte</button>
-                <button class="newReport-tab" id="saveReport-tab-btn">Guardar Reporte</button>
                 <div class="tab-indicator"></div>
             </div>
             <div class="reports-forms">
                 <form id="reports-form" class="tab-form">
                     <div class="input-group">
                         <input type="text" list="Tipos" id="reports-types" required placeholder=" ">
-                        <label for="reports-types">Tipo de reportes
+                        <label for="reports-types">Tipo de reporte
                             <datalist id="Tipos">
                                 <option value="T1"></option>
                                 <option value="T2"></option>
@@ -54,6 +53,7 @@
                             </datalist>
                         </label>
                     </div>
+                    <button class="save-button" type="submit">Guardar</button>
                 </form>
             </div>
         </nav>
