@@ -1,0 +1,200 @@
+.login-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    padding: 2rem;
+    background: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: height 0.4s cubic-bezier(.4, 1.7, .7, 1);
+    overflow: hidden;
+}
+
+.login-tabs {
+    position: relative;
+    display: flex;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.login-tab {
+    flex: 1;
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    font-family: "Poppins";
+    padding: 1rem 0;
+    cursor: pointer;
+    color: #222836;
+    position: relative;
+    z-index: 2;
+    transition: color 0.2s;
+}
+
+.login-tab.active {
+    color: #fff;
+}
+
+.tab-indicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: #1c2b34;
+    border-radius: 1rem;
+    z-index: 1;
+    transition: left 0.4s cubic-bezier(.4, 1.7, .7, 1);
+}
+
+.login-tab.active~.tab-indicator {
+    left: 0;
+}
+
+.login-tab#register-tab-btn.active~.tab-indicator {
+    left: 50%;
+}
+
+.login-forms {
+    width: 100%;
+}
+
+.tab-form {
+    display: none;
+    flex-direction: column;
+    gap: 1.2rem;
+    align-items: stretch;
+    animation: fadeIn 0.4s;
+}
+
+.tab-form.active {
+    display: flex;
+}
+
+.tab-form input {
+    padding: 0.9rem 1rem;
+    border: 1px solid #dbeafe;
+    border-radius: 0.7rem;
+    font-size: 1rem;
+    font-family: "Poppins";
+    background: #f7fafd;
+    color: #222836;
+    outline: none;
+    transition: border 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 4px rgba(44, 62, 80, 0.04);
+}
+
+.tab-form input:focus {
+    border: 1.5px solid #74a7f9;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.10);
+    background: #fff;
+}
+
+.tab-form label {
+    font-size: 0.95rem;
+    color: #1c2b34;
+    margin-bottom: 0.2rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+}
+
+.tab-form .login-button,
+.tab-form .register-button {
+    margin-top: 0.5rem;
+}
+
+.login-button,
+.register-button {
+    position: relative;
+    background-color: #1c2b34;
+    border: none;
+    font-size: 0.9rem;
+    font-family: "Poppins";
+    cursor: pointer;
+    text-align: center;
+    width: 120px;
+    color: var(--color-white);
+    border-radius: 1rem;
+    padding: 1rem 0.5rem;
+    overflow: hidden;
+    align-self: center;
+    z-index: 1;
+}
+
+.login-button::before,
+.register-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(97, 91, 204, 0.304);
+    clip-path: circle(15% at 90% 20%);
+    transition: clip-path 0.3s ease;
+    z-index: 0;
+}
+
+.login-button:hover::before,
+.register-button:hover::before {
+    clip-path: circle(150% at 100% 0%);
+}
+
+.login-button,
+.register-button {
+    position: relative;
+    z-index: 1;
+}
+
+.login-button span,
+.register-button span {
+    position: relative;
+    z-index: 2;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 1.2rem 1rem 0.6rem 1rem;
+    border: 1px solid #dbeafe;
+    border-radius: 0.7rem;
+    font-size: 1rem;
+    font-family: "Poppins";
+    background: #f7fafd;
+    color: #222836;
+    outline: none;
+    transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+    box-shadow: 0 1px 4px rgba(44, 62, 80, 0.04);
+}
+
+.input-group input:focus {
+    border: 1.5px solid #74a7f9;
+    background: #e3eaf6;
+}
+
+.input-group label {
+    position: absolute;
+    left: 1rem;
+    top: 1.1rem;
+    color: #9e9e9e;
+    font-size: 1rem;
+    pointer-events: none;
+    background: transparent;
+    transition: all 0.2s cubic-bezier(.4, 1.7, .7, 1);
+}
+
+.input-group input:focus+label,
+.input-group input:not(:placeholder-shown)+label {
+    top: 0.3rem;
+    left: 0.8rem;
+    font-size: 0.8rem;
+    color: #1c2b34;
+    background: transparent;
+    padding: 0;
+}

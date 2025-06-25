@@ -1,0 +1,43 @@
+:root {
+    --color-white: #ffffff;
+    --color-gray: #9e9e9e;
+    --color-bg: #d2e8ff;
+    --color-side-bar: #1f3e8d;
+    --color-tab-hover: #154360;
+    --p-inline: 1rem;
+    --p-block: 2rem;
+    --row-gap: 2rem;
+    --col-gap: 1rem;
+    --border-radius: 1.5rem;
+    --fs-small: 0.8rem;
+    --fs-medium: 1.5rem;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(225deg, #7e99fc, #fff);
+    font-family: "Poppins";
+}
+
+ul,
+menu {
+    list-style: none;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    color: #fff;
+}

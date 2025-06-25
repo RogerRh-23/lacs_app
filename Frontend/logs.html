@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="sidebar.css">
+</head>
+
+<body>
+    <nav class="sidebar closed">
+        <button id="toggle-sidebar" aria-label="Mostrar/Ocultar menú lateral">
+            <span id="sidebar-icon">&#9776;</span>
+        </button>
+        <ul>
+            <li><a onclick="location.href='home.html'">Inicio</a></li>
+            <li><a onclick=" location.href='reports.html'">Reportes</a></li>
+            <li><a onclick=" location.href='logs.html'">Historial</a></li>
+            <li><a onclick=" location.href='bajas.html'">Bajas</a></li>
+
+        </ul>
+        <div class="sidebar-user">
+            <span class="avatar">
+                <img src="https://cdn-icons-png.flaticon.com/512/4794/4794936.png" alt="Avatar">
+            </span>
+            <button class="username dropbtn" id="user-menu-btn" type="button">Usuario</button>
+            <div class="dropdown-content" id="user-dropdown">
+                <a href="#">Perfil</a>
+                <a href="#">Configuración</a>
+                <a onclick="location.href='login.html'">Cerrar sesión</a>
+            </div>
+        </div>
+    </nav>
+
+    <script src="animations.js"></script>
+</body>
+
+</html>

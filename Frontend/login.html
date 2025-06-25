@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+    <main class="content">
+        <nav class="login-box">
+            <div class="login-tabs">
+                <button class="login-tab active" id="login-tab-btn">Iniciar sesión</button>
+                <button class="login-tab" id="register-tab-btn">Registrarse</button>
+                <div class="tab-indicator"></div>
+            </div>
+            <div class="login-forms">
+                <form id="login-form" class="tab-form active">
+                    <div class="input-group">
+                        <input type="text" id="login-usuario" required placeholder=" ">
+                        <label for="login-usuario">Usuario</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="login-password" required placeholder=" ">
+                        <label for="login-password">Contraseña</label>
+                    </div>
+                    <button class="login-button" type="submit">Iniciar
+                        sesión</button>
+                </form>
+                <form id="register-form" class="tab-form">
+                    <div class="input-group">
+                        <input type="text" id="reegister-name" required placeholder=" ">
+                        <label for="register-name">Nombre(s)</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="register-lastname" required placeholder=" ">
+                        <label for="register-lastname">Apellido</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="register-phone" required placeholder=" ">
+                        <label for="register-phone">Telefono</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="register-email" required placeholder=" ">
+                        <label for="register-email">Correo</label>
+                    </div>
+                    <div class="input-group" style="position: relative;">
+                        <input type="text" list="Empresas" style="margin-bottom: 10px;" required placeholder="">
+                        <label for="register-empresa">Empresa
+                            <datalist id="Empresas">
+                                <option value="E1"></option>
+                                <option value="E2"></option>
+                            </datalist>
+                        </label>
+                    </div>
+                    <button class="register-button" type="submit">Registrarse</button>
+                </form>
+            </div>
+        </nav>
+    </main>
+
+    <script src="animations.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
