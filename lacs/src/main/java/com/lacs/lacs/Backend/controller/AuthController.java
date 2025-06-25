@@ -7,11 +7,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Objeto de Transferencia de Datos (DTO) para la solicitud de inicio de sesión.
- * Spring mapeará automáticamente el JSON de entrada a una instancia de esta
- * clase.
- */
 class LoginRequest {
     private String username;
     private String password;
@@ -38,9 +33,8 @@ class LoginResponse {
     private String token; // En una aplicación real, este sería un JWT para la autenticación
 
     /**
-     * @param message Mensaje descriptivo del resultado del login.
-     * @param token   Un token de autenticación (opcional, para una implementación
-     *                real).
+     * @param message
+     * @param token
      */
     public LoginResponse(String message, String token) {
         this.message = message;
