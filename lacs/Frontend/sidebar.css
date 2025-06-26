@@ -134,7 +134,7 @@
     border: none;
     color: #c0c8ff;
     font-size: 0.9rem;
-    font-family: "Poppins";
+    font-family: "Poppins", sans-serif;
     cursor: pointer;
     text-align: left;
     padding: 0;
