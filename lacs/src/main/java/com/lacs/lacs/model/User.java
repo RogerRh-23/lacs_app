@@ -2,6 +2,8 @@ package com.lacs.lacs.model;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,11 +38,15 @@ public class User {
     @Column(nullable = true)
     private String company;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
     public User() {
     }
 
     public User(String username, String password, String firstName, String lastName, String phone, String email,
-            String company) {
+            String company, Role role) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -48,7 +54,7 @@ public class User {
         this.phone = phone;
         this.email = email;
         this.company = company;
-        // this.rfc = rfc;
+        this.role = role;
     }
 
     public Long getId() {
@@ -115,6 +121,14 @@ public class User {
         this.company = company;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -125,6 +139,7 @@ public class User {
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", company='" + company + '\'' +
+                ", role=" + role +
                 '}';
     }
 }

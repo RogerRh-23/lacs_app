@@ -1,6 +1,52 @@
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("login-form");
     const registerForm = document.getElementById("register-form");
+    const loginFormsContainer = document.querySelector('.login-forms');
+
+    const loadingOverlay = document.getElementById('loading-overlay');
+    const welcomeMessageElement = document.getElementById('welcome-message');
+
+    const registrationSuccessMessage = document.getElementById('registration-success-message');
+    const generatedUsernameDisplay = document.getElementById('generated-username-display');
+    const goToLoginBtn = document.getElementById('go-to-login-btn');
+
+    function showLoadingScreen(username = '') {
+        if (loadingOverlay && welcomeMessageElement) {
+            welcomeMessageElement.textContent = `¡Bienvenido${username ? ' ' + username : ''}!`;
+            loadingOverlay.classList.remove('hidden');
+        }
+    }
+
+    function showRegistrationSuccessMessage(username) {
+        if (registrationSuccessMessage && generatedUsernameDisplay && loginFormsContainer) {
+            generatedUsernameDisplay.textContent = username;
+            registrationSuccessMessage.classList.add('visible');
+            loginFormsContainer.classList.add('hidden-for-success');
+            const loginBox = document.querySelector('.login-box');
+            if (loginBox) {
+                loginBox.style.height = registrationSuccessMessage.offsetHeight + loginTabs.offsetHeight + 'px';
+                const tabsHeight = document.querySelector('.login-tabs').offsetHeight;
+                loginBox.style.height = `${registrationSuccessMessage.offsetHeight + tabsHeight + parseFloat(getComputedStyle(loginBox).paddingTop) + parseFloat(getComputedStyle(loginBox).paddingBottom)}px`;
+            }
+        }
+    }
+
+    function hideRegistrationSuccessMessage() {
+        if (registrationSuccessMessage && loginFormsContainer) {
+            registrationSuccessMessage.classList.remove('visible');
+            loginFormsContainer.classList.remove('hidden-for-success');
+        }
+    }
+
+    if (goToLoginBtn) {
+        goToLoginBtn.addEventListener('click', () => {
+            hideRegistrationSuccessMessage();
+            const loginTabBtn = document.getElementById('login-tab-btn');
+            if (loginTabBtn) {
+                loginTabBtn.click();
+            }
+        });
+    }
 
     if (loginForm) {
         loginForm.addEventListener("submit", async (e) => {
@@ -24,7 +70,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (response.ok) {
                         const data = await response.json();
                         console.log('Inicio de sesión exitoso:', data);
-                        window.location.href = 'home.html';
+                        showLoadingScreen(data.username);
+                        setTimeout(() => {
+                            window.location.href = 'home.html';
+                        }, 2000);
+
                     } else {
                         const errorData = await response.json();
                         console.error('Error en el inicio de sesión:', errorData.message || 'Error desconocido.');
@@ -73,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (response.ok || response.status === 201) {
                         const data = await response.json();
                         console.log('Registro exitoso:', data);
-                        alert(data.message + "\nTu nombre de usuario es: " + data.username + "\nPor favor, guárdalo para iniciar sesión.");
+                        showRegistrationSuccessMessage(data.username);
                     } else {
                         const errorData = await response.json();
                         console.error('Error en el registro:', errorData.message || 'Error desconocido.');
@@ -94,8 +144,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (newReportForm) {
         newReportForm.addEventListener("submit", async (e) => {
             e.preventDefault();
-            console.log("Report form submitted (logic pending)");
-            alert("Report form submitted (logic pending)");
+            console.log("Formulario de Reporte enviado (lógica pendiente)");
+            alert("Formulario de Reporte enviado (lógica pendiente)");
         });
     }
 });

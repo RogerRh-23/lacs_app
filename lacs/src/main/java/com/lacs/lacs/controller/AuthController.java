@@ -1,4 +1,3 @@
-// src/main/java/com/lacs/lacs/controller/AuthController.java
 package com.lacs.lacs.controller;
 
 import java.util.Optional;
@@ -7,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lacs.lacs.model.Role;
 import com.lacs.lacs.model.User;
 import com.lacs.lacs.repository.UserRepository;
 import com.lacs.lacs.dto.AuthResponse;
@@ -31,11 +32,31 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    private String generateUniqueUsername(String firstName, String lastName) {
-        String baseUsername = (firstName.toLowerCase().replaceAll("\\s", "") + "."
-                + lastName.toLowerCase().replaceAll("\\s", ""));
+    private String generateUniqueUsername(String firstName, String lastName, String company) {
+        String firstInitial = "";
+        if (firstName != null && !firstName.isEmpty()) {
+            firstInitial = firstName.substring(0, 1).toLowerCase();
+        }
+
+        StringBuilder lastNameInitials = new StringBuilder();
+        if (lastName != null && !lastName.isEmpty()) {
+            String[] lastNameParts = lastName.split("\\s+");
+            for (String part : lastNameParts) {
+                if (!part.isEmpty()) {
+                    lastNameInitials.append(part.substring(0, 1).toLowerCase());
+                }
+            }
+        }
+
+        String companyCleaned = "";
+        if (company != null && !company.isEmpty()) {
+            companyCleaned = company.toLowerCase().replaceAll("[^a-z0-9]", "");
+        }
+
+        String baseUsername = (firstInitial + lastNameInitials.toString() + companyCleaned).toLowerCase();
         String username = baseUsername;
         int counter = 0;
+
         while (userRepository.existsByUsername(username)) {
             counter++;
             username = baseUsername + counter;
@@ -45,8 +66,8 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest registerRequest) {
-        String generatedUsername = generateUniqueUsername(registerRequest.getFirstName(),
-                registerRequest.getLastName());
+        String generatedUsername = generateUniqueUsername(registerRequest.getFirstName(), registerRequest.getLastName(),
+                registerRequest.getCompany());
 
         String encodedPassword = passwordEncoder.encode(registerRequest.getPassword());
 
@@ -57,7 +78,8 @@ public class AuthController {
                 registerRequest.getLastName(),
                 registerRequest.getPhone(),
                 null,
-                registerRequest.getCompany());
+                registerRequest.getCompany(),
+                Role.ROLE_EMPLOYEE);
 
         userRepository.save(newUser);
 
@@ -67,7 +89,9 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) {
-        Optional<User> userOptional = userRepository.findByUsername(loginRequest.getUsername());
+        String usernameToSearch = loginRequest.getUsername().toLowerCase();
+
+        Optional<User> userOptional = userRepository.findByUsername(usernameToSearch);
 
         if (userOptional.isEmpty()) {
             System.out.println("Login attempt failed: Username '" + loginRequest.getUsername() + "' not found.");
@@ -87,5 +111,10 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new AuthResponse("Credenciales inválidas.", null, null));
         }
+    }
+
+    @GetMapping("/test-cors")
+    public ResponseEntity<String> testCors() {
+        return ResponseEntity.ok("CORS test successful!");
     }
 }

@@ -37,12 +37,14 @@
                         </div>
                         <div class="input-group">
                             <input type="text" id="register-lastname" required placeholder=" ">
-                            <label for="register-lastname">Apellido</label>
+                            <label for="register-lastname">Apellidos</label>
                         </div>
                         <div class="input-group">
                             <input type="text" id="register-phone" required placeholder=" ">
                             <label for="register-phone">Telefono</label>
                         </div>
+                    </div>
+                    <div class="form-section">
                         <div class="input-group">
                             <input type="password" id="register-password" required placeholder=" ">
                             <label for="register-password">Contraseña</label>
@@ -51,8 +53,8 @@
                             <input type="text" list="Empresas" id="register-empresa" required placeholder="">
                             <label for="register-empresa">Empresa
                                 <datalist id="Empresas">
-                                    <option value="E1"></option>
-                                    <option value="E2"></option>
+                                    <option value="LATIN"></option>
+                                    <option value="DOSNICH"></option>
                                 </datalist>
                             </label>
                         </div>
@@ -60,11 +62,25 @@
                     <button class="register-button" type="submit">Registrarse</button>
                 </form>
             </div>
+            <div id="registration-success-message" class="registration-success-message hidden">
+                <h3>¡Registro Exitoso!</h3>
+                <p>Tu cuenta ha sido creada.</p>
+                <p>Tu nombre de usuario es: <strong id="generated-username-display"></strong></p>
+                <button id="go-to-login-btn" class="login-button">Ir a Iniciar Sesión</button>
+            </div>
         </nav>
     </main>
 
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <h2 id="welcome-message">¡Bienvenido!</h2>
+            <p>Redirigiendo...</p>
+        </div>
+    </div>
+
+    <script src="animations.js"></script>
+    <script src="main.js"></script>
 </body>
-<script src="animations.js"></script>
-<script src="main.js"></script>
 
 </html>
