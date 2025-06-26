@@ -30,7 +30,7 @@ class LoginRequest {
 
 class LoginResponse {
     private String message;
-    private String token; // En una aplicación real, este sería un JWT para la autenticación
+    private String token;
 
     /**
      * @param message
@@ -50,18 +50,13 @@ class LoginResponse {
     }
 }
 
-@RestController // Anotación que indica que esta clase es un controlador REST.
-@RequestMapping("/api/auth") // Mapea todas las solicitudes que comienzan con /api/auth a este controlador.
+@RestController
+@RequestMapping("/api/auth")
 public class AuthController {
 
     /**
-     * Maneja las solicitudes POST al endpoint '/api/auth/login'.
-     * Recibe los datos de usuario y contraseña en el cuerpo de la petición (JSON).
-     * 
-     * @param loginRequest Un objeto LoginRequest que contiene el nombre de usuario
-     *                     y la contraseña.
-     * @return ResponseEntity que contiene la respuesta (LoginResponse) y el estado
-     *         HTTP.
+     * @param loginRequest
+     * @return
      */
     @PostMapping("/login") // Mapea las solicitudes HTTP POST a la ruta /api/auth/login.
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
@@ -79,13 +74,9 @@ public class AuthController {
 
         // Ejemplo de validación simple:
         if ("admin".equals(loginRequest.getUsername()) && "password".equals(loginRequest.getPassword())) {
-            // Si el usuario y la contraseña coinciden con los valores predefinidos:
-            String dummyToken = "jwt.token.generated.successfully"; // Simula un token JWT.
-            // Retorna una respuesta HTTP 200 (OK) con el mensaje de éxito y el token.
+            String dummyToken = "jwt.token.generated.successfully";
             return ResponseEntity.ok(new LoginResponse("Inicio de sesión exitoso", dummyToken));
         } else {
-            // Si las credenciales no coinciden:
-            // Retorna una respuesta HTTP 401 (UNAUTHORIZED) con un mensaje de error.
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new LoginResponse("Credenciales inválidas", null));
         }

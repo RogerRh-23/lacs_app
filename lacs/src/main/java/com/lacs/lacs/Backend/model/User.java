@@ -31,6 +31,11 @@ public class User {
     @Column(nullable = true)
     private String company;
 
+    /*
+     * @Column(nullable = true)
+     * private String rfc;
+     */
+
     public User() {
     }
 
@@ -43,6 +48,7 @@ public class User {
         this.phone = phone;
         this.email = email;
         this.company = company;
+        // this.rfc = rfc;
     }
 
     public Long getId() {
