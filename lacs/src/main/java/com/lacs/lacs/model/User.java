@@ -1,6 +1,11 @@
-package com.lacs.lacs.Backend.model;
+package com.lacs.lacs.model;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;;
 
 @Entity
 @Table(name = "users")
@@ -30,11 +35,6 @@ public class User {
 
     @Column(nullable = true)
     private String company;
-
-    /*
-     * @Column(nullable = true)
-     * private String rfc;
-     */
 
     public User() {
     }
@@ -123,6 +123,7 @@ public class User {
                 ", firtsName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
                 ", company='" + company + '\'' +
                 '}';
     }

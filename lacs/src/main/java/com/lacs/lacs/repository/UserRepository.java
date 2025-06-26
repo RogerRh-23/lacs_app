@@ -1,8 +1,9 @@
-package com.lacs.lacs.Backend.model.repository;
+package com.lacs.lacs.repository;
 
-import com.lacs.lacs.Backend.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.lacs.lacs.model.User;
 
 import java.util.Optional;
 
