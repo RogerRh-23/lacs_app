@@ -1,3 +1,4 @@
+// src/main/java/com/lacs/lacs/controller/AuthController.java
 package com.lacs.lacs.controller;
 
 import java.util.Optional;
@@ -11,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lacs.lacs.dto.AuthResponse;
-import com.lacs.lacs.dto.request.LoginRequest;
-import com.lacs.lacs.dto.request.RegisterRequest;
 import com.lacs.lacs.model.User;
 import com.lacs.lacs.repository.UserRepository;
+import com.lacs.lacs.dto.AuthResponse;
+import com.lacs.lacs.dto.LoginRequest;
+import com.lacs.lacs.dto.RegisterRequest;
 
 @RestController
 @RequestMapping("/api/auth")

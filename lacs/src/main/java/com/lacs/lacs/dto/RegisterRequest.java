@@ -1,4 +1,4 @@
-package com.lacs.lacs.dto.request;
+package com.lacs.lacs.dto;
 
 public class RegisterRequest {
     private String password;

@@ -1,10 +1,6 @@
-// Frontend/main.js
-
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("login-form");
     const registerForm = document.getElementById("register-form");
-    const loginTabBtn = document.getElementById("login-tab-btn");
-    const registerTabBtn = document.getElementById("register-tab-btn");
 
     if (loginForm) {
         loginForm.addEventListener("submit", async (e) => {
@@ -28,9 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (response.ok) {
                         const data = await response.json();
                         console.log('Inicio de sesión exitoso:', data);
-                        // Aquí puedes manejar el token de autenticación si el backend lo devuelve
-                        // Por ejemplo: localStorage.setItem('authToken', data.token);
-
                         window.location.href = 'home.html';
                     } else {
                         const errorData = await response.json();
@@ -51,25 +44,58 @@ document.addEventListener("DOMContentLoaded", () => {
         registerForm.addEventListener("submit", async (e) => {
             e.preventDefault();
 
-            const name = document.getElementById("register-name").value.trim();
-            const lastname = document.getElementById("register-lastname").value.trim();
+            const firstName = document.getElementById("register-name").value.trim();
+            const lastName = document.getElementById("register-lastname").value.trim();
             const phone = document.getElementById("register-phone").value.trim();
-            const email = document.getElementById("register-email").value.trim();
             const password = document.getElementById("register-password").value.trim();
-            const empresa = document.getElementById("register-empresa").value.trim();
+            const company = document.getElementById("register-empresa").value.trim();
 
-            if (name && lastname && phone && email && password && empresa) {
-                console.log('Datos de registro:', { name, lastname, phone, email, password, empresa });
-                // Aquí, más adelante, integrarás la llamada fetch al backend para el registro
-                // alert("Registro exitoso. Cambiando a pestaña de inicio de sesión...");
+            if (firstName && lastName && phone && password && company) {
+                const backendRegisterUrl = 'http://localhost:8080/api/auth/register';
 
-                alert("Registro exitoso. La funcionalidad de backend aún no está completa.");
-                // Si la función `switchTab` de animations.js es global, podrías llamarla así:
-                // window.switchTab('login');
-                // Pero es mejor que los `addEventListener` de los botones manejen eso.
+                const registrationData = {
+                    firstName: firstName,
+                    lastName: lastName,
+                    phone: phone,
+                    password: password,
+                    company: company
+                };
+
+                try {
+                    const response = await fetch(backendRegisterUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(registrationData)
+                    });
+
+                    if (response.ok || response.status === 201) {
+                        const data = await response.json();
+                        console.log('Registro exitoso:', data);
+                        alert(data.message + "\nTu nombre de usuario es: " + data.username + "\nPor favor, guárdalo para iniciar sesión.");
+                    } else {
+                        const errorData = await response.json();
+                        console.error('Error en el registro:', errorData.message || 'Error desconocido.');
+                        alert('Error en el registro: ' + (errorData.message || 'Algo salió mal.'));
+                    }
+                } catch (error) {
+                    console.error('Error de red o del servidor durante el registro:', error);
+                    alert('No se pudo conectar con el servidor para el registro. Intenta de nuevo más tarde.');
+                }
+
             } else {
                 alert("Por favor, completa todos los campos para el registro.");
             }
+        });
+    }
+
+    const newReportForm = document.getElementById("new-report-form");
+    if (newReportForm) {
+        newReportForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            console.log("Report form submitted (logic pending)");
+            alert("Report form submitted (logic pending)");
         });
     }
 });
