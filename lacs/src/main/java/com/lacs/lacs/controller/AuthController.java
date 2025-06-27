@@ -99,7 +99,7 @@ public class AuthController {
         userRepository.save(newUser);
 
         // 5. Generate a JWT token for the newly registered user, including their role
-        String token = jwtService.generateToken(generatedUsername, newUser.getRole().name());
+        String token = jwtService.generateToken(generatedUsername);
 
         // 6. Return success response with the generated username, token, and role
         return ResponseEntity.status(HttpStatus.CREATED) // 201 Created
@@ -127,7 +127,7 @@ public class AuthController {
             System.out.println("Login successful for user: " + loginRequest.getUsername());
 
             // Generate a JWT token for the logged-in user, including their role
-            String token = jwtService.generateToken(user.getUsername(), user.getRole().name());
+            String token = jwtService.generateToken(user.getUsername());
 
             // Return success response with the token and user details
             return ResponseEntity.ok(
