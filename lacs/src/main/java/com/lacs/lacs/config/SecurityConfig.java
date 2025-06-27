@@ -20,7 +20,7 @@ public class SecurityConfig {
 
         private final JwtAuthenticationFilter jwtAuthFilter;
         private final AuthenticationProvider authenticationProvider;
-        private final PasswordEncoder passwordEncoder; // Asegúrate de que esta variable sea inyectada
+        private final PasswordEncoder passwordEncoder;
 
         // Constructor para inyectar las dependencias
         public SecurityConfig(
