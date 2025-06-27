@@ -4,11 +4,13 @@ public class AuthResponse {
     private String message;
     private String token;
     private String username;
+    private String role;
 
-    public AuthResponse(String message, String token, String username) {
+    public AuthResponse(String message, String token, String username, String role) {
         this.message = message;
         this.token = token;
         this.username = username;
+        this.role = role;
     }
 
     public String getMessage() {
@@ -23,6 +25,10 @@ public class AuthResponse {
         return username;
     }
 
+    public String getRole() {
+        return role;
+    }
+
     public void setMessage(String message) {
         this.message = message;
     }
@@ -33,6 +39,10 @@ public class AuthResponse {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
 }

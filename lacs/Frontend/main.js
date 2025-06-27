@@ -10,6 +10,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const generatedUsernameDisplay = document.getElementById('generated-username-display');
     const goToLoginBtn = document.getElementById('go-to-login-btn');
 
+    const messageBox = document.getElementById('message-box');
+
+    function showMessage(message, type) {
+        if (messageBox) {
+            messageBox.textContent = message;
+            messageBox.className = `message-box ${type}`;
+            messageBox.style.display = 'block';
+            setTimeout(() => {
+                messageBox.style.display = 'none';
+            }, 5000);
+        } else {
+            alert(message);
+        }
+    }
+
     function showLoadingScreen(username = '') {
         if (loadingOverlay && welcomeMessageElement) {
             welcomeMessageElement.textContent = `¡Bienvenido${username ? ' ' + username : ''}!`;
@@ -23,10 +38,12 @@ document.addEventListener("DOMContentLoaded", () => {
             registrationSuccessMessage.classList.add('visible');
             loginFormsContainer.classList.add('hidden-for-success');
             const loginBox = document.querySelector('.login-box');
-            if (loginBox) {
-                loginBox.style.height = registrationSuccessMessage.offsetHeight + loginTabs.offsetHeight + 'px';
-                const tabsHeight = document.querySelector('.login-tabs').offsetHeight;
+            const loginTabs = document.querySelector('.login-tabs');
+            if (loginBox && loginTabs) {
+                const tabsHeight = loginTabs.offsetHeight;
                 loginBox.style.height = `${registrationSuccessMessage.offsetHeight + tabsHeight + parseFloat(getComputedStyle(loginBox).paddingTop) + parseFloat(getComputedStyle(loginBox).paddingBottom)}px`;
+            } else if (loginBox) {
+                loginBox.style.height = `${registrationSuccessMessage.offsetHeight + parseFloat(getComputedStyle(loginBox).paddingTop) + parseFloat(getComputedStyle(loginBox).paddingBottom)}px`;
             }
         }
     }
@@ -67,25 +84,30 @@ document.addEventListener("DOMContentLoaded", () => {
                         body: JSON.stringify({ username: usuario, password: password })
                     });
 
+                    const data = await response.json();
+
                     if (response.ok) {
-                        const data = await response.json();
                         console.log('Inicio de sesión exitoso:', data);
+                        showMessage(data.message || 'Inicio de sesión exitoso.', 'success');
+
+                        localStorage.setItem('jwtToken', data.token);
+                        localStorage.setItem('userRole', data.role);
+                        localStorage.setItem('username', data.username);
+
                         showLoadingScreen(data.username);
                         setTimeout(() => {
                             window.location.href = 'home.html';
                         }, 2000);
-
                     } else {
-                        const errorData = await response.json();
-                        console.error('Error en el inicio de sesión:', errorData.message || 'Error desconocido.');
-                        alert('Error: ' + (errorData.message || 'Credenciales inválidas.'));
+                        console.error('Error en el inicio de sesión:', data.message || 'Error desconocido.');
+                        showMessage(data.message || 'Credenciales inválidas.', 'error');
                     }
                 } catch (error) {
                     console.error('Error de red o del servidor:', error);
-                    alert('No se pudo conectar con el servidor. Por favor, inténtalo de nuevo más tarde.');
+                    showMessage('No se pudo conectar con el servidor. Por favor, inténtalo de nuevo más tarde.', 'error');
                 }
             } else {
-                alert("Por favor, completa todos los campos de inicio de sesión.");
+                showMessage("Por favor, completa todos los campos de inicio de sesión.", 'error');
             }
         });
     }
@@ -120,22 +142,32 @@ document.addEventListener("DOMContentLoaded", () => {
                         body: JSON.stringify(registrationData)
                     });
 
+                    const data = await response.json();
+
                     if (response.ok || response.status === 201) {
-                        const data = await response.json();
                         console.log('Registro exitoso:', data);
+                        showMessage(data.message + " Tu usuario es: " + data.username, 'success');
+
+                        localStorage.setItem('jwtToken', data.token);
+                        localStorage.setItem('userRole', data.role);
+                        localStorage.setItem('username', data.username);
+
                         showRegistrationSuccessMessage(data.username);
+                        setTimeout(() => {
+                            window.location.href = 'home.html';
+                        }, 2000);
+
                     } else {
-                        const errorData = await response.json();
-                        console.error('Error en el registro:', errorData.message || 'Error desconocido.');
-                        alert('Error en el registro: ' + (errorData.message || 'Algo salió mal.'));
+                        console.error('Error en el registro:', data.message || 'Error desconocido.');
+                        showMessage(data.message || 'Algo salió mal durante el registro.', 'error');
                     }
                 } catch (error) {
                     console.error('Error de red o del servidor durante el registro:', error);
-                    alert('No se pudo conectar con el servidor para el registro. Intenta de nuevo más tarde.');
+                    showMessage('No se pudo conectar con el servidor para el registro. Intenta de nuevo más tarde.', 'error');
                 }
 
             } else {
-                alert("Por favor, completa todos los campos para el registro.");
+                showMessage("Por favor, completa todos los campos para el registro.", 'error');
             }
         });
     }
@@ -145,7 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
         newReportForm.addEventListener("submit", async (e) => {
             e.preventDefault();
             console.log("Formulario de Reporte enviado (lógica pendiente)");
-            alert("Formulario de Reporte enviado (lógica pendiente)");
+            showMessage("Formulario de Reporte enviado (lógica pendiente)", 'info');
         });
     }
 });
