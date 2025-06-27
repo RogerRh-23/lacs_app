@@ -1,0 +1,10 @@
+Te lo explico un poco mas detallado jeje
+
+Aun no esta terminado el frontend, falta que me den informacion y unas cosas que ocupan para los reportes, 
+pero de forma general quieren que la app se implemente en las empresas de sus clientes ya que son de manofactura 
+(la empresa en la que estoy yo es de consultoria y auditoria) de partes de autos y otras cosas,
+ademas ocupan llevar el control de las entradas ya que son turnos de 12 horas las 24/7
+y hay veces que no saben si la persona fue a trabajar o no, 
+en pocas palabras solo el pedo es con el backend y que no me detecta bien unos metodos
+
+el pedo ya se habia solucionado pero al momento de querer implementar la key valio vrg jajaja

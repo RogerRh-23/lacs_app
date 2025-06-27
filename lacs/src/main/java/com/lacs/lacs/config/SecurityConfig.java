@@ -22,27 +22,20 @@ public class SecurityConfig {
         private final AuthenticationProvider authenticationProvider;
         private final PasswordEncoder passwordEncoder;
 
-        // Constructor para inyectar las dependencias
         public SecurityConfig(
                         JwtAuthenticationFilter jwtAuthFilter,
                         AuthenticationProvider authenticationProvider,
-                        PasswordEncoder passwordEncoder // Inyecta PasswordEncoder
-        ) {
+                        PasswordEncoder passwordEncoder) {
                 this.jwtAuthFilter = jwtAuthFilter;
                 this.authenticationProvider = authenticationProvider;
-                this.passwordEncoder = passwordEncoder; // Asigna PasswordEncoder
+                this.passwordEncoder = passwordEncoder;
         }
 
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                 http
-                                .csrf(csrf -> csrf.disable()) // Deshabilita CSRF (Cross-Site Request Forgery) ya que
-                                                              // estamos usando JWT
+                                .csrf(csrf -> csrf.disable())
                                 .authorizeHttpRequests(authorize -> authorize
-                                                // Permite acceso sin autenticación a la ruta de autenticación (login,
-                                                // registro)
-                                                .requestMatchers("/api/auth/**").permitAll()
-                                                // Cualquier otra solicitud requiere autenticación
                                                 .anyRequest().authenticated())
                                 .sessionManagement(session -> session
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -35,10 +35,6 @@ public class AuthController {
         this.jwtService = jwtService;
     }
 
-    // This method generates a unique username based on first name, last name, and
-    // company.
-    // It ensures the generated username is always in lowercase for consistency in
-    // storage.
     private String generateUniqueUsername(String firstName, String lastName, String company) {
         String firstInitial = "";
         if (firstName != null && !firstName.isEmpty()) {
@@ -60,13 +56,10 @@ public class AuthController {
             companyCleaned = company.toLowerCase().replaceAll("[^a-z0-9]", "");
         }
 
-        // Combine initials and cleaned company name to form the base username, all in
-        // lowercase.
         String baseUsername = (firstInitial + lastNameInitials.toString() + companyCleaned).toLowerCase();
 
         String username = baseUsername;
         int counter = 0;
-        // Check for uniqueness. The stored username is always lowercase.
         while (userRepository.existsByUsername(username)) {
             counter++;
             username = baseUsername + counter;
@@ -76,40 +69,32 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest registerRequest) {
-        // 1. Generate a unique username
         String generatedUsername = generateUniqueUsername(registerRequest.getFirstName(), registerRequest.getLastName(),
                 registerRequest.getCompany());
 
-        // 2. Encrypt the password
         String encodedPassword = passwordEncoder.encode(registerRequest.getPassword());
 
-        // 3. Create a new User entity with default ROLE_EMPLOYEE
         User newUser = new User(
-                generatedUsername, // Use the generated username
+                generatedUsername,
                 encodedPassword,
                 registerRequest.getFirstName(),
                 registerRequest.getLastName(),
                 registerRequest.getPhone(),
-                null, // Email is null as it's not collected from the form
+                null,
                 registerRequest.getCompany(),
-                Role.ROLE_EMPLOYEE // Assign default EMPLOYEE role
-        );
+                Role.ROLE_EMPLOYEE);
 
-        // 4. Save the new user to the database
         userRepository.save(newUser);
 
-        // 5. Generate a JWT token for the newly registered user, including their role
         String token = jwtService.generateToken(generatedUsername);
 
-        // 6. Return success response with the generated username, token, and role
-        return ResponseEntity.status(HttpStatus.CREATED) // 201 Created
+        return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new AuthResponse("Usuario registrado exitosamente.", token, generatedUsername,
                         newUser.getRole().name()));
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) {
-        // Convert the input username to lowercase before searching.
         String usernameToSearch = loginRequest.getUsername().toLowerCase();
 
         Optional<User> userOptional = userRepository.findByUsername(usernameToSearch);
@@ -126,10 +111,8 @@ public class AuthController {
         if (passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             System.out.println("Login successful for user: " + loginRequest.getUsername());
 
-            // Generate a JWT token for the logged-in user, including their role
             String token = jwtService.generateToken(user.getUsername());
 
-            // Return success response with the token and user details
             return ResponseEntity.ok(
                     new AuthResponse("Inicio de sesión exitoso.", token, user.getUsername(), user.getRole().name()));
         } else {
@@ -140,7 +123,6 @@ public class AuthController {
         }
     }
 
-    // Endpoint de prueba CORS
     @GetMapping("/test-cors")
     public ResponseEntity<String> testCors() {
         return ResponseEntity.ok("CORS test successful!");

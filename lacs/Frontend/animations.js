@@ -1,5 +1,3 @@
-// Frontend/animations.js
-
 document.addEventListener('DOMContentLoaded', function () {
 
     const sidebarPlaceholder = document.getElementById('sidebar-placeholder');

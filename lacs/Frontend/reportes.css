@@ -112,7 +112,6 @@ body {
 .input-group input {
     width: 100%;
     padding: 1rem 1.2rem;
-    /* Ajustado el padding para la etiqueta flotante */
     border: 1px solid var(--color-border-light);
     border-radius: 0.7rem;
     font-size: 1rem;

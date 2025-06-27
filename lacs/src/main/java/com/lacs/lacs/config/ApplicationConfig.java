@@ -1,7 +1,6 @@
 package com.lacs.lacs.config;
 
 import com.lacs.lacs.repository.UserRepository;
-// import lombok.RequiredArgsConstructor; // Puedes mantenerlo si quieres, pero ya no es estrictamente necesario para este constructor
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,13 +13,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-// @RequiredArgsConstructor // Ya no es estrictamente necesario si defines el
-// constructor explícitamente
 public class ApplicationConfig {
 
     private final UserRepository userRepository;
 
-    // Constructor explícito para inyectar UserRepository
     public ApplicationConfig(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
