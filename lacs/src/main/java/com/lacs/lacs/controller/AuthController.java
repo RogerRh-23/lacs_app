@@ -11,6 +11,8 @@ import com.lacs.lacs.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,11 +29,14 @@ public class AuthController {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+    private final UserDetailsService userDetailsService;
 
-    public AuthController(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, JwtService jwtService) {
+    public AuthController(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, JwtService jwtService,
+                          UserDetailsService userDetailsService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
+        this.userDetailsService = userDetailsService;
     }
 
     private String generateUniqueUsername(String firstName, String lastName, String company) {
@@ -84,8 +89,9 @@ public class AuthController {
                 Role.ROLE_EMPLOYEE);
 
         userRepository.save(newUser);
+        UserDetails userDetails = this.userDetailsService.loadUserByUsername(newUser.getUsername());
 
-        String token = jwtService.generateToken(generatedUsername);
+        String token = jwtService.generateToken(userDetails);
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new AuthResponse("Usuario registrado exitosamente.", token, generatedUsername,
@@ -109,8 +115,8 @@ public class AuthController {
         // 2. Verify the hashed password
         if (passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             System.out.println("Login successful for user: " + loginRequest.getUsername());
-
-            String token = jwtService.generateToken(user.getUsername());
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(user.getUsername());
+            String token = jwtService.generateToken(userDetails);
 
             return ResponseEntity.ok(
                     new AuthResponse("Inicio de sesión exitoso.", token, user.getUsername(), user.getRole().name()));
