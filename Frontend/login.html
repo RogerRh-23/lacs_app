@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="login.css"> <!-- Mantener si tienes estilos específicos aquí -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -17,52 +20,57 @@
                 <button class="login-tab" id="register-tab-btn">Registrarse</button>
                 <div class="tab-indicator"></div>
             </div>
+
             <div class="login-forms">
+                <!-- FORMULARIO DE INICIO DE SESIÓN -->
                 <form id="login-form" class="tab-form active">
                     <div class="input-group">
-                        <input type="text" id="login-usuario" required placeholder=" ">
-                        <label for="login-usuario">Usuario</label>
+                        <label for="login-usuario">Usuario:</label>
+                        <input type="text" id="login-usuario" name="username" required>
                     </div>
                     <div class="input-group">
-                        <input type="password" id="login-password" required placeholder=" ">
-                        <label for="login-password">Contraseña</label>
+                        <label for="login-password">Contraseña:</label>
+                        <input type="password" id="login-password" name="password" required>
                     </div>
-                    <button class="login-button" type="submit">Iniciar sesión</button>
+                    <!-- AÑADIDA LA CLASE login-button AQUÍ -->
+                    <button type="submit" class="login-button">Iniciar Sesión</button>
                 </form>
-                <form id="register-form" class="tab-form">
-                    <div class="form-section">
-                        <div class="input-group">
-                            <input type="text" id="register-name" required placeholder=" ">
-                            <label for="register-name">Nombre(s)</label>
-                        </div>
-                        <div class="input-group">
-                            <input type="text" id="register-lastname" required placeholder=" ">
-                            <label for="register-lastname">Apellido</label>
-                        </div>
-                        <div class="input-group">
-                            <input type="text" id="register-phone" required placeholder=" ">
-                            <label for="register-phone">Telefono</label>
-                        </div>
-                    </div>
 
-                    <div class="form-section">
-                        <div class="input-group">
-                            <input type="password" id="register-password" required placeholder=" ">
-                            <label for="register-password">Contraseña</label>
-                        </div>
-                        <div class="input-group" style="position: relative;">
-                            <input type="text" list="Empresas" id="register-empresa" required placeholder="">
-                            <label for="register-empresa">Empresa
-                                <datalist id="Empresas">
-                                    <option value="LACS"></option>
-                                    <option value="DOTNISH"></option>
-                                </datalist>
-                            </label>
-                        </div>
+                <!-- FORMULARIO DE REGISTRO -->
+                <form id="register-form" class="tab-form hidden">
+                    <div class="input-group">
+                        <label for="register-name">Nombre:</label>
+                        <input type="text" id="register-name" name="first_name" required>
                     </div>
-                    <button class="register-button" type="submit">Registrarse</button>
+                    <div class="input-group">
+                        <label for="register-lastname">Apellido:</label>
+                        <input type="text" id="register-lastname" name="last_name" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="register-phone">Teléfono:</label>
+                        <input type="text" id="register-phone" name="phone">
+                    </div>
+                    <div class="input-group">
+                        <label for="register-empresa">Empresa:</label>
+                        <input type="text" list="Empresas" id="register-empresa" name="company" required placeholder="">
+                        <datalist id="Empresas">
+                            <option value="LACS"></option>
+                            <option value="DOSNITSH"></option>
+                        </datalist>
+                    </div>
+                    <div class="input-group">
+                        <label for="register-password">Contraseña:</label>
+                        <input type="password" id="register-password" name="password" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="register-password2">Confirmar Contraseña:</label>
+                        <input type="password" id="register-password2" name="password2" required>
+                    </div>
+                    <!-- AÑADIDA LA CLASE register-button AQUÍ -->
+                    <button type="submit" class="register-button">Registrarse</button>
                 </form>
             </div>
+
             <div id="registration-success-message" class="registration-success-message hidden">
                 <h3>¡Registro Exitoso!</h3>
                 <p>Tu cuenta ha sido creada.</p>
@@ -79,6 +87,8 @@
             <p>Redirigiendo...</p>
         </div>
     </div>
+
+    <div id="message-box" class="message-box hidden"></div>
 
     <script src="animations.js"></script>
     <script src="main.js"></script>

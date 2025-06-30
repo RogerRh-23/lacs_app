@@ -26,7 +26,7 @@ body {
 
 .login-box {
     width: 90%;
-    max-width: 480px;
+    max-width: 440px;
     padding: 3rem;
     background: var(--color-white);
     border-radius: var(--border-radius);
@@ -38,6 +38,8 @@ body {
     flex-direction: column;
     align-items: center;
     position: relative;
+    min-height: 440px;
+    /* Asegura que la caja tenga suficiente altura */
 }
 
 .login-tabs {
@@ -57,7 +59,7 @@ body {
     border: none;
     font-size: 1rem;
     font-family: "Poppins", sans-serif;
-    padding: 1.1rem 0;
+    padding: 1.5rem 0;
     cursor: pointer;
     color: var(--color-text-dark);
     position: relative;
@@ -97,19 +99,31 @@ body {
 .login-forms {
     width: 100%;
     position: relative;
-    transition: opacity 0.5s ease;
+    min-height: 250px;
 }
 
 .tab-form {
-    display: none;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     flex-direction: column;
     gap: 1.5rem;
     align-items: stretch;
-    animation: fadeIn 0.5s ease-out forwards;
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out, transform 0.5s ease-out;
+    transform: translateX(100%);
+    box-sizing: border-box;
+    padding: 0 1.5rem;
 }
 
 .tab-form.active {
-    display: flex;
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+    transform: translateX(0);
+    animation: fadeIn 0.5s ease-out forwards;
 }
 
 .input-group {
@@ -149,7 +163,7 @@ body {
 }
 
 .input-group input:focus+label,
-.input-group input:not(:placeholder-shown)+label {
+.input-group.is-active label {
     top: -0.4rem;
     left: 0.9rem;
     font-size: 0.75rem;
@@ -160,9 +174,10 @@ body {
     border-radius: 0.3rem;
 }
 
+
 .tab-form .login-button,
 .tab-form .register-button {
-    margin-top: 2rem;
+    margin-top: 3rem;
 }
 
 .login-button,
@@ -332,6 +347,7 @@ body {
     visibility: hidden;
     transition: opacity 0.5s ease, visibility 0.5s ease;
     z-index: 5;
+    box-sizing: border-box;
 }
 
 .registration-success-message.visible {
@@ -386,6 +402,7 @@ body {
 
     .tab-form {
         gap: 1rem;
+        padding: 0 1rem;
     }
 
     .input-group input {
@@ -401,14 +418,10 @@ body {
 
     .input-group input:focus+label,
     .input-group input:not(:placeholder-shown)+label {
+        /* Mantenemos esto si no hay placeholder="" */
         font-size: 0.7rem;
         top: -0.3rem;
         left: 0.8rem;
-    }
-
-    .tab-form .login-button,
-    .tab-form .register-button {
-        margin-top: 1.5rem;
     }
 
     .login-button,
@@ -464,6 +477,10 @@ body {
         border-radius: 0.8rem;
     }
 
+    .tab-form {
+        padding: 0 0.8rem;
+    }
+
     .input-group input {
         padding: 0.8rem 0.8rem;
         font-size: 0.9rem;
@@ -478,6 +495,7 @@ body {
 
     .input-group input:focus+label,
     .input-group input:not(:placeholder-shown)+label {
+        /* Mantenemos esto si no hay placeholder="" */
         font-size: 0.65rem;
         top: -0.2rem;
         left: 0.6rem;

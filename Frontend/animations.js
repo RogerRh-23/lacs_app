@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+    // --- Lógica de Sidebar (si aplica a esta página) ---
     const sidebarPlaceholder = document.getElementById('sidebar-placeholder');
 
     if (sidebarPlaceholder) {
@@ -67,13 +68,14 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-
+    // --- Lógica de Pestañas de Login/Registro ---
     const loginTabBtn = document.getElementById('login-tab-btn');
     const registerTabBtn = document.getElementById('register-tab-btn');
     const loginFormElement = document.getElementById('login-form');
     const registerFormElement = document.getElementById('register-form');
     const tabIndicator = document.querySelector('.tab-indicator');
     const loginBox = document.querySelector('.login-box');
+    const registrationSuccessMessage = document.getElementById('registration-success-message'); // Necesario para ocultarlo al cambiar de pestaña
 
     if (loginTabBtn && registerTabBtn && loginFormElement && registerFormElement && tabIndicator && loginBox) {
 
@@ -81,30 +83,42 @@ document.addEventListener('DOMContentLoaded', function () {
             activateTab('login');
             animateBoxHeight();
         });
+
         registerTabBtn.addEventListener('click', function () {
             activateTab('register');
             animateBoxHeight();
         });
 
-        function activateTab(tab) {
-            if (tab === 'login') {
+        function activateTab(tabName) {
+            // Desactiva todas las pestañas y formularios
+            loginTabBtn.classList.remove('active');
+            registerTabBtn.classList.remove('active');
+            loginFormElement.classList.remove('active');
+            loginFormElement.classList.add('hidden'); // Asegura que se oculte
+            registerFormElement.classList.remove('active');
+            registerFormElement.classList.add('hidden'); // Asegura que se oculte
+
+            // Activa la pestaña y el formulario seleccionados
+            if (tabName === 'login') {
                 loginTabBtn.classList.add('active');
-                registerTabBtn.classList.remove('active');
+                loginFormElement.classList.remove('hidden');
                 loginFormElement.classList.add('active');
-                registerFormElement.classList.remove('active');
-            } else {
-                loginTabBtn.classList.remove('active');
+            } else { // tabName === 'register'
                 registerTabBtn.classList.add('active');
-                loginFormElement.classList.remove('active');
+                registerFormElement.classList.remove('hidden');
                 registerFormElement.classList.add('active');
             }
-            updateTabIndicator(tab === 'login' ? loginTabBtn : registerTabBtn);
+            updateTabIndicator(tabName); // Actualiza la posición del indicador
+
+            // Oculta el mensaje de éxito de registro si está visible
+            registrationSuccessMessage.classList.remove('visible');
         }
 
-        function updateTabIndicator(activeTab) {
-            if (activeTab && tabIndicator) {
-                const tabRect = activeTab.getBoundingClientRect();
-                const parentRect = activeTab.parentElement.getBoundingClientRect();
+        function updateTabIndicator(tabName) {
+            const activeTabElement = tabName === 'login' ? loginTabBtn : registerTabBtn;
+            if (activeTabElement && tabIndicator) {
+                const tabRect = activeTabElement.getBoundingClientRect();
+                const parentRect = activeTabElement.parentElement.getBoundingClientRect();
                 tabIndicator.style.width = `${tabRect.width}px`;
                 tabIndicator.style.left = `${tabRect.left - parentRect.left}px`;
             }
@@ -120,6 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.body.appendChild(clone);
 
             clone.querySelectorAll('.tab-form').forEach(form => {
+                // Asegura que el formulario activo en el clon sea visible para el cálculo de altura
                 form.style.display = form.classList.contains('active') ? 'flex' : 'none';
             });
 
@@ -129,19 +144,51 @@ document.addEventListener('DOMContentLoaded', function () {
             loginBox.style.height = newHeight + 'px';
         }
 
-        const currentActiveTabOnLoad = document.querySelector('.login-tab.active');
-        if (currentActiveTabOnLoad) {
-            updateTabIndicator(currentActiveTabOnLoad);
-            animateBoxHeight();
-        }
+        // Inicializa el estado de las pestañas al cargar la página
+        activateTab('login');
+        updateTabIndicator('login');
+        animateBoxHeight();
 
+        // Ajusta la altura y el indicador al cambiar el tamaño de la ventana
         window.addEventListener('resize', () => {
-            const activeTabOnResize = document.querySelector('.login-tab.active');
-            if (activeTabOnResize) {
-                updateTabIndicator(activeTabOnResize);
-                animateBoxHeight();
-            }
+            const currentActiveTabName = loginTabBtn.classList.contains('active') ? 'login' : 'register';
+            updateTabIndicator(currentActiveTabName);
+            animateBoxHeight();
         });
-    } else {
     }
+
+    // --- Lógica para la animación de etiquetas flotantes en los campos de entrada ---
+    const inputGroups = document.querySelectorAll('.input-group');
+
+    inputGroups.forEach(group => {
+        const input = group.querySelector('input');
+
+        if (input) {
+            // Comprobación inicial si el input ya tiene un valor (ej. por autocompletado del navegador)
+            if (input.value.trim() !== '') {
+                group.classList.add('is-active');
+            }
+
+            // Añade la clase 'is-active' cuando el input está enfocado
+            input.addEventListener('focus', () => {
+                group.classList.add('is-active');
+            });
+
+            // Quita la clase 'is-active' cuando el input pierde el foco Y está vacío
+            input.addEventListener('blur', () => {
+                if (input.value.trim() === '') {
+                    group.classList.remove('is-active');
+                }
+            });
+
+            // Mantiene la clase 'is-active' si el usuario escribe o borra contenido
+            input.addEventListener('input', () => {
+                if (input.value.trim() !== '') {
+                    group.classList.add('is-active');
+                } else {
+                    group.classList.remove('is-active');
+                }
+            });
+        }
+    });
 });
