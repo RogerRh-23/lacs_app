@@ -1,0 +1,19 @@
+- Terminar el apartado de registro (PRIORIDAD)
+ - Datos solicitados al momento:
+  - Nombre completo
+  - Empresa en la que trabaja
+  - Numero de telefono
+ - Modificar la interfaz de inicio de sesion para que en lugar de pedir que inicie de 
+ sesion el usuario este sea redirigido a una nueva interfaz para que termine de ingresar los datos que se le soliciten
+ - Datos a solicitar:
+  - 
+- Establecer roles (PRIORIDAD)
+ - Administrador
+ - Supervisor
+ - Operador
+- Crear menus diferentes para cada rol (para esto tengo que saber los roles y sus funciones)
+- Hacer la interfaz para crear/editar reportes
+- Hacer la interfaz para consultar el historial de cambios
+- Hacer la interfaz para consultar la lista de usuarios
+- Conectar de forma correcta el backend con el forntend
+- Conectar con una base de datos ya permanente
