@@ -14,11 +14,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfigurationSource;
 
-/**
- * Clase de configuración para la seguridad de la aplicación Spring Boot.
- * Define la cadena de filtros de seguridad, las políticas de sesión,
- * la configuración de CORS y la autenticación.
- */
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -30,13 +25,26 @@ public class SecurityConfig {
         private final CorsConfigurationSource corsConfigurationSource;
 
         /**
-         * Configura la cadena de filtros de seguridad HTTP.
-         * Define qué solicitudes requieren autenticación, cómo se manejan las sesiones,
-         * y dónde se insertan los filtros personalizados.
-         *
-         * @param http El objeto HttpSecurity para configurar la seguridad.
-         * @return La cadena de filtros de seguridad configurada.
-         * @throws Exception Si ocurre un error durante la configuración.
+         * @param jwtAuthFilter           El filtro JWT para la autenticación.
+         * @param authenticationProvider  El proveedor de autenticación.
+         * @param corsConfigurationSource La fuente de configuración CORS.
+         */
+        /*
+         * public SecurityConfig(
+         * JwtAuthenticationFilter jwtAuthFilter,
+         * AuthenticationProvider authenticationProvider,
+         * CorsConfigurationSource corsConfigurationSource
+         * ) {
+         * this.jwtAuthFilter = jwtAuthFilter;
+         * this.authenticationProvider = authenticationProvider;
+         * this.corsConfigurationSource = corsConfigurationSource;
+         * }
+         */
+
+        /**
+         * @param http
+         * @return
+         * @throws Exception
          */
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -44,13 +52,13 @@ public class SecurityConfig {
                                 .csrf(AbstractHttpConfigurer::disable)
                                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
                                 .authorizeHttpRequests(auth -> auth
-                                                // CAMBIO AQUÍ: Ahora coincide con /api/auth/login y /api/auth/register
                                                 .requestMatchers("/api/auth/**").permitAll()
                                                 .anyRequest().authenticated())
                                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                                 .authenticationProvider(authenticationProvider)
                                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
+                // Construye y devuelve la cadena de filtros de seguridad
                 return http.build();
         }
 }
