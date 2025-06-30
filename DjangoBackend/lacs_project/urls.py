@@ -1,13 +1,9 @@
+# DjangoBackend/lacs_project/urls.py
 from django.contrib import admin
-from django.urls import path, include
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
+from django.urls import path, include # Asegúrate de que 'include' esté importado
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/auth/', include('authentication.urls')),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('accounts/', include('accounts.urls')), # Esta línea es la clave
+    # Puedes añadir otras URLs de tus APIs aquí
 ]
