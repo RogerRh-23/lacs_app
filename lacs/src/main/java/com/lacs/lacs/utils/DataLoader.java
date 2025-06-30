@@ -30,6 +30,7 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
         Map<String, String> adminCredentials = new HashMap<>();
         adminCredentials.put("rogerrh023@gmail.com", "#Roger_LACS_23");
+        adminCredentials.put("framos@lacs.org.mx", "Lacs0102");
 
         for (Map.Entry<String, String> entry : adminCredentials.entrySet()) {
             String email = entry.getKey();

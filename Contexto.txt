@@ -8,3 +8,11 @@ y hay veces que no saben si la persona fue a trabajar o no,
 en pocas palabras solo el pedo es con el backend y que no me detecta bien unos metodos
 
 el pedo ya se habia solucionado pero al momento de querer implementar la key valio vrg jajaja
+
+main.js:137 
+ 
+ POST http://localhost:8080/api/auth/register 403 (Forbidden)
+(anonymous)	@	main.js:137
+main.js:165 
+ Error de red o del servidor durante el registro: 
+(anonymous)	@	main.js:165
