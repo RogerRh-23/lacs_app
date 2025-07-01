@@ -5,10 +5,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
     const registrationSuccessMessage = document.getElementById('registration-success-message');
-    const goToLoginBtn = document.getElementById('go-to-login-btn');
+    const goToLoginBtn = registrationSuccessMessage ? registrationSuccessMessage.querySelector('.login-button') : null;
     const generatedUsernameDisplay = document.getElementById('generated-username-display');
     const messageBox = document.getElementById('message-box');
     const loadingOverlay = document.getElementById('loading-overlay');
+
+    if (!loginTabBtn || !registerTabBtn || !tabIndicator || !loginForm || !registerForm || !registrationSuccessMessage || !generatedUsernameDisplay || !messageBox || !loadingOverlay) {
+        console.error("Uno o más elementos HTML críticos no se encontraron. Por favor, revisa tu login.html y asegúrate de que los IDs y clases coincidan y los elementos existan.");
+        console.log("Estado de elementos:");
+        console.log("  loginTabBtn:", loginTabBtn);
+        console.log("  registerTabBtn:", registerTabBtn);
+        console.log("  tabIndicator:", tabIndicator);
+        console.log("  loginForm:", loginForm);
+        console.log("  registerForm:", registerForm);
+        console.log("  registrationSuccessMessage:", registrationSuccessMessage);
+        console.log("  goToLoginBtn (debería ser un elemento o null):", goToLoginBtn);
+        console.log("  generatedUsernameDisplay:", generatedUsernameDisplay);
+        console.log("  messageBox:", messageBox);
+        console.log("  loadingOverlay:", loadingOverlay);
+        return;
+    }
+
 
     function showMessage(message, duration = 3000) {
         messageBox.textContent = message;
@@ -21,41 +38,56 @@ document.addEventListener('DOMContentLoaded', () => {
     function showLoadingOverlay(message = "¡Bienvenido!", redirecting = true) {
         document.getElementById('welcome-message').textContent = message;
         document.querySelector('.loading-content p').textContent = redirecting ? "Redirigiendo..." : "Cargando...";
-        loadingOverlay.classList.add('show');
+        loadingOverlay.classList.remove('hidden');
     }
 
     function hideLoadingOverlay() {
-        loadingOverlay.classList.remove('show');
+        loadingOverlay.classList.add('hidden');
     }
 
     function switchTab(targetFormId) {
         [loginForm, registerForm].forEach(form => {
             form.classList.remove('active');
+            form.classList.add('hidden');
         });
         [loginTabBtn, registerTabBtn].forEach(btn => {
             btn.classList.remove('active');
+            btn.setAttribute('aria-selected', 'false');
+            btn.setAttribute('tabindex', '-1');
         });
 
         if (targetFormId === 'login-form') {
+            loginForm.classList.remove('hidden');
             loginForm.classList.add('active');
             loginTabBtn.classList.add('active');
+            loginTabBtn.setAttribute('aria-selected', 'true');
+            loginTabBtn.setAttribute('tabindex', '0');
             tabIndicator.style.left = '0%';
         } else if (targetFormId === 'register-form') {
+            registerForm.classList.remove('hidden');
             registerForm.classList.add('active');
             registerTabBtn.classList.add('active');
+            registerTabBtn.setAttribute('aria-selected', 'true');
+            registerTabBtn.setAttribute('tabindex', '0');
             tabIndicator.style.left = '50%';
         }
 
         registrationSuccessMessage.classList.remove('visible');
+        registrationSuccessMessage.classList.add('hidden');
     }
 
+    // Event listeners para los botones de las pestañas
     loginTabBtn.addEventListener('click', () => switchTab('login-form'));
     registerTabBtn.addEventListener('click', () => switchTab('register-form'));
 
-    goToLoginBtn.addEventListener('click', () => {
-        switchTab('login-form');
-        registrationSuccessMessage.classList.remove('visible');
-    });
+    if (goToLoginBtn) {
+        goToLoginBtn.addEventListener('click', () => {
+            switchTab('login-form');
+            registrationSuccessMessage.classList.remove('visible');
+            registrationSuccessMessage.classList.add('hidden');
+        });
+    }
+
 
     function getCookie(name) {
         let cookieValue = null;
@@ -86,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
             password_confirm: document.getElementById('register-password2').value
         };
 
+        // Validación de contraseñas en el frontend
         if (formData.password !== formData.password_confirm) {
             hideLoadingOverlay();
             showMessage("Las contraseñas no coinciden.", 3000);
@@ -111,6 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok) {
                     generatedUsernameDisplay.textContent = data.username;
                     registrationSuccessMessage.classList.add('visible');
+                    registrationSuccessMessage.classList.remove('hidden');
                     showMessage(data.message || "¡Registro completado con éxito!");
                 } else {
                     let errorMessage = "Error en el registro.";
@@ -189,10 +223,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (loginTabBtn.classList.contains('active')) {
-        tabIndicator.style.left = '0%';
+        switchTab('login-form');
     } else if (registerTabBtn.classList.contains('active')) {
-        tabIndicator.style.left = '50%';
+        switchTab('register-form');
+    } else {
+        switchTab('login-form');
     }
 
+    registrationSuccessMessage.classList.add('hidden');
     registrationSuccessMessage.classList.remove('visible');
 });

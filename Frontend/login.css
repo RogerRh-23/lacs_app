@@ -26,7 +26,7 @@ body {
 
 .login-box {
     width: 90%;
-    max-width: 440px;
+    max-width: 400px;
     padding: 3rem;
     background: var(--color-white);
     border-radius: var(--border-radius);
@@ -38,8 +38,7 @@ body {
     flex-direction: column;
     align-items: center;
     position: relative;
-    min-height: 440px;
-    /* Asegura que la caja tenga suficiente altura */
+    min-height: 400px;
 }
 
 .login-tabs {
@@ -59,7 +58,7 @@ body {
     border: none;
     font-size: 1rem;
     font-family: "Poppins", sans-serif;
-    padding: 1.5rem 0;
+    padding: 1.1rem 0;
     cursor: pointer;
     color: var(--color-text-dark);
     position: relative;
@@ -99,7 +98,7 @@ body {
 .login-forms {
     width: 100%;
     position: relative;
-    min-height: 250px;
+    min-height: 30px;
 }
 
 .tab-form {
@@ -121,10 +120,18 @@ body {
 .tab-form.active {
     opacity: 1;
     visibility: visible;
-    position: relative;
     transform: translateX(0);
+    position: relative;
     animation: fadeIn 0.5s ease-out forwards;
 }
+
+.tab-form.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    position: absolute;
+}
+
 
 .input-group {
     position: relative;
@@ -177,7 +184,7 @@ body {
 
 .tab-form .login-button,
 .tab-form .register-button {
-    margin-top: 3rem;
+    margin-top: 2rem;
 }
 
 .login-button,
@@ -355,6 +362,12 @@ body {
     visibility: visible;
 }
 
+.registration-success-message.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
 .registration-success-message h3 {
     font-size: 1.8rem;
     color: var(--color-accent);
@@ -417,8 +430,7 @@ body {
     }
 
     .input-group input:focus+label,
-    .input-group input:not(:placeholder-shown)+label {
-        /* Mantenemos esto si no hay placeholder="" */
+    .input-group.is-active label {
         font-size: 0.7rem;
         top: -0.3rem;
         left: 0.8rem;
@@ -494,8 +506,7 @@ body {
     }
 
     .input-group input:focus+label,
-    .input-group input:not(:placeholder-shown)+label {
-        /* Mantenemos esto si no hay placeholder="" */
+    .input-group.is-active label {
         font-size: 0.65rem;
         top: -0.2rem;
         left: 0.6rem;

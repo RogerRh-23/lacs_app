@@ -17,4 +17,3 @@
 - Hacer la interfaz para consultar la lista de usuarios
 - Conectar de forma correcta el backend con el forntend
 - Conectar con una base de datos ya permanente
-
