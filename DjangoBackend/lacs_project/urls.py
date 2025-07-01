@@ -1,9 +1,8 @@
-# DjangoBackend/lacs_project/urls.py
 from django.contrib import admin
-from django.urls import path, include # Asegúrate de que 'include' esté importado
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')), # Esta línea es la clave
-    # Puedes añadir otras URLs de tus APIs aquí
+    path('accounts/', include('accounts.urls')), # Esta línea es crucial
+    # Puedes añadir otras URLs aquí si las tienes
 ]
