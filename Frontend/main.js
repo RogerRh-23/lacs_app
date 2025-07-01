@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Referencias a elementos del DOM
     const loginTabBtn = document.getElementById('login-tab-btn');
     const registerTabBtn = document.getElementById('register-tab-btn');
     const tabIndicator = document.querySelector('.tab-indicator');
@@ -11,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const messageBox = document.getElementById('message-box');
     const loadingOverlay = document.getElementById('loading-overlay');
 
-    // Función para mostrar mensajes temporales
     function showMessage(message, duration = 3000) {
         messageBox.textContent = message;
         messageBox.classList.add('show');
@@ -20,21 +18,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }, duration);
     }
 
-    // Función para mostrar el overlay de carga
     function showLoadingOverlay(message = "¡Bienvenido!", redirecting = true) {
         document.getElementById('welcome-message').textContent = message;
         document.querySelector('.loading-content p').textContent = redirecting ? "Redirigiendo..." : "Cargando...";
         loadingOverlay.classList.add('show');
     }
 
-    // Función para ocultar el overlay de carga
     function hideLoadingOverlay() {
         loadingOverlay.classList.remove('show');
     }
 
-    // Función para cambiar entre formularios (pestañas)
     function switchTab(targetFormId) {
-        // Oculta todos los formularios y quita la clase 'active' de las pestañas
         [loginForm, registerForm].forEach(form => {
             form.classList.remove('active');
         });
@@ -42,33 +36,27 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.classList.remove('active');
         });
 
-        // Muestra el formulario objetivo y activa la pestaña correspondiente
         if (targetFormId === 'login-form') {
             loginForm.classList.add('active');
             loginTabBtn.classList.add('active');
-            tabIndicator.style.left = '0%'; // Mueve el indicador a la izquierda
+            tabIndicator.style.left = '0%';
         } else if (targetFormId === 'register-form') {
             registerForm.classList.add('active');
             registerTabBtn.classList.add('active');
-            tabIndicator.style.left = '50%'; // Mueve el indicador a la derecha
+            tabIndicator.style.left = '50%';
         }
 
-        // Oculta el mensaje de éxito si está visible
         registrationSuccessMessage.classList.remove('visible');
     }
 
-    // Event listeners para los botones de las pestañas
     loginTabBtn.addEventListener('click', () => switchTab('login-form'));
     registerTabBtn.addEventListener('click', () => switchTab('register-form'));
 
-    // Event listener para el botón "Ir a Iniciar Sesión" en el mensaje de éxito
     goToLoginBtn.addEventListener('click', () => {
-        switchTab('login-form'); // Vuelve al formulario de inicio de sesión
-        // Oculta el mensaje de éxito
+        switchTab('login-form');
         registrationSuccessMessage.classList.remove('visible');
     });
 
-    // Función para obtener el token CSRF de las cookies
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
@@ -84,9 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return cookieValue;
     }
 
-    // Manejo del envío del formulario de registro
     registerForm.addEventListener('submit', async (event) => {
-        event.preventDefault(); // Evita el envío predeterminado del formulario
+        event.preventDefault();
 
         showLoadingOverlay("Registrando...", false);
 
@@ -96,10 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
             phone: document.getElementById('register-phone').value,
             company: document.getElementById('register-empresa').value,
             password: document.getElementById('register-password').value,
-            password_confirm: document.getElementById('register-password2').value // Mantenemos para validación frontend
+            password_confirm: document.getElementById('register-password2').value
         };
 
-        // Validación de contraseñas en el frontend
         if (formData.password !== formData.password_confirm) {
             hideLoadingOverlay();
             showMessage("Las contraseñas no coinciden.", 3000);
@@ -107,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            // --- CAMBIO CLAVE AQUÍ: Usar el puerto 8000 de Django ---
             const response = await fetch('http://127.0.0.1:8000/accounts/register/', {
                 method: 'POST',
                 headers: {
@@ -119,7 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             hideLoadingOverlay();
 
-            // Intenta parsear la respuesta como JSON, maneja el error si no es JSON
             const contentType = response.headers.get("content-type");
             if (contentType && contentType.indexOf("application/json") !== -1) {
                 const data = await response.json();
@@ -131,19 +115,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     let errorMessage = "Error en el registro.";
                     if (data.errors) {
-                        errorMessage = Object.values(data.errors).flat().join(' ');
+                        errorMessage = Object.keys(data.errors).map(field => {
+                            return `${field}: ${data.errors[field].join(', ')}`;
+                        }).join('; ');
                     } else if (data.message) {
                         errorMessage = data.message;
                     }
                     showMessage(errorMessage, 5000);
                 }
             } else {
-                // Si la respuesta no es JSON (ej. HTML de error 404), muestra un mensaje genérico
                 const textResponse = await response.text();
                 console.error("Respuesta no JSON del servidor:", textResponse);
-                showMessage(`Error del servidor: ${response.status} ${response.statusText}. La URL podría ser incorrecta.`, 7000);
+                showMessage(`Error del servidor: ${response.status} ${response.statusText}. La URL podría ser incorrecta o el servidor devolvió HTML.`, 7000);
             }
-
 
         } catch (error) {
             hideLoadingOverlay();
@@ -152,9 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Manejo del envío del formulario de inicio de sesión
     loginForm.addEventListener('submit', async (event) => {
-        event.preventDefault(); // Evita el envío predeterminado del formulario
+        event.preventDefault();
 
         showLoadingOverlay("Iniciando sesión...", false);
 
@@ -164,7 +147,6 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
-            // --- CAMBIO CLAVE AQUÍ: Usar el puerto 8000 de Django ---
             const response = await fetch('http://127.0.0.1:8000/accounts/login/', {
                 method: 'POST',
                 headers: {
@@ -182,12 +164,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (response.ok) {
                     showMessage(data.message || `¡Bienvenido, ${data.username || loginData.username}!`, 2000);
-                    // Aquí podrías redirigir al usuario o cargar el contenido principal
-                    // Por ejemplo: window.location.href = "http://127.0.0.1:8000/accounts/home/";
                 } else {
                     let errorMessage = "Usuario o contraseña incorrectos.";
                     if (data.errors) {
-                        errorMessage = Object.values(data.errors).flat().join(' ');
+                        errorMessage = Object.keys(data.errors).map(field => {
+                            return `${field}: ${data.errors[field].join(', ')}`;
+                        }).join('; ');
                     } else if (data.message) {
                         errorMessage = data.message;
                     }
@@ -196,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 const textResponse = await response.text();
                 console.error("Respuesta no JSON del servidor:", textResponse);
-                showMessage(`Error del servidor: ${response.status} ${response.statusText}. La URL podría ser incorrecta.`, 7000);
+                showMessage(`Error del servidor: ${response.status} ${response.statusText}. La URL podría ser incorrecta o el servidor devolvió HTML.`, 7000);
             }
 
         } catch (error) {
@@ -206,13 +188,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Inicializa el estado de las pestañas al cargar la página
     if (loginTabBtn.classList.contains('active')) {
         tabIndicator.style.left = '0%';
     } else if (registerTabBtn.classList.contains('active')) {
         tabIndicator.style.left = '50%';
     }
 
-    // Asegura que el mensaje de éxito esté oculto al cargar la página
     registrationSuccessMessage.classList.remove('visible');
 });

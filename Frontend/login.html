@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="login.css"> <!-- Mantener si tienes estilos específicos aquí -->
+    <link rel="stylesheet" href="login.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -22,7 +22,6 @@
             </div>
 
             <div class="login-forms">
-                <!-- FORMULARIO DE INICIO DE SESIÓN -->
                 <form id="login-form" class="tab-form active">
                     <div class="input-group">
                         <label for="login-usuario">Usuario:</label>
@@ -32,11 +31,9 @@
                         <label for="login-password">Contraseña:</label>
                         <input type="password" id="login-password" name="password" required>
                     </div>
-                    <!-- AÑADIDA LA CLASE login-button AQUÍ -->
                     <button type="submit" class="login-button">Iniciar Sesión</button>
                 </form>
 
-                <!-- FORMULARIO DE REGISTRO -->
                 <form id="register-form" class="tab-form hidden">
                     <div class="input-group">
                         <label for="register-name">Nombre:</label>
@@ -66,7 +63,6 @@
                         <label for="register-password2">Confirmar Contraseña:</label>
                         <input type="password" id="register-password2" name="password2" required>
                     </div>
-                    <!-- AÑADIDA LA CLASE register-button AQUÍ -->
                     <button type="submit" class="register-button">Registrarse</button>
                 </form>
             </div>
@@ -75,7 +71,6 @@
                 <h3>¡Registro Exitoso!</h3>
                 <p>Tu cuenta ha sido creada.</p>
                 <p>Tu nombre de usuario es: <strong id="generated-username-display"></strong></p>
-                <button id="go-to-login-btn" class="login-button">Ir a Iniciar Sesión</button>
             </div>
         </nav>
     </main>
