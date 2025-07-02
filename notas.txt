@@ -6,6 +6,31 @@
  - Modificar la interfaz de inicio de sesion para que en lugar de pedir que inicie de 
  sesion el usuario este sea redirigido a una nueva interfaz para que termine de ingresar los datos que se le soliciten
  - Datos a solicitar:
+  - NSS
+  - RFC
+  - CURP
+  - Domicilio
+  - Puesto o categoria
+  - Actividades que realizara el trabajador
+  - Nombre de la empresa del cliente
+  - RFC de la empresa del cliente
+  - Tipo de salario
+  - SD 
+  - Factor integracion
+  - SDI 
+  - Empresa pagadora
+  - Fecha con la que estadado de alta del imss
+  - Cedito Infonaviit
+  - Numero
+  - Registro patronal
+  - Clase Registro
+  - Edad
+  - Estado civil
+  - Sexo
+  - Nacionalidad
+  - Domicilio donde trabaja
+  - Tipo de contrato
+  - Tiempo de duracion ()
   - 
 - Establecer roles (PRIORIDAD)
  - Administrador

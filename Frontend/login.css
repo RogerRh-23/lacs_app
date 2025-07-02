@@ -14,7 +14,8 @@
 
 body {
     margin: 0;
-    font-family: "Poppins", sans-serif;
+    font-family: "Inter", sans-serif;
+    /* Usando Inter como en tu HTML */
     background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end));
     display: flex;
     justify-content: center;
@@ -26,116 +27,72 @@ body {
 
 .login-box {
     width: 90%;
-    max-width: 400px;
+    max-width: 480px;
+    /* Manteniendo un ancho similar al original */
     padding: 3rem;
     background: var(--color-white);
     border-radius: var(--border-radius);
     box-shadow: 0 10px 30px var(--color-shadow-medium);
-    transition: height 0.4s cubic-bezier(.4, 1.7, .7, 1), box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease;
+    /* Eliminado height transition */
     overflow: hidden;
     margin: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
-    min-height: 400px;
+    min-height: auto;
+    /* Ajuste para que la altura sea automática */
 }
 
-.login-tabs {
-    position: relative;
-    display: flex;
-    width: 100%;
-    margin-bottom: 2.5rem;
-    background: var(--color-background-light);
-    border-radius: 1.2rem;
-    overflow: hidden;
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-.login-tab {
-    flex: 1;
-    background: none;
-    border: none;
-    font-size: 1rem;
-    font-family: "Poppins", sans-serif;
-    padding: 1.1rem 0;
-    cursor: pointer;
-    color: var(--color-text-dark);
-    position: relative;
-    z-index: 2;
-    transition: color 0.3s ease;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-}
-
-.login-tab.active {
-    color: var(--color-white);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.tab-indicator {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(45deg, var(--color-accent), var(--color-primary));
-    border-radius: 1.2rem;
-    z-index: 1;
-    transition: left 0.4s cubic-bezier(.4, 1.7, .7, 1);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.login-tab.active~.tab-indicator {
-    left: 0;
-}
-
-.login-tab#register-tab-btn.active~.tab-indicator {
-    left: 50%;
-}
+/* El div login-tabs y tab-indicator ya no existen, así que se eliminan sus estilos */
 
 .login-forms {
     width: 100%;
     position: relative;
-    min-height: 30px;
+    min-height: auto;
+    /* Ajuste para que la altura sea automática */
 }
 
 .tab-form {
-    opacity: 0;
-    visibility: hidden;
-    position: absolute;
+    /* Ahora solo es el formulario de login */
+    opacity: 1;
+    /* Siempre visible */
+    visibility: visible;
+    /* Siempre visible */
+    position: relative;
+    /* En el flujo normal del documento */
     top: 0;
     left: 0;
     width: 100%;
+    display: flex;
+    /* Asegura que los elementos internos se apilen */
     flex-direction: column;
     gap: 1.5rem;
     align-items: stretch;
-    transition: opacity 0.5s ease-out, visibility 0.5s ease-out, transform 0.5s ease-out;
-    transform: translateX(100%);
     box-sizing: border-box;
-    padding: 0 1.5rem;
-}
-
-.tab-form.active {
-    opacity: 1;
-    visibility: visible;
+    padding: 0;
+    /* Eliminado padding horizontal, ya lo maneja el login-box */
     transform: translateX(0);
-    position: relative;
-    animation: fadeIn 0.5s ease-out forwards;
+    /* Siempre en posición */
+    animation: none;
+    /* No necesitamos animación de entrada */
 }
 
-.tab-form.hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    position: absolute;
+.form-title {
+    /* Nuevo estilo para el título del formulario */
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+    text-align: center;
 }
 
 
 .input-group {
     position: relative;
     margin-bottom: 0;
+    /* Manejado por el gap del form */
 }
 
 .input-group input {
@@ -144,7 +101,8 @@ body {
     border: 1px solid var(--color-border-light);
     border-radius: 0.8rem;
     font-size: 1rem;
-    font-family: "Poppins", sans-serif;
+    font-family: "Inter", sans-serif;
+    /* Usando Inter */
     background: var(--color-background-light);
     color: var(--color-text-dark);
     outline: none;
@@ -182,18 +140,14 @@ body {
 }
 
 
-.tab-form .login-button,
-.tab-form .register-button {
-    margin-top: 2rem;
-}
-
-.login-button,
-.register-button {
+.login-button {
+    /* Solo un tipo de botón ahora */
     position: relative;
     background: linear-gradient(45deg, var(--color-accent), var(--color-primary));
     border: none;
     font-size: 1.1rem;
-    font-family: "Poppins", sans-serif;
+    font-family: "Inter", sans-serif;
+    /* Usando Inter */
     cursor: pointer;
     text-align: center;
     width: 180px;
@@ -207,17 +161,16 @@ body {
     letter-spacing: 0.05em;
     box-shadow: 0 6px 15px rgba(28, 43, 52, 0.3);
     transition: all 0.3s ease;
+    margin-top: 2rem;
 }
 
-.login-button:hover,
-.register-button:hover {
+.login-button:hover {
     box-shadow: 0 8px 20px rgba(28, 43, 52, 0.4);
     transform: translateY(-3px);
     filter: brightness(1.1);
 }
 
-.login-button::before,
-.register-button::before {
+.login-button::before {
     content: "";
     position: absolute;
     top: 0;
@@ -230,44 +183,13 @@ body {
     z-index: 0;
 }
 
-.login-button:hover::before,
-.register-button:hover::before {
+.login-button:hover::before {
     clip-path: circle(120% at 50% 50%);
 }
 
-.login-button span,
-.register-button span {
-    position: relative;
-    z-index: 2;
-}
+/* Eliminado .form-section y .tab-form.hidden/active animaciones */
 
-.form-section {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px dashed var(--color-border-light);
-}
-
-.tab-form .form-section:last-of-type {
-    border-bottom: none;
-    padding-bottom: 0;
-    margin-bottom: 0.5rem;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
+/* Mantengo loading-overlay y message-box, ya que son globales */
 .loading-overlay {
     position: fixed;
     top: 0;
@@ -336,66 +258,32 @@ body {
     }
 }
 
-.registration-success-message {
-    background: var(--color-white);
-    padding: 2rem;
-    border-radius: var(--border-radius);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
+.message-box {
+    /* Estilo para el mensaje de éxito/error */
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
-    z-index: 5;
-    box-sizing: border-box;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1001;
+    font-size: 1rem;
+    text-align: center;
 }
 
-.registration-success-message.visible {
+.message-box.show {
     opacity: 1;
     visibility: visible;
 }
 
-.registration-success-message.hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-}
+/* Eliminado registration-success-message y sus estilos */
 
-.registration-success-message h3 {
-    font-size: 1.8rem;
-    color: var(--color-accent);
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-}
-
-.registration-success-message p {
-    font-size: 1.1rem;
-    color: var(--color-text-dark);
-    margin: 0.5rem 0;
-}
-
-.registration-success-message strong {
-    font-weight: 700;
-    color: var(--color-primary);
-    background-color: var(--color-background-light);
-    padding: 0.4rem 0.8rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    display: inline-block;
-}
-
-.login-forms.hidden-for-success {
-    opacity: 0;
-    pointer-events: none;
-    position: absolute;
-}
 
 @media (max-width: 600px) {
     .login-box {
@@ -404,18 +292,9 @@ body {
         margin: 10px;
     }
 
-    .login-tabs {
-        margin-bottom: 1.8rem;
-    }
-
-    .login-tab {
-        font-size: 1.05rem;
-        padding: 0.9rem 0;
-    }
-
-    .tab-form {
-        gap: 1rem;
-        padding: 0 1rem;
+    .form-title {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
     }
 
     .input-group input {
@@ -436,16 +315,10 @@ body {
         left: 0.8rem;
     }
 
-    .login-button,
-    .register-button {
+    .login-button {
         width: 160px;
         font-size: 1rem;
         padding: 0.9rem 0.5rem;
-    }
-
-    .form-section {
-        margin-bottom: 1.5rem;
-        padding-bottom: 1rem;
     }
 
     .loading-content h2 {
@@ -460,14 +333,6 @@ body {
         width: 50px;
         height: 50px;
     }
-
-    .registration-success-message h3 {
-        font-size: 1.5rem;
-    }
-
-    .registration-success-message p {
-        font-size: 1rem;
-    }
 }
 
 @media (max-width: 400px) {
@@ -476,21 +341,9 @@ body {
         border-radius: 0.8rem;
     }
 
-    .login-tabs {
-        border-radius: 0.8rem;
-    }
-
-    .login-tab {
-        font-size: 0.95rem;
-        padding: 0.8rem 0;
-    }
-
-    .tab-indicator {
-        border-radius: 0.8rem;
-    }
-
-    .tab-form {
-        padding: 0 0.8rem;
+    .form-title {
+        font-size: 1.5rem;
+        margin-bottom: 0.8rem;
     }
 
     .input-group input {
@@ -512,33 +365,10 @@ body {
         left: 0.6rem;
     }
 
-    .login-button,
-    .register-button {
+    .login-button {
         width: 100%;
         font-size: 0.95rem;
         padding: 0.9rem;
         border-radius: 1rem;
-    }
-
-    .loading-content h2 {
-        font-size: 1.8rem;
-    }
-
-    .loading-content p {
-        font-size: 0.9rem;
-    }
-
-    .spinner {
-        width: 40px;
-        height: 40px;
-        border-width: 6px;
-    }
-
-    .registration-success-message h3 {
-        font-size: 1.3rem;
-    }
-
-    .registration-success-message p {
-        font-size: 0.9rem;
     }
 }

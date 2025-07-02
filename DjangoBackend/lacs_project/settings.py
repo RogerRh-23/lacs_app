@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'Ot1ko7KyrXxqYJDV1I/HcUfa/eV4RFlvfJYqVSB5ylI=' 
 
-AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 DEBUG = True
 
@@ -19,10 +19,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts.apps.AccountsConfig', 
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders', 
-    'accounts', 
 ]
 
 MIDDLEWARE = [
@@ -63,7 +63,7 @@ DATABASES = {
         'USER': 'lacsuser',
         'PASSWORD': '#Roger_LACS_23#@010203',
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': '5433',
     }
 }
 
@@ -93,8 +93,6 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-AUTH_USER_MODEL = 'accounts.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -160,4 +158,4 @@ MESSAGE_TAGS = {
 }
 
 LOGIN_REDIRECT_URL = '/home/' 
-LOGOUT_REDIRECT_URL = '/login/' 
+LOGOUT_REDIRECT_URL = '/login/'

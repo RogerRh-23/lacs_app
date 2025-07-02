@@ -1,82 +1,82 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.forms import AuthenticationForm
-from .forms import UserRegistrationForm
-from django.contrib import messages
-from django.http import JsonResponse # Importar JsonResponse
-from django.views.decorators.csrf import csrf_exempt # Para permitir peticiones POST sin CSRF token en desarrollo
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth import authenticate
+from .models import CustomUser
+from .serializers import AdminUserRegistrationSerializer
 
-# @csrf_exempt es para desarrollo y pruebas. En producción, considera usar
-# rest_framework o csrf_protect si sigues con vistas basadas en funciones.
-@csrf_exempt
-def register_view(request):
-    if request.method == 'POST':
-        # Los datos JSON vienen en request.body, no en request.POST
-        import json
-        try:
-            data = json.loads(request.body)
-        except json.JSONDecodeError:
-            return JsonResponse({"message": "Invalid JSON"}, status=400)
+class LoginView(APIView):
+    def post(self, request):
+        username_or_email = request.data.get('username')
+        password = request.data.get('password')
 
-        # Crea un objeto QueryDict a partir de los datos JSON para que el formulario pueda procesarlos
-        from django.http import QueryDict
-        q = QueryDict('', mutable=True)
-        q.update(data)
+        # --- IMPRESIONES DE DEPURACIÓN ---
+        print(f"DEBUG: Intento de login para: {username_or_email}")
+        print(f"DEBUG: Contraseña recibida (no imprimir en producción): {password}")
+        # --- FIN IMPRESIONES DE DEPURACIÓN ---
 
-        form = UserRegistrationForm(q) # Pasa los datos como si vinieran de un POST normal
-        if form.is_valid():
-            user = form.save()
-            # Devuelve una respuesta JSON con el nombre de usuario generado
-            return JsonResponse({
-                "message": "Registro exitoso. Ahora puedes iniciar sesión.",
-                "username": user.username # Envía el nombre de usuario generado
-            }, status=201) # 201 Created
+        if not username_or_email or not password:
+            return Response(
+                {"detail": "Por favor, proporciona un nombre de usuario/correo electrónico y una contraseña."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        user = None
+        # Intenta autenticar por nombre de usuario
+        user = authenticate(username=username_or_email, password=password)
+
+        # --- IMPRESIONES DE DEPURACIÓN ---
+        if user:
+            print(f"DEBUG: Autenticación exitosa por username: {user.username}")
         else:
-            # Devuelve errores de validación en formato JSON
-            return JsonResponse({"errors": form.errors}, status=400)
-    else:
-        # Si la solicitud no es POST, puedes redirigir o devolver un error
-        return JsonResponse({"message": "GET method not allowed for registration."}, status=405)
+            print(f"DEBUG: Autenticación fallida por username: {username_or_email}")
+        # --- FIN IMPRESIONES DE DEPURACIÓN ---
 
-@csrf_exempt
-def login_view(request):
-    if request.method == 'POST':
-        import json
-        try:
-            data = json.loads(request.body)
-        except json.JSONDecodeError:
-            return JsonResponse({"message": "Invalid JSON"}, status=400)
+        if not user:
+            # Si no se autenticó por nombre de usuario, intenta por correo electrónico
+            try:
+                custom_user = CustomUser.objects.get(email=username_or_email)
+                user = authenticate(username=custom_user.username, password=password)
+                # --- IMPRESIONES DE DEPURACIÓN ---
+                if user:
+                    print(f"DEBUG: Autenticación exitosa por email: {user.email}")
+                else:
+                    print(f"DEBUG: Autenticación fallida por email (contraseña incorrecta para {custom_user.username})")
+                # --- FIN IMPRESIONES DE DEPURACIÓN ---
+            except CustomUser.DoesNotExist:
+                # --- IMPRESIONES DE DEPURACIÓN ---
+                print(f"DEBUG: Usuario no encontrado por email: {username_or_email}")
+                # --- FIN IMPRESIONES DE DEPURACIÓN ---
+                pass
 
-        # AuthenticationForm espera un QueryDict o un diccionario similar a request.POST
-        from django.http import QueryDict
-        q = QueryDict('', mutable=True)
-        q.update(data)
-
-        form = AuthenticationForm(request, data=q)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return JsonResponse({
-                    "message": f"Has iniciado sesión como {username}.",
-                    "username": username # Puedes devolver el username aquí también
-                }, status=200)
-            else:
-                return JsonResponse({"message": "Nombre de usuario o contraseña inválidos."}, status=400)
+        if user:
+            refresh = RefreshToken.for_user(user)
+            return Response({
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+                'username': user.username,
+                'email': user.email,
+                'role': user.role
+            }, status=status.HTTP_200_OK)
         else:
-            return JsonResponse({"errors": form.errors, "message": "Nombre de usuario o contraseña inválidos."}, status=400)
-    else:
-        return JsonResponse({"message": "GET method not allowed for login."}, status=405)
+            return Response(
+                {"detail": "Credenciales inválidas."},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
 
-# Las siguientes vistas no necesitan cambios si no interactúan con el frontend vía fetch/JSON
-def logout_view(request):
-    logout(request)
-    # Para una API, podrías devolver un JsonResponse
-    return JsonResponse({"message": "Has cerrado sesión exitosamente."}, status=200)
+class AdminUserRegistrationView(APIView):
+    permission_classes = [IsAuthenticated, IsAdminUser]
 
-def home_view(request):
-    # Esta es una vista para renderizar una plantilla HTML, no una API.
-    # Si tu frontend es una SPA, esta vista podría no ser necesaria o podría devolver JSON.
-    return render(request, 'home.html')
+    def post(self, request):
+        serializer = AdminUserRegistrationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {"message": "Usuario registrado exitosamente por el administrador.",
+                 "username": serializer.validated_data['username'],
+                 "role": serializer.validated_data['role']},
+                status=status.HTTP_201_CREATED
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

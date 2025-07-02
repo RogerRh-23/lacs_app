@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
+    <title>Inicio de Sesión</title> <!-- Título ajustado -->
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="login.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,14 +15,9 @@
 <body>
     <main class="content">
         <nav class="login-box">
-            <div class="login-tabs">
-                <button class="login-tab active" id="login-tab-btn">Iniciar sesión</button>
-                <button class="login-tab" id="register-tab-btn">Registrarse</button>
-                <div class="tab-indicator"></div>
-            </div>
-
             <div class="login-forms">
                 <form id="login-form" class="tab-form active">
+                    <h2 class="form-title">Iniciar Sesión</h2>
                     <div class="input-group">
                         <label for="login-usuario">Usuario:</label>
                         <input type="text" id="login-usuario" name="username" required>
@@ -33,44 +28,6 @@
                     </div>
                     <button type="submit" class="login-button">Iniciar Sesión</button>
                 </form>
-
-                <form id="register-form" class="tab-form hidden">
-                    <div class="input-group">
-                        <label for="register-name">Nombre:</label>
-                        <input type="text" id="register-name" name="first_name" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="register-lastname">Apellido:</label>
-                        <input type="text" id="register-lastname" name="last_name" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="register-phone">Teléfono:</label>
-                        <input type="text" id="register-phone" name="phone">
-                    </div>
-                    <div class="input-group">
-                        <label for="register-empresa">Empresa:</label>
-                        <input type="text" list="Empresas" id="register-empresa" name="company" required placeholder="">
-                        <datalist id="Empresas">
-                            <option value="LACS"></option>
-                            <option value="DOSNITSH"></option>
-                        </datalist>
-                    </div>
-                    <div class="input-group">
-                        <label for="register-password">Contraseña:</label>
-                        <input type="password" id="register-password" name="password" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="register-password2">Confirmar Contraseña:</label>
-                        <input type="password" id="register-password2" name="password2" required>
-                    </div>
-                    <button type="submit" class="register-button">Registrarse</button>
-                </form>
-            </div>
-
-            <div id="registration-success-message" class="registration-success-message hidden">
-                <h3>¡Registro Exitoso!</h3>
-                <p>Tu cuenta ha sido creada.</p>
-                <p>Tu nombre de usuario es: <strong id="generated-username-display"></strong></p>
             </div>
         </nav>
     </main>
