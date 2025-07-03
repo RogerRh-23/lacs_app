@@ -1,8 +1,8 @@
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework import status # type: ignore
+from rest_framework.response import Response # type: ignore
+from rest_framework.views import APIView # type: ignore
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny # type: ignore
+from rest_framework_simplejwt.tokens import RefreshToken # type: ignore
 from django.contrib.auth import authenticate
 from .models import CustomUser
 from .serializers import AdminUserRegistrationSerializer
