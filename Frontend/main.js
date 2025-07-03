@@ -75,15 +75,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     showMessage(data.message || `¡Bienvenido, ${data.username || loginData.username}!`, 2000);
 
                     if (data.access) {
-                        localStorage.setItem('jwtToken', data.access);
+                        localStorage.setItem('accessToken', data.access);
                     }
                     if (data.role) {
-                        localStorage.setItem('userRole', data.role);
+                        localStorage.setItem('role', data.role);
                     }
                     if (data.username) {
                         localStorage.setItem('username', data.username);
                     }
-                    window.location.href = "http://127.0.0.1:8000/accounts/home/";
+                    window.location.href = "home.html";
 
                 } else {
                     let errorMessage = "Usuario o contraseña incorrectos.";

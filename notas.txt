@@ -1,15 +1,11 @@
-- Terminar el apartado de registro (PRIORIDAD)
- - Datos solicitados al momento:
-  - Nombre completo
-  - Empresa en la que trabaja
-  - Numero de telefono
- - Modificar la interfaz de inicio de sesion para que en lugar de pedir que inicie de 
- sesion el usuario este sea redirigido a una nueva interfaz para que termine de ingresar los datos que se le soliciten
  - Datos a solicitar:
-  - NSS
-  - RFC
-  - CURP
-  - Domicilio
+  - NSS (numero de seguridad social) YA ESTA INTEGRADO
+  - Apellido paterno YA ESTA INTEGRADO
+  - Apellido materno YA ESTA INTEGRADO
+  - Nombre(s) YA ESTA INTEGRADO
+  - RFC YA ESTA INTEGRADO
+  - CURP YA ESTA INTEGRADO
+  - Domicilio YA ESTA INTEGRADO
   - Puesto o categoria
   - Actividades que realizara el trabajador
   - Nombre de la empresa del cliente
@@ -23,19 +19,38 @@
   - Cedito Infonaviit
   - Numero
   - Registro patronal
-  - Clase Registro
-  - Edad
-  - Estado civil
-  - Sexo
-  - Nacionalidad
-  - Domicilio donde trabaja
-  - Tipo de contrato
-  - Tiempo de duracion ()
-  - 
-- Establecer roles (PRIORIDAD)
- - Administrador
- - Supervisor
- - Operador
+  - Clase RT
+
+  - Edad 
+  - Estado civil YA ESTA INTEGRADO
+  - Sexo YA ESTA INTEGRADO
+  - Nacionalidad YA ESTA INTEGRADO
+  - Domicilio donde labora
+  - Tipo de contrato (Determinado, obra determinada, indeterminado o periodo de prueba)
+  - Tiempo de duracion (Si es determinado), nombre de proyecto si es por obra
+  - En que consiste el proyecto (Obra determinada)
+  - Forma de pago (Quincenal o semanal asi como los dias en los que se cubriran los salarios vencidos)
+  - Se le va reconocer antigüedad
+  - Fecha de antigüedad con el cliente
+  - Nombre completo del (los) beneficiario(s) y porcentaje
+  - Giro de la empresa del cliente
+
+  - Sueldo mensual bruto
+  - Sueldo mensual neto (De acuerdo al parametro de calculo de Excel)
+  - Lugar de nacimiento
+  - Fecha de nacimiento YA ESTA INTEGRADO
+  - UMF
+  - Cuenta bancaria
+  - Clave interbancaria
+  - Banco
+  - Pensionado
+  - Pension alimenticia
+  - Viajero
+  - Foraneo
+  - Incapacidad beneficiarios
+  - Tratamiento medico beneficiarios
+  - Maternidad
+  - Hijo
 - Crear menus diferentes para cada rol (para esto tengo que saber los roles y sus funciones)
 - Hacer la interfaz para crear/editar reportes
 - Hacer la interfaz para consultar el historial de cambios

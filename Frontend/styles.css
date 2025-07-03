@@ -1,9 +1,12 @@
 :root {
-    --color-white: #ffffff;
-    --color-gray: #9e9e9e;
-    --color-bg: #d2e8ff;
-    --color-side-bar: #1f3e8d;
+    --color-white: #fff;
+    --color-dark: #004B49;
+    --color-primary: #2e4d50;
+    --color-accent: #376063;
+    --color-bg: #518A99;
     --color-tab-hover: #154360;
+    --color-gradient-start: #518A99;
+    --color-gradient-end: #2e4d50;
     --p-inline: 1rem;
     --p-block: 2rem;
     --row-gap: 2rem;
@@ -20,10 +23,16 @@
 }
 
 body {
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+    background-image: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end));
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
     min-height: 100vh;
-    width: 100%;
-    background: linear-gradient(225deg, #7e99fc, #fff);
-    font-family: "Poppins", sans-serif;
+    padding: 20px;
+    box-sizing: border-box;
+    color: var(--color-dark-text);
 }
 
 ul,
@@ -40,4 +49,22 @@ a {
 
 a:hover {
     color: #fff;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+html,
+body {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    overflow: hidden;
+}
+
+html {
+    overflow-y: scroll;
 }

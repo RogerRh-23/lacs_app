@@ -1,21 +1,20 @@
 :root {
     --border-radius: 1rem;
-    --color-white: #ffffff;
-    --color-text-dark: #222836;
-    --color-primary: #1c2b34;
-    --color-accent: #5e72e4;
+    --color-white: #fff;
+    --color-dark: #004B49;
+    --color-primary: #2e4d50;
+    --color-accent: #376063;
     --color-background-light: #f7fafd;
-    --color-border-light: #dbeafe;
-    --color-shadow-light: rgba(44, 62, 80, 0.08);
-    --color-shadow-medium: rgba(0, 0, 0, 0.18);
-    --color-gradient-start: #a7b7cd;
-    --color-gradient-end: #e0eaf6;
+    --color-border-light: #e0e0e0;
+    --color-shadow-light: #d0eafc;
+    --color-shadow-medium: rgba(44, 62, 80, 0.08);
+    --color-gradient-start: #518A99;
+    --color-gradient-end: #2e4d50;
 }
 
 body {
     margin: 0;
-    font-family: "Inter", sans-serif;
-    /* Usando Inter como en tu HTML */
+    font-family: 'Montserrat', sans-serif;
     background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end));
     display: flex;
     justify-content: center;
@@ -28,13 +27,11 @@ body {
 .login-box {
     width: 90%;
     max-width: 480px;
-    /* Manteniendo un ancho similar al original */
     padding: 3rem;
     background: var(--color-white);
     border-radius: var(--border-radius);
     box-shadow: 0 10px 30px var(--color-shadow-medium);
     transition: box-shadow 0.3s ease;
-    /* Eliminado height transition */
     overflow: hidden;
     margin: 20px;
     display: flex;
@@ -42,16 +39,13 @@ body {
     align-items: center;
     position: relative;
     min-height: auto;
-    /* Ajuste para que la altura sea automática */
 }
 
-/* El div login-tabs y tab-indicator ya no existen, así que se eliminan sus estilos */
 
 .login-forms {
     width: 100%;
     position: relative;
     min-height: auto;
-    /* Ajuste para que la altura sea automática */
 }
 
 .tab-form {
@@ -101,8 +95,7 @@ body {
     border: 1px solid var(--color-border-light);
     border-radius: 0.8rem;
     font-size: 1rem;
-    font-family: "Inter", sans-serif;
-    /* Usando Inter */
+    font-family: "Montserrat", sans-serif;
     background: var(--color-background-light);
     color: var(--color-text-dark);
     outline: none;
@@ -146,8 +139,7 @@ body {
     background: linear-gradient(45deg, var(--color-accent), var(--color-primary));
     border: none;
     font-size: 1.1rem;
-    font-family: "Inter", sans-serif;
-    /* Usando Inter */
+    font-family: "Montserrat", sans-serif;
     cursor: pointer;
     text-align: center;
     width: 180px;
@@ -187,9 +179,6 @@ body {
     clip-path: circle(120% at 50% 50%);
 }
 
-/* Eliminado .form-section y .tab-form.hidden/active animaciones */
-
-/* Mantengo loading-overlay y message-box, ya que son globales */
 .loading-overlay {
     position: fixed;
     top: 0;

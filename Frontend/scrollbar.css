@@ -1,19 +1,20 @@
+/* Variables CSS para colores y radios de borde */
 :root {
-    --border-radius: 1rem;
+    --border-radius: .8rem;
     --color-white: #fff;
-    --color-dark: #4d6480;
-    /* Pantone B 7693 U - Azul oscuro/grisáceo */
+    --color-dark: #004B49;
+    /* Pantone B 7693 U */
     --color-primary: #2e4d50;
-    /* Pantone P 123-16 U - Azul/Púrpura oscuro */
+    /* Pantone P 123-16 U */
     --color-accent: #376063;
     /* Tono complementario de P 123-16 U */
     --color-background-light: #f9fafb;
     --color-shadow-light: #d0eafc;
     --color-shadow-medium: rgba(44, 62, 80, 0.08);
     --color-gradient-start: #518A99;
-    /* Pantone P 120-5 U - Azul/Púrpura claro */
+    /* Pantone P 120-5 U */
     --color-gradient-end: #2e4d50;
-    /* Pantone P 123-16 U - Azul/Púrpura oscuro */
+    /* Pantone P 123-16 U */
     --color-success-bg: #d4edda;
     --color-success-border: #828a74;
     --color-success-text: #155724;
@@ -23,27 +24,61 @@
     --color-gray-dark-text: #1f2937;
 }
 
+/* Ocultar la barra de desplazamiento nativa para WebKit (Chrome, Safari, Edge, Opera) */
+/* Aplicar a html y body para asegurar que se oculte en todos los casos */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+    /* Oculta la barra de desplazamiento */
+    width: 0;
+    /* Asegura que no ocupe espacio */
+    height: 0;
+}
+
+/* Ocultar la barra de desplazamiento nativa para Firefox */
+/* Aplicar a html y body para asegurar que se oculte en todos los casos */
+html,
+body {
+    scrollbar-width: none;
+    /* Oculta la barra de desplazamiento */
+    -ms-overflow-style: none;
+    /* Para IE/Edge */
+    overflow: hidden;
+    /* Oculta cualquier desbordamiento que pueda causar scrollbars */
+}
+
+/* Estilos generales del cuerpo */
 body {
     margin: 0;
     font-family: "Montserrat", sans-serif;
     background-image: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end));
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    /* Alinea al inicio para que el contenido fluya */
     min-height: 100vh;
-    overflow: auto;
     padding: 20px;
     box-sizing: border-box;
-    color: var(--color-text-dark);
+    color: var(--color-dark-text);
+    /* No se necesita overflow-y: scroll aquí, ya que el scroll lo manejará document.documentElement y la barra personalizada */
 }
 
+/* Asegurar que el elemento html pueda desplazarse si es necesario */
+html {
+    overflow-y: scroll;
+    /* Permite el desplazamiento en el elemento html */
+}
+
+
+/* Contenedor principal de la caja de información personal */
 .pers-box {
     width: 95%;
     max-width: 1300px;
     background: var(--color-white);
-    border-radius: 0 0 var(--border-radius) var(--border-radius);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 1.0rem;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
     margin: 20px auto;
+    padding: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -52,6 +87,7 @@ body {
     box-sizing: border-box;
 }
 
+/* Efecto ::before para el fondo de la caja */
 .pers-box::before {
     content: '';
     position: absolute;
@@ -67,40 +103,44 @@ body {
     transition: all 0.3s ease;
 }
 
+/* Efecto hover para la caja */
 .pers-box:hover::before {
     filter: blur(12px);
     opacity: 0.9;
     transform: scale(1.01);
 }
 
+/* Estilos del título principal */
 .pers-box h1 {
     font-size: 2.5rem;
     font-weight: 700;
     color: var(--color-primary);
-    margin-top: 2rem;
     margin-bottom: 2rem;
     text-align: center;
-    padding: 0 2rem;
+    padding: 0.5rem;
 }
 
+/* Contenedor de botones de pestaña */
 .tab-buttons-container {
     display: flex;
     justify-content: center;
     position: absolute;
-    top: -30px;
+    top: -20px;
     left: 50%;
     transform: translateX(-50%);
     width: auto;
     background-color: var(--color-white);
-    padding: 0.5rem 1rem;
     border-radius: 9999px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     white-space: nowrap;
     z-index: 10;
+    padding: 0.3rem 0.5rem;
+    /* Ajuste para móviles */
 }
 
+/* Estilos de los botones de pestaña */
 .tab-button {
     padding: 0.75rem 1.5rem;
     font-weight: 600;
@@ -109,54 +149,116 @@ body {
     background-color: transparent;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
-    flex-shrink: 0;
     position: relative;
     outline: none;
     border-radius: 9999px;
     margin: 0 0.5rem;
-    z-index: 1;
+    flex-shrink: 0;
     box-shadow: none;
 }
 
+/* Efecto hover para los botones de pestaña */
 .tab-button:hover {
     color: var(--color-gray-dark-text);
-    background-color: rgba(90, 93, 170, 0.1);
+    background-color: rgba(46, 77, 80, 0.1);
     z-index: 2;
 }
 
+/* Estilos para el botón de pestaña activo */
 .tab-button.active {
     color: var(--color-white);
     background-image: linear-gradient(45deg, var(--color-accent), var(--color-primary));
-    border-color: transparent;
     border-bottom-color: transparent;
-    z-index: 3;
-    box-shadow: 0 4px 10px rgba(90, 93, 170, 0.3);
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(46, 77, 80, 0.3);
 }
 
+/* Contenedor de formularios de pestaña */
 .pers-forms {
     width: 100%;
+    height: auto;
+    /* Se ajustará al contenido */
+    max-height: none;
+    /* No hay max-height en el pers-forms, el body es el que scrollea */
+    overflow-y: visible;
+    /* Asegura que el contenido fluya */
     position: relative;
-    min-height: auto;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
     box-sizing: border-box;
-    padding: 2.5rem 5rem;
+    padding: 2.5rem;
     padding-top: 4rem;
     background-color: var(--color-white);
-    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    border-radius: var(--border-radius);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
+/* Estilos para la barra de desplazamiento personalizada */
+.custom-scrollbar-track {
+    position: fixed;
+    /* Fija la barra al viewport */
+    right: 15px;
+    /* Posición a la derecha de la ventana */
+    top: 20px;
+    /* Desde la parte superior de la ventana */
+    bottom: 20px;
+    /* Desde la parte inferior de la ventana */
+    width: 8px;
+    /* Ancho de la pista */
+    background-color: rgba(81, 138, 153, 0.1);
+    /* Color del fondo de la pista (P 120-5 U con opacidad) */
+    border-radius: 4px;
+    opacity: 0;
+    /* Invisible por defecto */
+    transition: opacity 0.3s ease;
+    /* Transición suave para la visibilidad */
+    z-index: 1000;
+    /* Asegura que esté por encima de otros elementos */
+}
+
+/* Visibilidad de la barra personalizada cuando se hace hover sobre el body o se arrastra */
+/* Eliminado el :hover en body, la visibilidad se controla por JS para todas las interacciones */
+.custom-scrollbar-track.active {
+    /* Clase 'active' para mantener visible al arrastrar o interactuar */
+    opacity: 1;
+    /* Visible al pasar el ratón por el body o al arrastrar */
+}
+
+.custom-scrollbar-thumb {
+    width: 100%;
+    background-color: rgba(46, 77, 80, 0.5);
+    /* Color del pulgar (P 123-16 U con opacidad) */
+    border-radius: 4px;
+    cursor: grab;
+    position: absolute;
+    /* Posicionado dentro de la pista */
+    top: 0;
+    left: 0;
+    height: 50px;
+    /* Altura inicial, se calculará con JS */
+    transition: background-color 0.2s ease;
+}
+
+.custom-scrollbar-thumb:active {
+    cursor: grabbing;
+    background-color: rgba(55, 96, 99, 0.7);
+    /* Color del pulgar al arrastrar (Accent con opacidad) */
+}
+
+
+/* Contenido de cada pestaña */
 .tab-content {
     display: none;
     padding: 0;
 }
 
+/* Contenido de la pestaña activa */
 .tab-content.active {
     display: block;
 }
 
+/* Títulos de sección dentro de las pestañas */
 .section-title {
     text-align: center;
     font-size: 1.6rem;
@@ -166,24 +268,30 @@ body {
     font-weight: 600;
 }
 
+/* Sección de formulario */
 .form-section {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
+/* Fila de formulario para agrupar inputs */
 .form-row {
     display: flex;
-    gap: 1rem;
     flex-wrap: wrap;
+    gap: 1rem;
 }
 
-.form-row .input-group {
+/* Grupo de input */
+.input-group {
     flex: 1;
     min-width: 250px;
     margin-bottom: 0;
+    position: relative;
+    /* Necesario para posicionar label e icono */
 }
 
+/* Grupo de checkbox */
 .checkbox-group {
     display: flex;
     align-items: center;
@@ -191,11 +299,11 @@ body {
     margin-bottom: 0.8rem;
 }
 
+/* Estilos para el input de tipo checkbox */
 .checkbox-group input[type="checkbox"] {
     width: 1.2rem;
     height: 1.2rem;
     margin: 0;
-    flex-shrink: 0;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -206,39 +314,40 @@ body {
     transition: background-color 0.2s, border-color 0.2s;
 }
 
+/* Estilos para el checkbox marcado */
 .checkbox-group input[type="checkbox"]:checked {
     background-color: var(--color-primary);
     border-color: var(--color-primary);
 }
 
+/* Pseudo-elemento para el ícono de "check" en el checkbox marcado */
 .checkbox-group input[type="checkbox"]:checked::before {
     content: '\2713';
+    /* Unicode para un checkmark */
     display: block;
     color: var(--color-white);
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     text-align: center;
     line-height: 1.2rem;
 }
 
+/* Estilos para las etiquetas de los checkboxes */
 .checkbox-group label {
-    color: var(--color-text-dark);
+    color: var(--color-dark-text);
     font-size: 1rem;
     cursor: pointer;
     position: static;
-    transform: none;
+    pointer-events: none;
+    background: transparent;
     padding: 0;
-    background: none;
     border-radius: 0;
     z-index: auto;
 }
 
-.input-group {
-    position: relative;
-    margin-bottom: 0.8rem;
-}
-
+/* Estilos generales para inputs y selects */
 .input-group input,
-.input-group select {
+.input-group select,
+.input-group textarea {
     width: 100%;
     height: 3rem;
     padding: 0.8rem 1.2rem;
@@ -247,8 +356,8 @@ body {
     border-radius: 0.5rem;
     background-color: var(--color-white);
     font-family: "Montserrat", sans-serif;
-    color: var(--color-text-dark);
-    outline: none;
+    color: var(--color-dark-text);
+    font-size: 1rem;
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -256,127 +365,143 @@ body {
     box-sizing: border-box;
 }
 
+.input-group textarea {
+    height: auto;
+    min-height: 5rem;
+    resize: vertical;
+    padding-top: 0.8rem;
+}
+
+/* Ajuste de padding para selects */
 .input-group select {
     padding-top: 0.75rem;
 }
 
+/* Estilos para input/select en foco o con contenido */
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus,
 .input-group.is-active input::placeholder,
 .input-group.is-active select::placeholder,
+.input-group.is-active textarea::placeholder,
 .input-group input:focus::placeholder,
-.input-group select:focus::placeholder {
+.input-group select:focus::placeholder,
+.input-group textarea:focus::placeholder,
+.input-group.is-active input,
+.input-group.is-active select,
+.input-group.is-active textarea {
     color: transparent;
 }
 
-/* Para el input type="date", ocultar el placeholder por defecto */
-.input-group input[type="date"]::-webkit-datetime-edit-text,
+/* Ocultar placeholder por defecto para inputs de tipo date */
+.input-group input[type="date"]::-webkit-datetime-edit,
 .input-group input[type="date"]::-webkit-datetime-edit-month-field,
 .input-group input[type="date"]::-webkit-datetime-edit-day-field,
 .input-group input[type="date"]::-webkit-datetime-edit-year-field {
     color: transparent;
 }
 
-.input-group input[type="date"]:focus::-webkit-datetime-edit-text,
+/* Mostrar texto en inputs de tipo date cuando están en foco */
+.input-group input[type="date"]:focus::-webkit-datetime-edit,
 .input-group input[type="date"]:focus::-webkit-datetime-edit-month-field,
 .input-group input[type="date"]:focus::-webkit-datetime-edit-day-field,
 .input-group input[type="date"]:focus::-webkit-datetime-edit-year-field {
-    color: var(--color-text-dark);
+    color: var(--color-dark-text);
 }
 
+/* Estilos para input/select en foco */
 .input-group input:focus,
-.input-group select:focus {
+.input-group select:focus,
+.input-group textarea:focus {
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(90, 93, 170, 0.2);
-    /* Usar un rgba del color primary */
+    box-shadow: 0 0 0 3px rgba(46, 77, 80, 0.2);
     background-color: var(--color-background-light);
 }
 
-.input-group label.input-label {
+/* Estilos para las etiquetas de input */
+.input-group .input-label {
     position: absolute;
     top: 0.9rem;
     left: 3.2rem;
-    color: #9e9e9e;
+    color: #8c969e;
     font-size: 1.05rem;
     pointer-events: none;
     background: transparent;
-    transition: all 0.3s cubic-bezier(.4, 1.7, .7, 1);
+    transition: all 0.3s cubic-bezier(.4, .7, .7, 1);
     z-index: 1;
 }
 
+/* Ajuste de posición inicial para la etiqueta de textarea */
+.input-group textarea+.input-label {
+    top: 0.8rem;
+}
+
+/* Movimiento de la etiqueta cuando el input está en foco o tiene contenido */
 .input-group input:focus+.input-label,
 .input-group select:focus+.input-label,
-.input-group.is-active .input-label {
-    font-size: 0.8rem;
+.input-group textarea:focus+.input-label,
+.input-group.is-active input+.input-label,
+.input-group.is-active select+.input-label,
+.input-group.is-active textarea+.input-label {
     top: -0.7rem;
-    left: 0.8rem;
+    font-size: 0.75rem;
     color: var(--color-primary);
-    padding: 0 0.4rem;
     background-color: var(--color-white);
-    border-radius: 0.3rem;
+    padding: 0 0.4rem;
+    left: 0.8rem;
     z-index: 2;
 }
 
+/* Estilos para el ícono dentro del input */
 .input-group .relative span {
     position: absolute;
-    top: 50%;
+    top: 0.8rem;
     left: 1rem;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     color: var(--color-gray-text);
     z-index: 5;
     pointer-events: none;
 }
 
-.input-group input:focus+.input-label+span,
-.input-group select:focus+.input-label+span {
+/* Ajuste para el ícono cuando la etiqueta se mueve */
+.input-group input:focus+.input-label+.relative span,
+.input-group select:focus+.input-label+.relative span,
+.input-group textarea:focus+.input-label+.relative span,
+.input-group.is-active input+.input-label+.relative span,
+.input-group.is-active select+.input-label+.relative span,
+.input-group.is-active textarea+.input-label+.relative span {
     color: var(--color-primary);
 }
 
-.input-group .relative select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
-    background-position: right 1.5rem center;
-    background-size: 1.5em;
-    background-repeat: no-repeat;
-}
-
-.domicilio {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-}
-
+/* Estilos para el botón de submit */
 .submit-button {
+    display: block;
+    width: 250px;
+    padding: 1.2rem 2.5rem;
+    margin: 2rem auto 0;
     background-image: linear-gradient(45deg, var(--color-accent), var(--color-primary));
+    color: var(--color-white);
     border: none;
     border-radius: 1.2rem;
-    color: var(--color-white);
-    cursor: pointer;
-    font-family: "Montserrat", sans-serif;
-    /* Cambiado a Montserrat */
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 600;
-    letter-spacing: 0.05em;
-    padding: 1.2rem 2.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    z-index: 1;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-    transition: all 0.3s ease;
-    margin-top: 2.5rem;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
+/* Efecto hover para el botón de submit */
 .submit-button:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     filter: brightness(1.1);
 }
 
+/* Efecto ::before para el botón de submit (onda) */
 .submit-button::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -388,12 +513,14 @@ body {
     z-index: 0;
 }
 
+/* Efecto hover para el ::before del botón de submit */
 .submit-button:hover::before {
     clip-path: circle(120% at 50% 50%);
 }
 
-
 /* Media Queries */
+
+/* Pantallas grandes (max-width: 1400px) */
 @media (max-width: 1400px) {
     .pers-box {
         max-width: 1200px;
@@ -405,6 +532,7 @@ body {
     }
 }
 
+/* Pantallas medianas (max-width: 1200px) */
 @media (max-width: 1200px) {
     .pers-box {
         max-width: 1000px;
@@ -422,25 +550,32 @@ body {
 
     .input-group input,
     .input-group select {
-        font-size: 1rem;
+        font-size: 0.95rem;
         height: 2.8rem;
         padding: 0.7rem 1rem;
         padding-left: 2.8rem;
     }
 
     .input-group select {
-        padding-top: 0.65rem;
+        padding-top: 0.6rem;
     }
 
     .input-group label.input-label {
         font-size: 0.9rem;
-        top: 0.7rem;
+        top: 0.9rem;
         left: 2.8rem;
+    }
+
+    .input-group textarea+.input-label {
+        top: 0.7rem;
     }
 
     .input-group input:focus+.input-label,
     .input-group select:focus+.input-label,
-    .input-group.is-active .input-label {
+    .input-group textarea:focus+.input-label,
+    .input-group.is-active input+.input-label,
+    .input-group.is-active select+.input-label,
+    .input-group.is-active textarea+.input-label {
         font-size: 0.75rem;
         top: -0.7rem;
         left: 0.8rem;
@@ -454,20 +589,9 @@ body {
         flex-direction: column;
         gap: 0.8rem;
     }
-
-    .form-row .input-group {
-        width: 100%;
-        min-width: unset;
-    }
-
-    .submit-button {
-        width: 200px;
-        font-size: 1.05rem;
-        padding: 0.9rem 0.5rem;
-        margin-top: 2rem;
-    }
 }
 
+/* Pantallas pequeñas (max-width: 992px) */
 @media (max-width: 992px) {
     .pers-box {
         max-width: 850px;
@@ -497,15 +621,22 @@ body {
 
     .input-group label.input-label {
         font-size: 0.9rem;
-        top: 0.7rem;
+        top: 0.9rem;
         left: 2.8rem;
+    }
+
+    .input-group textarea+.input-label {
+        top: 0.7rem;
     }
 
     .input-group input:focus+.input-label,
     .input-group select:focus+.input-label,
-    .input-group.is-active .input-label {
-        font-size: 0.75rem;
+    .input-group textarea:focus+.input-label,
+    .input-group.is-active input+.input-label,
+    .input-group.is-active select+.input-label,
+    .input-group.is-active textarea+.input-label {
         top: -0.7rem;
+        font-size: 0.75rem;
         left: 0.8rem;
     }
 
@@ -531,6 +662,7 @@ body {
     }
 }
 
+/* Móviles (max-width: 768px) */
 @media (max-width: 768px) {
     .pers-box {
         padding: 0;
@@ -552,7 +684,7 @@ body {
 
     .tab-button {
         padding: 0.75rem 1rem;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         border-radius: 9999px;
     }
 
@@ -589,11 +721,18 @@ body {
         left: 2.6rem;
     }
 
+    .input-group textarea+.input-label {
+        top: 0.5rem;
+    }
+
     .input-group input:focus+.input-label,
     .input-group select:focus+.input-label,
-    .input-group.is-active .input-label {
-        font-size: 0.7rem;
+    .input-group textarea:focus+.input-label,
+    .input-group.is-active input+.input-label,
+    .input-group.is-active select+.input-label,
+    .input-group.is-active textarea+.input-label {
         top: -0.7rem;
+        font-size: 0.7rem;
         left: 0.8rem;
     }
 
@@ -609,6 +748,7 @@ body {
     }
 }
 
+/* Móviles muy pequeños (max-width: 480px) */
 @media (max-width: 480px) {
     body {
         padding: 10px;
@@ -622,7 +762,6 @@ body {
     .pers-box h1 {
         font-size: 1.8rem;
         margin-bottom: 0.6rem;
-        margin-top: 1rem;
         padding: 0 0.8rem;
     }
 
@@ -633,7 +772,7 @@ body {
 
     .tab-button {
         padding: 0.6rem 0.8rem;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         border-radius: 9999px;
     }
 
@@ -655,7 +794,7 @@ body {
     .input-group input,
     .input-group select {
         height: 2.4rem;
-        padding: 0.5rem 0.8rem;
+        padding: 0.6rem 0.8rem;
         padding-left: 2.2rem;
         font-size: 0.9rem;
     }
@@ -666,15 +805,22 @@ body {
 
     .input-group label.input-label {
         font-size: 0.85rem;
-        top: 0.5rem;
+        top: 0.6rem;
         left: 2.2rem;
+    }
+
+    .input-group textarea+.input-label {
+        top: 0.4rem;
     }
 
     .input-group input:focus+.input-label,
     .input-group select:focus+.input-label,
-    .input-group.is-active .input-label {
-        font-size: 0.65rem;
+    .input-group textarea:focus+.input-label,
+    .input-group.is-active input+.input-label,
+    .input-group.is-active select+.input-label,
+    .input-group.is-active textarea+.input-label {
         top: -0.6rem;
+        font-size: 0.7rem;
         left: 0.8rem;
     }
 
@@ -685,8 +831,7 @@ body {
     .submit-button {
         width: 100%;
         font-size: 0.95rem;
-        padding: 0.8rem 0.5rem;
-        border-radius: 1rem;
+        padding: 0.8rem 0.6rem;
         margin-top: 1rem;
     }
 }
