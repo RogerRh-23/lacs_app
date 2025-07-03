@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     if (response.status === 401) {
                         setTimeout(() => {
                             localStorage.clear();
-                            window.location.href = 'login.html';
+                            window.location.href = 'login/login.html';
                         }, 2000);
                     }
                 }

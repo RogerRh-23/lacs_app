@@ -1,42 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Función para configurar la funcionalidad de las pestañas
     function setupTabs() {
-        const tabButtons = document.querySelectorAll('.tab-button'); // Selecciona todos los botones de pestaña
-        const tabContents = document.querySelectorAll('.tab-content'); // Selecciona todo el contenido de las pestañas
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
 
         // Añade un event listener a cada botón de pestaña
         tabButtons.forEach(button => {
             button.addEventListener('click', () => {
-                // Remueve la clase 'active' de todos los botones y contenidos de pestaña
                 tabButtons.forEach(btn => btn.classList.remove('active'));
                 tabContents.forEach(content => content.classList.remove('active'));
 
                 button.classList.add('active');
                 const tabId = button.dataset.tab;
                 document.getElementById(tabId).classList.add('active');
-
-                // Trigger a global scrollbar update after tab content changes
-                // This is important because the height of the content might change
-                // and the main script.js needs to recalculate the scrollbar.
-                // We use a custom event to communicate with the main script.js
                 window.dispatchEvent(new CustomEvent('persInfoContentChanged'));
             });
         });
 
-        // Manejo de la clase 'is-active' para las etiquetas de los inputs
-        // Esto hace que la etiqueta se mueva cuando el input está enfocado o tiene valor
         document.querySelectorAll('.input-group input, .input-group select, .input-group textarea').forEach(input => {
-            // Si el input ya tiene un valor al cargar la página, añade la clase 'is-active'
             if (input.value) {
                 input.closest('.input-group').classList.add('is-active');
             }
 
-            // Cuando el input obtiene el foco, añade la clase 'is-active'
             input.addEventListener('focus', () => {
                 input.closest('.input-group').classList.add('is-active');
             });
 
-            // Cuando el input pierde el foco, si no tiene valor, remueve la clase 'is-active'
             input.addEventListener('blur', () => {
                 if (!input.value) {
                     input.closest('.input-group').classList.remove('is-active');
@@ -45,42 +33,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Se asegura de que setupTabs se llame después de que persInfo.html se haya cargado.
-    // Esto es importante porque persInfo.html se carga dinámicamente en index.html.
     const mainContentArea = document.getElementById('main-content-area');
     if (mainContentArea) {
-        // Usa un MutationObserver para detectar cuando el contenido es añadido a main-content-area
         const observer = new MutationObserver((mutationsList, observer) => {
             for (const mutation of mutationsList) {
                 if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-                    // Verifica si los nodos añadidos contienen nuestra estructura de pestañas
                     if (mainContentArea.querySelector('.tab-buttons-container')) {
-                        setupTabs(); // Configura las pestañas una vez que el contenido está presente
-                        observer.disconnect(); // Desconecta el observer para evitar llamadas múltiples
+                        setupTabs();
+                        observer.disconnect();
                         break;
                     }
                 }
             }
         });
 
-        // Empieza a observar el mainContentArea por cambios en sus hijos
         observer.observe(mainContentArea, { childList: true, subtree: true });
-
-        // Si persInfo.html ya está cargado (por ejemplo, si es el contenido directo del body),
-        // llama a setupTabs directamente.
         if (mainContentArea.querySelector('.tab-buttons-container')) {
             setupTabs();
         }
     } else {
-        // En caso de que 'main-content-area' no exista, asume que el contenido de persInfo.html
-        // es el contenido directo del body y llama a setupTabs.
         setupTabs();
     }
 
-    // --- Lógica de Exportación a Excel (CSV) ---
-
-    // Define el orden de las columnas y sus encabezados EXACTAMENTE como en tu plantilla de Excel
-    // Asegúrate de que los 'name' de tus inputs en persInfo.html coincidan con estas claves.
     const columnOrder = [
         { name: 'nombre', header: 'Nombre(s)' },
         { name: 'apellido_paterno', header: 'Apellido Paterno' },
@@ -149,23 +123,20 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     /**
-     * Recopila todos los datos de los campos de formulario en todas las pestañas.
-     * @returns {Object} Un objeto con los nombres de los campos como claves y sus valores como valores.
+     * @returns {Object} 
      */
     const collectAllFormData = () => {
         const formData = {};
-        // Selecciona todos los inputs, selects y textareas dentro del contenedor de formularios
         const formElements = document.querySelectorAll('.pers-forms input, .pers-forms select, .pers-forms textarea');
 
         formElements.forEach(element => {
             const name = element.name;
             if (!name) {
-                // console.warn('Elemento de formulario sin atributo "name". No se incluirá en la exportación:', element);
-                return; // Ignorar elementos sin nombre
+                return;
             }
 
             if (element.type === 'checkbox') {
-                formData[name] = element.checked ? 'Sí' : 'No'; // Convertir booleano a texto legible
+                formData[name] = element.checked ? 'Sí' : 'No';
             } else {
                 formData[name] = element.value;
             }
@@ -174,71 +145,57 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     /**
-     * Convierte un objeto de datos en una cadena CSV, respetando el orden de las columnas.
-     * @param {Object} data - El objeto con los datos del formulario.
-     * @returns {string} La cadena CSV.
+     * @param {Object} data - 
+     * @returns {string}
      */
     const convertToCsv = (data) => {
-        // Generar los encabezados en el orden definido
         const headers = columnOrder.map(col => col.header);
 
-        // Generar la fila de datos en el orden definido
         const values = columnOrder.map(col => {
-            // Usa el nombre del campo (col.name) para obtener el valor del objeto de datos
-            const value = data[col.name] || ''; // Si el valor no existe, usa una cadena vacía
+            const value = data[col.name] || '';
             return escapeCsvValue(value);
         });
 
-        // Función para escapar valores CSV (manejar comas, comillas, saltos de línea)
         const escapeCsvValue = (value) => {
             if (value === null || value === undefined) {
                 return '';
             }
             let stringValue = String(value);
-            // Si el valor contiene comas, comillas dobles o saltos de línea, se encierra entre comillas dobles
             if (stringValue.includes(',') || stringValue.includes('"') || stringValue.includes('\n') || stringValue.includes('\r')) {
-                // Escapar comillas dobles dentro del valor duplicándolas
                 return `"${stringValue.replace(/"/g, '""')}"`;
             }
             return stringValue;
         };
 
-        // Unir los encabezados y valores
         const csvHeaders = headers.join(',');
         const csvRow = values.join(',');
 
-        return `${csvHeaders}\n${csvRow}`; // Retorna los encabezados seguidos de la fila de datos
+        return `${csvHeaders}\n${csvRow}`;
     };
 
     /**
-     * Descarga una cadena CSV como un archivo.
-     * @param {string} csvString - La cadena CSV a descargar.
-     * @param {string} filename - El nombre del archivo CSV.
+     * @param {string} csvString
+     * @param {string} filename
      */
     const downloadCsv = (csvString, filename = 'informacion_personal.csv') => {
-        // Crea un Blob con la cadena CSV y el tipo MIME adecuado
         const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement('a'); // Crea un elemento <a> temporal
+        const link = document.createElement('a');
 
-        // Verifica si el navegador soporta el atributo 'download'
         if (link.download !== undefined) {
-            const url = URL.createObjectURL(blob); // Crea una URL de objeto para el Blob
+            const url = URL.createObjectURL(blob);
             link.setAttribute('href', url);
-            link.setAttribute('download', filename); // Establece el nombre del archivo
-            link.style.visibility = 'hidden'; // Oculta el enlace
-            document.body.appendChild(link); // Añade el enlace al DOM
-            link.click(); // Simula un clic en el enlace para iniciar la descarga
-            document.body.removeChild(link); // Elimina el enlace del DOM
-            URL.revokeObjectURL(url); // Libera la URL del objeto Blob
+            link.setAttribute('download', filename);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
         } else {
-            // Fallback para navegadores antiguos que no soportan el atributo 'download'
-            // No usamos alert() aquí, sino un modal personalizado si es necesario.
             console.warn('Tu navegador no soporta la descarga directa. CSV generado en consola.');
-            console.log(csvString); // Muestra el CSV en la consola para que el usuario lo copie
+            console.log(csvString);
         }
     };
 
-    // --- Lógica de envío de formularios (ahora con exportación integrada) ---
     const forms = document.querySelectorAll('.pers-forms .tab-content');
     forms.forEach(formContent => {
         const submitButton = formContent.querySelector('.submit-button');
@@ -247,10 +204,9 @@ document.addEventListener('DOMContentLoaded', () => {
             submitButton.addEventListener('click', (event) => {
                 event.preventDefault();
 
-                // 1. Recopilar datos de la pestaña actual
                 const currentTabData = {};
                 formContent.querySelectorAll('input, select, textarea').forEach(input => {
-                    if (input.name) { // Asegúrate de que el input tenga un atributo 'name'
+                    if (input.name) {
                         if (input.type === 'checkbox') {
                             currentTabData[input.name] = input.checked ? 'Sí' : 'No';
                         } else {
@@ -260,7 +216,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 console.log(`Datos de la pestaña ${formContent.id} (guardado simulado):`, currentTabData);
 
-                // 2. Mostrar mensaje de confirmación (modal)
                 const showMessageModal = (message) => {
                     let modal = document.getElementById('customMessageModal');
                     if (!modal) {
@@ -321,7 +276,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Cálculo de edad para el campo de fecha de nacimiento (ya existente) ---
     const birthDateInput = document.getElementById('pers-fechNac');
     const ageInput = document.getElementById('pers-edad');
 
