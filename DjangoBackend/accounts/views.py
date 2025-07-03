@@ -20,9 +20,6 @@ class LoginView(APIView):
         username_or_email = request.data.get('username')
         password = request.data.get('password')
 
-        print(f"DEBUG: Intento de login para: {username_or_email}")
-        print(f"DEBUG: Contraseña recibida (no imprimir en producción): {password}")
-
         if not username_or_email or not password:
             return Response(
                 {"detail": "Por favor, proporciona un nombre de usuario/correo electrónico y una contraseña."},

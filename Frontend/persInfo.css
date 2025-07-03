@@ -18,7 +18,7 @@
     --color-success-border: #828a74;
     --color-success-text: #155724;
     --color-text-dark: #333;
-    --color-border-light: #e0e0e0;
+    --color-border-light: #8da2b1;
     --color-gray-text: #6b7280;
     --color-gray-dark-text: #1f2937;
 }
@@ -267,7 +267,6 @@ body {
     color: transparent;
 }
 
-/* Para el input type="date", ocultar el placeholder por defecto */
 .input-group input[type="date"]::-webkit-datetime-edit-text,
 .input-group input[type="date"]::-webkit-datetime-edit-month-field,
 .input-group input[type="date"]::-webkit-datetime-edit-day-field,
@@ -286,7 +285,6 @@ body {
 .input-group select:focus {
     border-color: var(--color-primary);
     box-shadow: 0 0 0 3px rgba(90, 93, 170, 0.2);
-    /* Usar un rgba del color primary */
     background-color: var(--color-background-light);
 }
 
@@ -353,7 +351,6 @@ body {
     color: var(--color-white);
     cursor: pointer;
     font-family: "Montserrat", sans-serif;
-    /* Cambiado a Montserrat */
     font-size: 1.2rem;
     font-weight: 600;
     letter-spacing: 0.05em;
@@ -392,8 +389,35 @@ body {
     clip-path: circle(120% at 50% 50%);
 }
 
+.input-group input,
+.input-group select,
+.input-group textarea {
+    color: #333;
+    padding: 10px 35px;
+    font-size: 1rem;
+}
 
-/* Media Queries */
+.input-group input::placeholder,
+.input-group textarea::placeholder {
+    color: rgba(234, 243, 250, 0.6);
+}
+
+.input-group.is-active input,
+.input-group.is-active select,
+.input-group.is-active textarea {
+    color: #333;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+    color: #333;
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+
+
 @media (max-width: 1400px) {
     .pers-box {
         max-width: 1200px;
