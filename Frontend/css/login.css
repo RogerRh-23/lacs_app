@@ -1,29 +1,3 @@
-:root {
-    --border-radius: 1rem;
-    --color-white: #fff;
-    --color-dark: #004B49;
-    --color-primary: #2e4d50;
-    --color-accent: #376063;
-    --color-background-light: #f7fafd;
-    --color-border-light: #e0e0e0;
-    --color-shadow-light: #d0eafc;
-    --color-shadow-medium: rgba(44, 62, 80, 0.08);
-    --color-gradient-start: #518A99;
-    --color-gradient-end: #2e4d50;
-}
-
-body {
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end));
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    overflow: hidden;
-    color: var(--color-text-dark);
-}
-
 .login-box {
     width: 90%;
     max-width: 480px;

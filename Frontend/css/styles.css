@@ -25,7 +25,9 @@
 body {
     margin: 0;
     font-family: "Montserrat", sans-serif;
-    background-image: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end));
+    background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end), #90e1ff, #033858);
+    background-size: 400% 4005;
+    animation: gradientAnimation 15s ease infinite;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -33,38 +35,69 @@ body {
     padding: 20px;
     box-sizing: border-box;
     color: var(--color-dark-text);
-}
+    overflow: visible;
+    -ms-overflow-style: auto;
 
-ul,
-menu {
-    list-style: none;
-    padding: 10px;
-    margin: 10px 0;
-}
+    ul,
+    menu {
+        list-style: none;
+        padding: 10px;
+        margin: 10px 0;
+    }
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
 
-a:hover {
-    color: #fff;
-}
+    a:hover {
+        color: #fff;
+    }
 
-html::-webkit-scrollbar,
-body::-webkit-scrollbar {
-    display: none;
-    width: 0;
-    height: 0;
-}
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+    }
 
-html,
-body {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    overflow: hidden;
-}
+    html,
+    body {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        overflow: hidden;
+    }
 
-html {
-    overflow-y: scroll;
+    html {
+        overflow-y: scroll;
+    }
+
+    @keyframes gradientAnimation {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .app-layout-wrapper {
+        display: flex;
+        width: 100%;
+        min-height: 100vh;
+        box-sizing: border-box;
+        padding: 0;
+    }
+
+    @media (max-width: 768px) {
+        .app-layout-wrapper {
+            flex-direction: column;
+            padding: 10px;
+        }
+    }
 }

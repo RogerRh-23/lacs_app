@@ -1,21 +1,3 @@
-:root {
-    --border-radius: 1rem;
-    --color-white: #ffffff;
-    --color-text-dark: #222836;
-    --color-primary: #2e4d50;
-    --color-accent: #376063;
-    --color-background-light: #f7fafd;
-    --color-border-light: #dbeafe;
-}
-
-body {
-    margin: 0;
-    font-family: "Poppins", sans-serif;
-    display: flex;
-    min-height: 100vh;
-    overflow: hidden;
-}
-
 .reports-box {
     width: 90%;
     max-width: 600px;
