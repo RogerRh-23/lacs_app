@@ -1,3 +1,42 @@
+:root {
+    --border-radius: 1rem;
+    --color-white: #fff;
+    --color-dark: #4d6480;
+    /* Pantone B 7693 U - Azul oscuro/grisáceo */
+    --color-primary: #2e4d50;
+    /* Pantone P 123-16 U - Azul/Púrpura oscuro */
+    --color-accent: #376063;
+    /* Tono complementario de P 123-16 U */
+    --color-background-light: #f9fafb;
+    --color-shadow-light: #d0eafc;
+    --color-shadow-medium: rgba(44, 62, 80, 0.08);
+    --color-gradient-start: #518A99;
+    /* Pantone P 120-5 U - Azul/Púrpura claro */
+    --color-gradient-end: #2e4d50;
+    /* Pantone P 123-16 U - Azul/Púrpura oscuro */
+    --color-success-bg: #d4edda;
+    --color-success-border: #828a74;
+    --color-success-text: #155724;
+    --color-text-dark: #333;
+    --color-border-light: #8da2b1;
+    --color-gray-text: #6b7280;
+    --color-gray-dark-text: #1f2937;
+}
+
+body {
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+    background-image: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    color: var(--color-text-dark);
+}
+
 .pers-box {
     width: 95%;
     max-width: 1300px;
