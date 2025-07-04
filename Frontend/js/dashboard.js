@@ -8,7 +8,7 @@ async function initDashboard() {
 
     async function loadSidebar() {
         try {
-            const response = await fetch('sidebar.html');
+            const response = await fetch('/Frontend/html/sidebar.html');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -22,7 +22,7 @@ async function initDashboard() {
                 document.body.appendChild(sidebarElement);
                 console.log("Sidebar loaded successfully and appended to body.");
             } else {
-                console.error("Error: #sidebar element not found in sidebar.html content.");
+                console.error("Error: #sidebar element not found in /Frontend/html/sidebar.html content.");
             }
         } catch (error) {
             console.error("Error loading sidebar:", error);
@@ -40,7 +40,7 @@ async function initDashboard() {
 
         if (!jwtToken || !userRole || !username) {
             console.log("No JWT token, user role or username found. Redirigiendo a login.");
-            window.location.href = 'login.html';
+            window.location.href = '/login.html';
             return;
         }
 
@@ -61,7 +61,7 @@ async function initDashboard() {
             localStorage.removeItem('role');
             localStorage.removeItem('username');
             console.log("User logged out. Clearing localStorage and redirecting to login.");
-            window.location.href = 'login/login.html';
+            window.location.href = '/login.html';
         });
     } else {
         console.warn("Logout button with ID 'sidebar-logout-button' not found after sidebar load.");

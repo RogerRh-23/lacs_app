@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const sidebarPlaceholder = document.getElementById('sidebar-placeholder');
     if (sidebarPlaceholder) {
         try {
-            const response = await fetch('sidebar.html');
+            const response = await fetch('/Frontend/html/sidebar.html');
             const sidebarHtml = await response.text();
             sidebarPlaceholder.innerHTML = sidebarHtml;
 
@@ -13,10 +13,10 @@ document.addEventListener('DOMContentLoaded', async function () {
                 console.error("La función 'initDashboard' no se encontró. Asegúrate de que dashboard.js se carga antes de home.js.");
             }
         } catch (error) {
-            console.error("Error al cargar sidebar.html:", error);
+            console.error("Error al cargar /Frontend/html/sidebar.html:", error);
         }
     } else {
-        console.warn("Elemento 'sidebar-placeholder' no encontrado en home.html. El sidebar no se cargará.");
+        console.warn("Elemento 'sidebar-placeholder' no encontrado en /Frontend/html/home.html. El sidebar no se cargará.");
     }
 
     const accessToken = localStorage.getItem('accessToken');
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const fetchProtectedDataButton = document.getElementById('fetchProtectedData');
 
     if (!accessToken) {
-        window.location.href = 'login.html';
+        window.location.href = '/login.html';
         return;
     }
 
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     if (response.status === 401) {
                         setTimeout(() => {
                             localStorage.clear();
-                            window.location.href = 'login/login.html';
+                            window.location.href = '/login.html';
                         }, 2000);
                     }
                 }

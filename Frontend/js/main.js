@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingOverlay = document.getElementById('loading-overlay');
 
     if (!loginForm || !messageBox || !loadingOverlay) {
-        console.error("Uno o más elementos HTML críticos no se encontraron en login/login.html. Por favor, revisa tus IDs y clases.");
+        console.error("Uno o más elementos HTML críticos no se encontraron en /login.html. Por favor, revisa tus IDs y clases.");
         console.log("Estado de elementos:");
         console.log("   loginForm:", loginForm);
         console.log("   messageBox:", messageBox);
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (data.username) {
                         localStorage.setItem('username', data.username);
                     }
-                    window.location.href = "home/home.html";
+                    window.location.href = "/Frontend/html/home.html";
 
                 } else {
                     let errorMessage = "Usuario o contraseña incorrectos.";

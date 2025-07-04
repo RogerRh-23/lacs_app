@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de Sesión</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="/Frontend/css/styles.css">
+    <link rel="stylesheet" href="/Frontend/css/login.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="/manifest.json">
 </head>
 
 <body>
@@ -42,8 +43,22 @@
 
     <div id="message-box" class="message-box hidden"></div>
 
-    <script src="animations.js"></script>
-    <script src="main.js"></script>
+    <script src="/Frontend/js/animations.js"></script>
+    <script src="/Frontend/js/main.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((reg) => {
+                        console.log('Service Worker registrado con éxito:', reg);
+                    })
+                    .catch((err) => {
+                        console.error('Fallo en el registro del Service Worker:', err);
+                    });
+            });
+        }
+    </script>
 </body>
 
 </html>
