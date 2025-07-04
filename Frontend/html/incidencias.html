@@ -8,39 +8,109 @@
     <link rel="stylesheet" href="/Frontend/css/styles.css">
     <link rel="stylesheet" href="/Frontend/css/sidebar.css">
     <link rel="stylesheet" href="/Frontend/css/incidencias.css">
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
     <div id="sidebar-placeholder"></div>
 
-    <main class="content">
-        <nav class="reports-box">
-            <div class="reports-tabs">
-                <button class="newReport-tab active" id="newReport-tab-btn">Nuevo Reporte</button>
-                <button class="newReport-tab" id="viewReport-tab-btn">Ver Reportes</button>
-                <div class="tab-indicator"></div>
+    <div class="incidencias-box">
+        <div class="main-content-wrapper">
+            <div class="tab-buttons-container">
+                <button class="tab-button active" data-tab="Nueva incidencia">Nueva Incidencia</button>
+                <button class="tab-button" data-tab="Ver incidencias">Ver Incidencias</button>
+                </dv>
             </div>
-            <div class="reports-forms">
-                <form id="reports-form" class="tab-form">
-                    <div class="input-group">
-                        <input type="text" list="Tipos" id="reports-types" required placeholder=" ">
-                        <label for="reports-types">Tipo de reporte
-                            <datalist id="Tipos">
-                                <option value="T1"></option>
-                                <option value="T2"></option>
-                                <option value="T3"></option>
-                                <option value="T4"></option>
-                            </datalist>
-                        </label>
+        </div>
+
+        <div class="incidencias-forms">
+            <div id="generar incidencia" class="tab-content active">
+                <h3 class="section-title">Incidencia</h3>
+                <div class="form-section">
+                    <div class="form-row">
+                        <div class="input-group">
+                            <div class="relative">
+                                <span><i class="far fa-tasks"></i></span>
+                                <select id="inc-Proyecto" name="proyecto" required>
+                                    <option value="" disabled selected></option>
+                                    <option value="P1">Proyecto 1</option>
+                                    <option value="P2">Proyecto 2</option>
+                                </select>
+                                <label for="inc-subpro" class="input-label">Proyecto:</label>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <div class="relative">
+                                <span><i class="far fa-clipboard"></i></span>
+                                <input type="text" id="inc-cord" name="cordinador" placeholder=" " required>
+                                <label for="inc-cord" class="input-label">Cordinador:</label>
+                            </div>
+                        </div>
                     </div>
-                    <button class="save-button" type="submit">Guardar</button>
-                </form>
+                    <div class="form-row">
+                        <div class="input-group checkbox-group">
+                            <input type="checkbox" id="inc-planta" name="planta">
+                            <label for="inc-planta">263</label>
+                        </div>
+                        <div class="relative">
+                            <span><i class="far fa-user"></i></span>
+                            <select id="inc-name" name="nombre" required>
+                                <option value="" disabled selected></option>
+                            </select>
+                            <label for="inc-name" class="input-label">Nombre:</label>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-group checkbox-group">
+                            <input type="checkbox" id="inc-planta" name="planta">
+                            <label for="inc-planta">265</label>
+                        </div>
+                        <div class="input-group checkbox-group">
+                            <input type="checkbox" id="inc-planta" name="planta">
+                            <label for="inc-planta">266</label>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <div class="relative">
+                                <span><i class="far fa-folder-open"></i></span>
+                                <select id="inc-subpro" name="subroyecto" required>
+                                    <option value="" disabled selected></option>
+                                    <option value="SubP1">Subproyecto 1</option>
+                                    <option value="SubP2">Subproyecto 2</option>
+                                    <option value="SubP3">Subproyecto 3</option>
+                                </select>
+                                <label for="inc-subpro" class="input-label">Subproyecto:</label>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <div class="relative">
+                                <span><i class="far fa-hourglass-half"></i></span>
+                                <select id="inc-turno" name="turno" required>
+                                    <option value="" disabled selected></option>
+                                    <option value="dia">Día</option>
+                                    <option value="noche">Noche</option>
+                                    <option value="ambos">Día/Noche</option>
+                                </select>
+                                <label for="inc-subpro" class="input-label">Turno:</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="submit-button" type="submit">Guardar</button>
             </div>
-        </nav>
-    </main>
+        </div>
+
+
+        <div class="custom-scrollbar-track">
+            <div class="custom-scrollbar-thumb"></div>
+        </div>
+    </div>
 
     <script src="/Frontend/js/animations.js"></script>
     <script src="/Frontend/js/dashboard.js"></script>
+    <script src="/Frontend/js/scrollbar.js"></script>
 </body>
 
 </html>

@@ -73,16 +73,6 @@ body {
     transform: scale(1.01);
 }
 
-.pers-box h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--color-primary);
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    text-align: center;
-    padding: 0 2rem;
-}
-
 .tab-buttons-container {
     display: flex;
     justify-content: center;
@@ -415,8 +405,6 @@ body {
     outline: none;
     border-color: var(--color-primary);
 }
-
-
 
 @media (max-width: 1400px) {
     .pers-box {
