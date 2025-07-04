@@ -9,14 +9,17 @@ const urlsToCache = [
     '/Frontend/html/persInfo.html', // Si cargas persInfo.html dinámicamente, también debe estar en caché
     '/Frontend/html/sidebar.html', // Si cargas sidebar.html dinámicamente
     '/Frontend/html/home.html',
+    '/Frontend/html/incidencias.html',
     '/Frontend/css/style.css',
     '/Frontend/css/sidebar.css',
     '/Frontend/css/scrollbar.css',
     '/Frontend/css/persInfo.css',
+    '/Frontend/css/incidencias.css',
     '/Frontend/js/animations.js',
     '/Frontend/js/dashboard.js',
     '/Frontend/js/scrollbar.js',
     '/Frontend/js/persInfo.js',
+    '/Frontend/js/incidencias.js',
     '/Frontend/js/main.js',
     '/manifest.json',
     '/Frontend/icons/icon-72x72.png',
