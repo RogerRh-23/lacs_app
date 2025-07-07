@@ -1,17 +1,3 @@
-:root {
-    --border-radius: 1rem;
-    --color-white: #fff;
-    --color-dark: #004B49;
-    --color-primary: #2e4d50;
-    --color-accent: #376063;
-    --color-background-light: #f7fafd;
-    --color-border-light: #e0e0e0;
-    --color-shadow-light: #d0eafc;
-    --color-shadow-medium: rgba(44, 62, 80, 0.08);
-    --color-gradient-start: #518A99;
-    --color-gradient-end: #2e4d50;
-}
-
 body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
@@ -49,32 +35,23 @@ body {
 }
 
 .tab-form {
-    /* Ahora solo es el formulario de login */
     opacity: 1;
-    /* Siempre visible */
     visibility: visible;
-    /* Siempre visible */
     position: relative;
-    /* En el flujo normal del documento */
     top: 0;
     left: 0;
     width: 100%;
     display: flex;
-    /* Asegura que los elementos internos se apilen */
     flex-direction: column;
     gap: 1.5rem;
     align-items: stretch;
     box-sizing: border-box;
     padding: 0;
-    /* Eliminado padding horizontal, ya lo maneja el login-box */
     transform: translateX(0);
-    /* Siempre en posición */
     animation: none;
-    /* No necesitamos animación de entrada */
 }
 
 .form-title {
-    /* Nuevo estilo para el título del formulario */
     font-size: 2rem;
     font-weight: 700;
     color: var(--color-primary);
@@ -86,7 +63,6 @@ body {
 .input-group {
     position: relative;
     margin-bottom: 0;
-    /* Manejado por el gap del form */
 }
 
 .input-group input {
@@ -134,7 +110,6 @@ body {
 
 
 .login-button {
-    /* Solo un tipo de botón ahora */
     position: relative;
     background: linear-gradient(45deg, var(--color-accent), var(--color-primary));
     border: none;
@@ -248,7 +223,6 @@ body {
 }
 
 .message-box {
-    /* Estilo para el mensaje de éxito/error */
     position: fixed;
     bottom: 20px;
     left: 50%;
@@ -270,9 +244,6 @@ body {
     opacity: 1;
     visibility: visible;
 }
-
-/* Eliminado registration-success-message y sus estilos */
-
 
 @media (max-width: 600px) {
     .login-box {

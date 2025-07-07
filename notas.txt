@@ -1,59 +1,13 @@
- - Datos a solicitar:
-  - NSS (numero de seguridad social) YA ESTA INTEGRADO
-  - Apellido paterno YA ESTA INTEGRADO
-  - Apellido materno YA ESTA INTEGRADO
-  - Nombre(s) YA ESTA INTEGRADO
-  - RFC YA ESTA INTEGRADO
-  - CURP YA ESTA INTEGRADO
-  - Domicilio YA ESTA INTEGRADO
-  - Puesto o categoria
-  - Actividades que realizara el trabajador
-  - Nombre de la empresa del cliente
-  - RFC de la empresa del cliente
-  - Tipo de salario
-  - SD 
-  - Factor integracion
-  - SDI 
-  - Empresa pagadora
-  - Fecha con la que estadado de alta del imss
-  - Cedito Infonaviit
-  - Numero
-  - Registro patronal
-  - Clase RT
-
-  - Edad 
-  - Estado civil YA ESTA INTEGRADO
-  - Sexo YA ESTA INTEGRADO
-  - Nacionalidad YA ESTA INTEGRADO
-  - Domicilio donde labora
-  - Tipo de contrato (Determinado, obra determinada, indeterminado o periodo de prueba)
-  - Tiempo de duracion (Si es determinado), nombre de proyecto si es por obra
-  - En que consiste el proyecto (Obra determinada)
-  - Forma de pago (Quincenal o semanal asi como los dias en los que se cubriran los salarios vencidos)
-  - Se le va reconocer antigüedad
-  - Fecha de antigüedad con el cliente
-  - Nombre completo del (los) beneficiario(s) y porcentaje
-  - Giro de la empresa del cliente
-
-  - Sueldo mensual bruto
-  - Sueldo mensual neto (De acuerdo al parametro de calculo de Excel)
-  - Lugar de nacimiento
-  - Fecha de nacimiento YA ESTA INTEGRADO
-  - UMF
-  - Cuenta bancaria
-  - Clave interbancaria
-  - Banco
-  - Pensionado
-  - Pension alimenticia
-  - Viajero
-  - Foraneo
-  - Incapacidad beneficiarios
-  - Tratamiento medico beneficiarios
-  - Maternidad
-  - Hijo
 - Crear menus diferentes para cada rol (para esto tengo que saber los roles y sus funciones)
-- Hacer la interfaz para crear/editar reportes
+- Hacer la interfaz para crear/editar incidencias
 - Hacer la interfaz para consultar el historial de cambios
 - Hacer la interfaz para consultar la lista de usuarios
 - Conectar de forma correcta el backend con el forntend
 - Conectar con una base de datos ya permanente
+
+
+Objetivo principal: Automatizar el proceso de realizacion de incidencias/reportes que realiza el personal.
+- Objetivos secundarios:
+ - Atomatizar la generacion de altas del IMSS.
+ - Hacer mas simple el proceso de cobranza.
+ - Tener un control del personal.

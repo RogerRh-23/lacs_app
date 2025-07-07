@@ -13,10 +13,10 @@ document.addEventListener('DOMContentLoaded', async function () {
                 console.error("La función 'initDashboard' no se encontró. Asegúrate de que dashboard.js se carga antes de home.js.");
             }
         } catch (error) {
-            console.error("Error al cargar /Frontend/html/sidebar.html:", error);
+            console.error("Error al cargar /sidebar.html:", error);
         }
     } else {
-        console.warn("Elemento 'sidebar-placeholder' no encontrado en /Frontend/html/home.html. El sidebar no se cargará.");
+        console.warn("Elemento 'sidebar-placeholder' no encontrado en /home.html. El sidebar no se cargará.");
     }
 
     const accessToken = localStorage.getItem('accessToken');

@@ -1,4 +1,3 @@
-/* Variables CSS para colores y radios de borde */
 :root {
     --border-radius: .8rem;
     --color-white: #fff;
@@ -24,30 +23,20 @@
     --color-gray-dark-text: #1f2937;
 }
 
-/* Ocultar la barra de desplazamiento nativa para WebKit (Chrome, Safari, Edge, Opera) */
-/* Aplicar a html y body para asegurar que se oculte en todos los casos */
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
     display: none;
-    /* Oculta la barra de desplazamiento */
     width: 0;
-    /* Asegura que no ocupe espacio */
     height: 0;
 }
 
-/* Ocultar la barra de desplazamiento nativa para Firefox */
-/* Aplicar a html y body para asegurar que se oculte en todos los casos */
 html,
 body {
     scrollbar-width: none;
-    /* Oculta la barra de desplazamiento */
     -ms-overflow-style: none;
-    /* Para IE/Edge */
     overflow: hidden;
-    /* Oculta cualquier desbordamiento que pueda causar scrollbars */
 }
 
-/* Estilos generales del cuerpo */
 body {
     margin: 0;
     font-family: "Montserrat", sans-serif;
@@ -55,22 +44,17 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    /* Alinea al inicio para que el contenido fluya */
     min-height: 100vh;
     padding: 20px;
     box-sizing: border-box;
     color: var(--color-dark-text);
-    /* No se necesita overflow-y: scroll aquí, ya que el scroll lo manejará document.documentElement y la barra personalizada */
 }
 
-/* Asegurar que el elemento html pueda desplazarse si es necesario */
 html {
     overflow-y: scroll;
-    /* Permite el desplazamiento en el elemento html */
 }
 
 
-/* Contenedor principal de la caja de información personal */
 .pers-box {
     width: 95%;
     max-width: 1300px;
@@ -87,7 +71,6 @@ html {
     box-sizing: border-box;
 }
 
-/* Efecto ::before para el fondo de la caja */
 .pers-box::before {
     content: '';
     position: absolute;
@@ -103,14 +86,12 @@ html {
     transition: all 0.3s ease;
 }
 
-/* Efecto hover para la caja */
 .pers-box:hover::before {
     filter: blur(12px);
     opacity: 0.9;
     transform: scale(1.01);
 }
 
-/* Estilos del título principal */
 .pers-box h1 {
     font-size: 2.5rem;
     font-weight: 700;
@@ -120,7 +101,6 @@ html {
     padding: 0.5rem;
 }
 
-/* Contenedor de botones de pestaña */
 .tab-buttons-container {
     display: flex;
     justify-content: center;
@@ -137,10 +117,8 @@ html {
     white-space: nowrap;
     z-index: 10;
     padding: 0.3rem 0.5rem;
-    /* Ajuste para móviles */
 }
 
-/* Estilos de los botones de pestaña */
 .tab-button {
     padding: 0.75rem 1.5rem;
     font-weight: 600;
@@ -157,14 +135,12 @@ html {
     box-shadow: none;
 }
 
-/* Efecto hover para los botones de pestaña */
 .tab-button:hover {
     color: var(--color-gray-dark-text);
     background-color: rgba(46, 77, 80, 0.1);
     z-index: 2;
 }
 
-/* Estilos para el botón de pestaña activo */
 .tab-button.active {
     color: var(--color-white);
     background-image: linear-gradient(45deg, var(--color-accent), var(--color-primary));
@@ -173,15 +149,11 @@ html {
     box-shadow: 0 4px 10px rgba(46, 77, 80, 0.3);
 }
 
-/* Contenedor de formularios de pestaña */
 .pers-forms {
     width: 100%;
     height: auto;
-    /* Se ajustará al contenido */
     max-height: none;
-    /* No hay max-height en el pers-forms, el body es el que scrollea */
     overflow-y: visible;
-    /* Asegura que el contenido fluya */
     position: relative;
     display: flex;
     flex-direction: column;
@@ -194,71 +166,50 @@ html {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
-/* Estilos para la barra de desplazamiento personalizada */
 .custom-scrollbar-track {
     position: fixed;
-    /* Fija la barra al viewport */
     right: 15px;
-    /* Posición a la derecha de la ventana */
     top: 20px;
-    /* Desde la parte superior de la ventana */
     bottom: 20px;
-    /* Desde la parte inferior de la ventana */
     width: 8px;
-    /* Ancho de la pista */
     background-color: rgba(81, 138, 153, 0.1);
-    /* Color del fondo de la pista (P 120-5 U con opacidad) */
     border-radius: 4px;
     opacity: 0;
-    /* Invisible por defecto */
     transition: opacity 0.3s ease;
-    /* Transición suave para la visibilidad */
     z-index: 1000;
-    /* Asegura que esté por encima de otros elementos */
 }
 
-/* Visibilidad de la barra personalizada cuando se hace hover sobre el body o se arrastra */
-/* Eliminado el :hover en body, la visibilidad se controla por JS para todas las interacciones */
 .custom-scrollbar-track.active {
-    /* Clase 'active' para mantener visible al arrastrar o interactuar */
     opacity: 1;
-    /* Visible al pasar el ratón por el body o al arrastrar */
 }
 
 .custom-scrollbar-thumb {
     width: 100%;
     background-color: rgba(46, 77, 80, 0.5);
-    /* Color del pulgar (P 123-16 U con opacidad) */
     border-radius: 4px;
     cursor: grab;
     position: absolute;
-    /* Posicionado dentro de la pista */
     top: 0;
     left: 0;
     height: 50px;
-    /* Altura inicial, se calculará con JS */
     transition: background-color 0.2s ease;
 }
 
 .custom-scrollbar-thumb:active {
     cursor: grabbing;
     background-color: rgba(55, 96, 99, 0.7);
-    /* Color del pulgar al arrastrar (Accent con opacidad) */
 }
 
 
-/* Contenido de cada pestaña */
 .tab-content {
     display: none;
     padding: 0;
 }
 
-/* Contenido de la pestaña activa */
 .tab-content.active {
     display: block;
 }
 
-/* Títulos de sección dentro de las pestañas */
 .section-title {
     text-align: center;
     font-size: 1.6rem;
@@ -268,30 +219,25 @@ html {
     font-weight: 600;
 }
 
-/* Sección de formulario */
 .form-section {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
-/* Fila de formulario para agrupar inputs */
 .form-row {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
 }
 
-/* Grupo de input */
 .input-group {
     flex: 1;
     min-width: 250px;
     margin-bottom: 0;
     position: relative;
-    /* Necesario para posicionar label e icono */
 }
 
-/* Grupo de checkbox */
 .checkbox-group {
     display: flex;
     align-items: center;
@@ -299,7 +245,6 @@ html {
     margin-bottom: 0.8rem;
 }
 
-/* Estilos para el input de tipo checkbox */
 .checkbox-group input[type="checkbox"] {
     width: 1.2rem;
     height: 1.2rem;
@@ -314,13 +259,11 @@ html {
     transition: background-color 0.2s, border-color 0.2s;
 }
 
-/* Estilos para el checkbox marcado */
 .checkbox-group input[type="checkbox"]:checked {
     background-color: var(--color-primary);
     border-color: var(--color-primary);
 }
 
-/* Pseudo-elemento para el ícono de "check" en el checkbox marcado */
 .checkbox-group input[type="checkbox"]:checked::before {
     content: '\2713';
     /* Unicode para un checkmark */
@@ -331,7 +274,6 @@ html {
     line-height: 1.2rem;
 }
 
-/* Estilos para las etiquetas de los checkboxes */
 .checkbox-group label {
     color: var(--color-dark-text);
     font-size: 1rem;
@@ -344,7 +286,6 @@ html {
     z-index: auto;
 }
 
-/* Estilos generales para inputs y selects */
 .input-group input,
 .input-group select,
 .input-group textarea {
@@ -372,12 +313,10 @@ html {
     padding-top: 0.8rem;
 }
 
-/* Ajuste de padding para selects */
 .input-group select {
     padding-top: 0.75rem;
 }
 
-/* Estilos para input/select en foco o con contenido */
 .input-group input:focus,
 .input-group select:focus,
 .input-group textarea:focus,
@@ -393,7 +332,6 @@ html {
     color: transparent;
 }
 
-/* Ocultar placeholder por defecto para inputs de tipo date */
 .input-group input[type="date"]::-webkit-datetime-edit,
 .input-group input[type="date"]::-webkit-datetime-edit-month-field,
 .input-group input[type="date"]::-webkit-datetime-edit-day-field,
@@ -401,7 +339,6 @@ html {
     color: transparent;
 }
 
-/* Mostrar texto en inputs de tipo date cuando están en foco */
 .input-group input[type="date"]:focus::-webkit-datetime-edit,
 .input-group input[type="date"]:focus::-webkit-datetime-edit-month-field,
 .input-group input[type="date"]:focus::-webkit-datetime-edit-day-field,
@@ -409,7 +346,6 @@ html {
     color: var(--color-dark-text);
 }
 
-/* Estilos para input/select en foco */
 .input-group input:focus,
 .input-group select:focus,
 .input-group textarea:focus {
@@ -418,7 +354,6 @@ html {
     background-color: var(--color-background-light);
 }
 
-/* Estilos para las etiquetas de input */
 .input-group .input-label {
     position: absolute;
     top: 0.9rem;
@@ -431,12 +366,10 @@ html {
     z-index: 1;
 }
 
-/* Ajuste de posición inicial para la etiqueta de textarea */
 .input-group textarea+.input-label {
     top: 0.8rem;
 }
 
-/* Movimiento de la etiqueta cuando el input está en foco o tiene contenido */
 .input-group input:focus+.input-label,
 .input-group select:focus+.input-label,
 .input-group textarea:focus+.input-label,
@@ -452,7 +385,6 @@ html {
     z-index: 2;
 }
 
-/* Estilos para el ícono dentro del input */
 .input-group .relative span {
     position: absolute;
     top: 0.8rem;
@@ -462,7 +394,6 @@ html {
     pointer-events: none;
 }
 
-/* Ajuste para el ícono cuando la etiqueta se mueve */
 .input-group input:focus+.input-label+.relative span,
 .input-group select:focus+.input-label+.relative span,
 .input-group textarea:focus+.input-label+.relative span,
@@ -472,7 +403,6 @@ html {
     color: var(--color-primary);
 }
 
-/* Estilos para el botón de submit */
 .submit-button {
     display: block;
     width: 250px;
@@ -493,13 +423,11 @@ html {
     letter-spacing: 0.05em;
 }
 
-/* Efecto hover para el botón de submit */
 .submit-button:hover {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     filter: brightness(1.1);
 }
 
-/* Efecto ::before para el botón de submit (onda) */
 .submit-button::before {
     content: '';
     position: absolute;
@@ -513,14 +441,10 @@ html {
     z-index: 0;
 }
 
-/* Efecto hover para el ::before del botón de submit */
 .submit-button:hover::before {
     clip-path: circle(120% at 50% 50%);
 }
 
-/* Media Queries */
-
-/* Pantallas grandes (max-width: 1400px) */
 @media (max-width: 1400px) {
     .pers-box {
         max-width: 1200px;
@@ -532,7 +456,6 @@ html {
     }
 }
 
-/* Pantallas medianas (max-width: 1200px) */
 @media (max-width: 1200px) {
     .pers-box {
         max-width: 1000px;
@@ -591,7 +514,6 @@ html {
     }
 }
 
-/* Pantallas pequeñas (max-width: 992px) */
 @media (max-width: 992px) {
     .pers-box {
         max-width: 850px;
@@ -662,7 +584,6 @@ html {
     }
 }
 
-/* Móviles (max-width: 768px) */
 @media (max-width: 768px) {
     .pers-box {
         padding: 0;
@@ -748,7 +669,6 @@ html {
     }
 }
 
-/* Móviles muy pequeños (max-width: 480px) */
 @media (max-width: 480px) {
     body {
         padding: 10px;

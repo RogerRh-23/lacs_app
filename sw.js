@@ -1,21 +1,28 @@
-// Nombre de la caché para esta versión de la PWA
 const CACHE_NAME = 'app-gestion-v1';
 
-// Lista de archivos que queremos cachear al instalar la PWA
-// Asegúrate de incluir todos los archivos HTML, CSS, JS, e íconos necesarios para el funcionamiento offline
 const urlsToCache = [
-    '/', // La raíz de tu aplicación
+    '/',
     '/login.html',
-    '/Frontend/html/persInfo.html', // Si cargas persInfo.html dinámicamente, también debe estar en caché
-    '/Frontend/html/sidebar.html', // Si cargas sidebar.html dinámicamente
+    '/Frontend/html/persInfo.html',
+    '/Frontend/html/sidebar.html',
     '/Frontend/html/home.html',
     '/Frontend/html/incidencias.html',
+    '/Frontend/html/settings.html',
+    '/Frontend/html/profile.html',
+    '/Frontend/html/logs.html',
+    '/Frontend/html/listEmp.html',
+    '/Frontend/html/bajs.html',
     '/Frontend/css/style.css',
+    '/Frontend/css/login.css',
+    '/Frontend/css/bajas.css',
+    '/Frontend/css/logs.css',
+    '/Frontend/css/incidentes.css',
     '/Frontend/css/sidebar.css',
     '/Frontend/css/scrollbar.css',
     '/Frontend/css/persInfo.css',
     '/Frontend/css/incidencias.css',
     '/Frontend/js/animations.js',
+    '/Frontend/js/home.js',
     '/Frontend/js/dashboard.js',
     '/Frontend/js/scrollbar.js',
     '/Frontend/js/persInfo.js',
@@ -80,7 +87,6 @@ self.addEventListener('fetch', (event) => {
 
                 return fetch(event.request)
                     .then((networkResponse) => {
-                        // Si la respuesta de la red es válida, la cachea para futuras solicitudes
                         if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
                             const responseToCache = networkResponse.clone();
                             caches.open(CACHE_NAME)
