@@ -1,8 +1,8 @@
 const CACHE_NAME = 'app-gestion-v1';
 
 const urlsToCache = [
-    '/',
-    '/login.html',
+    '/index.html',
+    '/Frontend/html/login.html',
     '/Frontend/html/persInfo.html',
     '/Frontend/html/sidebar.html',
     '/Frontend/html/home.html',

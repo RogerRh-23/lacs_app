@@ -2,7 +2,7 @@
     "name": "Gestión de Personal",
     "short_name": "Gestión Personal",
     "description": "Aplicación para la gestión de información de empleados, datos laborales, salariales e incidentes.",
-    "start_url": "/login.html",
+    "start_url": "/index.html",
     "display": "standalone",
     "background_color": "#f9fafb",
     "theme_color": "#2e4d50",

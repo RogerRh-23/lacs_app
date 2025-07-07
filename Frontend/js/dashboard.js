@@ -31,7 +31,7 @@ window.loadPageContent = async (pageUrl) => {
 
 async function loadSidebar() {
     try {
-        console.log("Intentando cargar /Frontend/html/sidebar.html...");
+        console.log("Intentando cargar html/sidebar.html...");
         const response = await fetch('/Frontend/html/sidebar.html');
 
         if (!response.ok) {
@@ -75,6 +75,11 @@ async function initDashboard() {
     const usernameDisplay = document.querySelector('.sidebar-user .username');
     const appLayoutWrapper = document.querySelector('.app-layout-wrapper');
 
+    console.log("Depuración de elementos:");
+    console.log("sidebar:", sidebar);
+    console.log("sidebarToggleButton:", sidebarToggleButton);
+    console.log("appLayoutWrapper:", appLayoutWrapper);
+
     function checkAuthAndRole() {
         const jwtToken = localStorage.getItem('accessToken');
         const userRole = localStorage.getItem('role');
@@ -86,7 +91,7 @@ async function initDashboard() {
 
         if (!jwtToken || !userRole || !username) {
             console.log("No se encontró token JWT, rol de usuario o nombre de usuario. Redirigiendo a login.");
-            window.location.href = '/login.html';
+            window.location.href = '/Frontend/html/login.html';
             return;
         }
 
@@ -97,7 +102,7 @@ async function initDashboard() {
 
         if (userRole === 'admin') {
             if (registerEmployeesLink) {
-                registerEmployeesLink.style.display = 'block';
+                registerEmployeesLink.style.display = 'block'; // Mostrar si es admin
             }
             console.log(`Usuario ${username} ha iniciado sesión como ADMIN.`);
         } else {
@@ -112,7 +117,7 @@ async function initDashboard() {
             localStorage.removeItem('role');
             localStorage.removeItem('username');
             console.log("Usuario ha cerrado sesión. Limpiando localStorage y redirigiendo a login.");
-            window.location.href = '/login.html';
+            window.location.href = '/Frontend/html/login.html';
         });
     } else {
         console.warn("Botón de cerrar sesión con ID 'sidebar-logout-button' no encontrado después de cargar la barra lateral.");
@@ -142,7 +147,7 @@ async function initDashboard() {
     checkAuthAndRole();
 
     loadPageContent('/Frontend/html/home.html');
-    console.log("Cargando contenido inicial: /Frontend/html/home.html");
+    console.log("Cargando contenido inicial: html/home.html");
 }
 
 document.addEventListener('DOMContentLoaded', initDashboard);
