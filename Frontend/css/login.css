@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end));
+    background: linear-gradient(135deg, var(--color-gradient-start), #99E1D9, var(--color-gradient-end));
     display: flex;
     justify-content: center;
     align-items: center;

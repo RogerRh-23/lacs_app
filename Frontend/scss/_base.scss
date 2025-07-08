@@ -1,0 +1,48 @@
+@import 'variables';
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+html {
+    scrollbar-width: none;
+}
+
+bodd {
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+    background: linear-gradient(135deg, $color-gradient-start, #bffff8, #699792, $color-gradient-end);
+    background-size: 400% 400%;
+    animation: gradientAnimation 5s ease infinite;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 0;
+    box-sizing: border-box;
+    color: $color-dark-text;
+    overflow: hidden;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+
+}
+
+html {
+    overflow-y: hidden;
+    height: 100%;
+}

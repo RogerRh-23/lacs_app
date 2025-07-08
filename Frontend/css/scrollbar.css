@@ -10,9 +10,9 @@
     --color-background-light: #f9fafb;
     --color-shadow-light: #d0eafc;
     --color-shadow-medium: rgba(44, 62, 80, 0.08);
-    --color-gradient-start: #518A99;
+    --color-gradient-start: #E1DFEA;
     /* Pantone P 120-5 U */
-    --color-gradient-end: #2e4d50;
+    --color-gradient-end: #202C39;
     /* Pantone P 123-16 U */
     --color-success-bg: #d4edda;
     --color-success-border: #828a74;
@@ -40,7 +40,7 @@ body {
 body {
     margin: 0;
     font-family: "Montserrat", sans-serif;
-    background-image: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end));
+    background-image: linear-gradient(135deg, var(--color-gradient-start), #99E1D9, var(--color-gradient-end));
     display: flex;
     justify-content: center;
     align-items: flex-start;
