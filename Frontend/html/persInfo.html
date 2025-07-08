@@ -98,6 +98,7 @@
                                     <option value="" disabled selected></option>
                                     <option value="masculino">Masculino</option>
                                     <option value="femenino">Femenino</option>
+                                    <option value="femenino">Otro</option>
                                 </select>
                                 <label for="pers-sex" class="input-label">Sexo:</label>
                             </div>
@@ -411,10 +412,13 @@
                     <div class="input-group">
                         <div class="relative">
                             <span><i class="fas fa-money-check-alt"></i></span>
-                            <input type="text" id="pers-formaPago" name="forma_pago" placeholder=" " required>
+                            <select id="pers-formaPago" name="forma_pago">
+                                <option value=" " disabled selected></option>
+                                <option value="quincenal">Quincenal</option>
+                                <option value="semanal">Semanal</option>
+                            </select>
                             <label for="pers-formaPago" class="input-label">Forma de Pago (Quincenal/Semanal y Días
-                                de
-                                Cobertura):</label>
+
                         </div>
                     </div>
                 </div>
@@ -458,18 +462,15 @@
                         </div>
                     </div>
                     <div class="input-group">
-                        <div class="relative">
-                            <span><i class="fas fa-home"></i></span>
-                            <input type="text" id="pers-creditoInfonavit" name="credito_infonavit" placeholder=" ">
+                        <div class="input-group checkbox-group">
+                            <input type="checkbox" id="pers-creditoInfonavit" name="pers-creditoInfonavit">
                             <label for="pers-creditoInfonavit" class="input-label">Crédito Infonavit:</label>
                         </div>
                     </div>
                     <div class="input-group">
-                        <div class="relative">
-                            <span><i class="fas fa-sort-numeric-up-alt"></i></span>
-                            <input type="text" id="pers-numInfonavit" name="numero_infonavit" placeholder=" ">
-                            <label for="pers-numInfonavit" class="input-label">Número Infonavit:</label>
-                        </div>
+                        <span><i class="fas fa-sort-numeric-up-alt"></i></span>
+                        <input type="text" id="pers-numInfonavit" name="numero_infonavit" placeholder=" ">
+                        <label for="pers-numInfonavit" class="input-label">Número Infonavit:</label>
                     </div>
                     <div class="input-group">
                         <div class="relative">
@@ -556,28 +557,54 @@
                 </div>
 
                 <h3 class="section-title">Beneficiarios</h3>
-                <div class="form-section">
-                    <div class="form-row">
-                        <div class="input-group">
-                            <div class="relative">
-                                <span><i class="fas fa-users"></i></span>
-                                <input type="text" id="pers-beneficiarioNombre" name="beneficiario_nombre"
-                                    placeholder=" ">
-                                <label for="pers-beneficiarioNombre" class="input-label">Nombre Completo del
-                                    Beneficiario(s):</label>
+
+                <!-- Contenedor para los beneficiarios existentes y los nuevos duplicados -->
+                <div id="beneficiaries-container">
+                    <!-- Plantilla del primer/único beneficiario (se clonará a partir de aquí) -->
+                    <!-- Es importante que este div tenga una clase que lo identifique como plantilla -->
+                    <div class="beneficiary-entry" data-beneficiary-index="0">
+                        <div class="form-row">
+                            <div class="input-group">
+                                <div class="relative">
+                                    <i class="fas fa-users"></i>
+                                    <input type="text" id="pers-beneficiarioNombre-0" name="beneficiario_nombre_0"
+                                        placeholder=" ">
+                                    <label for="pers-beneficiarioNombre-0" class="input-label">Nombre Completo del
+                                        Beneficiario(s):</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="input-group">
-                            <div class="relative">
-                                <span><i class="fas fa-percent"></i></span>
-                                <input type="number" id="pers-beneficiarioPorcentaje" name="beneficiario_porcentaje"
-                                    placeholder=" ">
-                                <label for="pers-beneficiarioPorcentaje" class="input-label">Porcentaje del
-                                    Beneficiario:</label>
+                        <div class="form-row">
+                            <div class="input-group">
+                                <div class="relative">
+                                    <i class="fas fa-percent"></i>
+                                    <input type="number" id="pers-beneficiarioPorcentaje-0"
+                                        name="beneficiario_porcentaje_0" placeholder=" ">
+                                    <label for="pers-beneficiarioPorcentaje-0" class="input-label">Porcentaje del
+                                        Beneficiario:</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Opcional: Botón para eliminar este beneficiario si hay más de uno -->
+                        <div class="form-row delete-button-container" style="display: none;">
+                            <div class="input-group">
+                                <button type="button" class="delete-beneficiary-btn">
+                                    <i class="fas fa-trash"></i> Eliminar Beneficiario
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <!-- Se pueden añadir más campos de beneficiarios si es necesario, replicando el form-row -->
+                </div>
+
+                <!-- Botón para añadir un nuevo beneficiario -->
+                <div class="form-row">
+                    <div class="input-group">
+                        <div class="relative">
+                            <i class="fas fa-plus"></i>
+                            <button type="button" id="add-beneficiary-btn" class="add-button">Añadir Otro
+                                Beneficiario</button>
+                        </div>
+                    </div>
                 </div>
 
                 <h3 class="section-title">Información Médica</h3>
@@ -590,20 +617,16 @@
                         </div>
                     </div>
                     <div class="input-group">
-                        <div class="relative">
-                            <span><i class="fas fa-wheelchair"></i></span>
-                            <input type="text" id="pers-incapacidadBenef" name="incapacidad_beneficiarios"
-                                placeholder=" ">
-                            <label for="pers-incapacidadBenef" class="input-label">Incapacidad:</label>
+                        <div class="input-group checkbox-group">
+                            <input type="checkbox" id="pers-incapacidad" name="pers-incapacidad">
+                            <label for="pers-incapacidad" class="input-label">Incapacidad:</label>
                         </div>
                     </div>
                     <div class="input-group">
-                        <div class="relative">
-                            <span><i class="fas fa-notes-medical"></i></span>
-                            <input type="text" id="pers-incapacidadBenef" name="incapacidad_beneficiarios"
-                                placeholder=" ">
-                            <label for="pers-incapacidadBenef" class="input-label">Incapacidad
-                                Beneficiarios:</label>
+                        <div class="input-group checkbox-group">
+                            <input type="checkbox" id="pers-incapacidadBenef" name="pers-incapacidadBenef">
+                            <label for="pers-incapacidadBenef" class="input-label">Incapacidad del
+                                Beneficiario:</label>
                         </div>
                     </div>
                     <div class="input-group">

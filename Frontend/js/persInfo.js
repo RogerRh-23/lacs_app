@@ -304,4 +304,92 @@ document.addEventListener('DOMContentLoaded', () => {
     if (birthDateInput) {
         birthDateInput.addEventListener('change', calculateAge);
     }
+
+    let beneficiaryCount = 1;
+
+    function initializeBeneficiaryLogic() {
+        console.log("Inicializando lógica de beneficiarios...");
+
+        const addBeneficiaryBtn = document.getElementById('add-beneficiary-btn');
+        const beneficiariesContainer = document.getElementById('beneficiaries-container');
+
+        if (!addBeneficiaryBtn || !beneficiariesContainer) {
+            console.warn("Elementos de beneficiarios (botón o contenedor) no encontrados. Lógica no inicializada.");
+            return;
+        }
+
+        addBeneficiaryBtn.addEventListener('click', () => {
+            console.log("Clic en Añadir Otro Beneficiario.");
+
+            const originalBeneficiaryEntry = beneficiariesContainer.querySelector('.beneficiary-entry[data-beneficiary-index="0"]');
+
+            if (!originalBeneficiaryEntry) {
+                console.error("No se encontró la plantilla del beneficiario original (beneficiary-entry[data-beneficiary-index='0']).");
+                return;
+            }
+
+            const newBeneficiaryEntry = originalBeneficiaryEntry.cloneNode(true);
+
+            newBeneficiaryEntry.setAttribute('data-beneficiary-index', beneficiaryCount);
+
+            const inputs = newBeneficiaryEntry.querySelectorAll('input');
+            inputs.forEach(input => {
+                const originalId = input.id;
+                const originalName = input.name;
+
+                input.id = originalId.replace(/-\d+$/, `-${beneficiaryCount}`);
+                input.name = originalName.replace(/_\d+$/, `_${beneficiaryCount}`);
+                input.value = '';
+
+                const label = newBeneficiaryEntry.querySelector(`label[for="${originalId}"]`);
+                if (label) {
+                    label.setAttribute('for', input.id);
+                }
+            });
+
+            const deleteButtonContainer = newBeneficiaryEntry.querySelector('.delete-button-container');
+            if (deleteButtonContainer) {
+                deleteButtonContainer.style.display = 'block';
+                const deleteBtn = deleteButtonContainer.querySelector('.delete-beneficiary-btn');
+                if (deleteBtn) {
+                    deleteBtn.addEventListener('click', () => {
+                        console.log(`Eliminando beneficiario con índice: ${newBeneficiaryEntry.dataset.beneficiaryIndex}`);
+                        newBeneficiaryEntry.remove();
+                    });
+                }
+            }
+
+            beneficiariesContainer.appendChild(newBeneficiaryEntry);
+            beneficiaryCount++;
+            console.log("Nuevo beneficiario añadido. Total de beneficiarios (contados por JS):", beneficiaryCount);
+        });
+
+        const initialDeleteBtnContainer = beneficiariesContainer.querySelector('.beneficiary-entry[data-beneficiary-index="0"] .delete-button-container');
+        if (initialDeleteBtnContainer) {
+            const initialDeleteBtn = initialDeleteBtnContainer.querySelector('.delete-beneficiary-btn');
+            if (initialDeleteBtn) {
+                initialDeleteBtn.addEventListener('click', () => {
+                    if (beneficiariesContainer.querySelectorAll('.beneficiary-entry').length > 1) {
+                        console.log("Eliminando beneficiario inicial (índice 0).");
+                        beneficiariesContainer.querySelector('.beneficiary-entry[data-beneficiary-index="0"]').remove();
+                    } else {
+                        console.log("No se puede eliminar el último beneficiario.");
+                    }
+                });
+            }
+        }
+    }
+
+    window.addEventListener('persInfoContentChanged', () => {
+        console.log("Evento 'persInfoContentChanged' recibido. Re-inicializando lógica de beneficiarios.");
+        beneficiaryCount = 1;
+        initializeBeneficiaryLogic();
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        if (document.getElementById('beneficiaries-container') && !window.loadPageContent) {
+            console.log("persInfo.js cargado directamente. Inicializando lógica de beneficiarios.");
+            initializeBeneficiaryLogic();
+        }
+    });
 });
