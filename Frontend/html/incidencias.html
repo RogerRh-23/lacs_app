@@ -1,116 +1,103 @@
-<!DOCTYPE html>
-<html lang="es">
+<div class="incidencias-page-container">
+    <h1 class="page-main-title section-title">Incidencias</h1>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Incidencias</title>
-    <link rel="stylesheet" href="/Frontend/css/styles.css">
-    <link rel="stylesheet" href="/Frontend/css/incidencias.css">
-    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
+    <!-- Contenedor de Pestañas -->
+    <div class="tab-navigation">
+        <button class="tab-button active" data-tab="nueva-incidencia">Nueva Incidencia</button>
+        <button class="tab-button" data-tab="ver-incidencias">Ver Incidencias</button>
+    </div>
 
-<body>
-    <div id="sidebar-placeholder"></div>
-
-    <div class="incidencias-box">
-        <div class="main-content-wrapper">
-            <div class="tab-buttons-container">
-                <button class="tab-button active" data-tab="Nueva incidencia">Nueva Incidencia</button>
-                <button class="tab-button" data-tab="Ver incidencias">Ver Incidencias</button>
-                </dv>
-            </div>
-        </div>
-
-        <div class="incidencias-forms">
-            <div id="generar incidencia" class="tab-content active">
-                <h3 class="section-title">Incidencias</h3>
-                <div class="form-section">
-                    <div class="form-row">
-                        <div class="input-group">
-                            <div class="relative">
-                                <span><i class="far fa-tasks"></i></span>
-                                <select id="inc-Proyecto" name="proyecto" required>
-                                    <option value="" disabled selected></option>
-                                    <option value="P1">Proyecto 1</option>
-                                    <option value="P2">Proyecto 2</option>
-                                </select>
-                                <label for="inc-subpro" class="input-label">Proyecto:</label>
-                            </div>
-                        </div>
-                        <div class="input-group">
-                            <div class="relative">
-                                <span><i class="far fa-clipboard"></i></span>
-                                <input type="text" id="inc-cord" name="cordinador" placeholder=" " required>
-                                <label for="inc-cord" class="input-label">Cordinador:</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="input-group checkbox-group">
-                            <input type="checkbox" id="inc-planta" name="planta">
-                            <label for="inc-planta">263</label>
-                        </div>
+    <!-- Contenido de la Pestaña "Nueva Incidencia" -->
+    <div id="nueva-incidencia" class="tab-content active">
+        <div class="form-section">
+            <h2 class="section-title">Reportar Nueva Incidencia</h2>
+            <form>
+                <div class="form-row">
+                    <div class="input-group">
                         <div class="relative">
-                            <span><i class="far fa-user"></i></span>
-                            <select id="inc-name" name="nombre" required>
-                                <option value="" disabled selected></option>
-                            </select>
-                            <label for="inc-name" class="input-label">Nombre:</label>
+                            <i class="fas fa-project-diagram"></i> <!-- Icono de proyecto -->
+                            <input type="text" id="incidenciaProyecto" name="incidenciaProyecto" placeholder=" "
+                                required>
                         </div>
+                        <label for="incidenciaProyecto" class="input-label">Proyecto:</label>
                     </div>
-                    <div class="form-row">
-                        <div class="input-group checkbox-group">
-                            <input type="checkbox" id="inc-planta" name="planta">
-                            <label for="inc-planta">265</label>
+                    <div class="input-group">
+                        <div class="relative">
+                            <i class="fas fa-user-tie"></i> <!-- Icono de coordinador -->
+                            <input type="text" id="incidenciaCoordinador" name="incidenciaCoordinador" placeholder=" "
+                                required>
                         </div>
-                        <div class="input-group checkbox-group">
-                            <input type="checkbox" id="inc-planta" name="planta">
-                            <label for="inc-planta">266</label>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="input-group">
-                            <div class="relative">
-                                <span><i class="far fa-folder-open"></i></span>
-                                <select id="inc-subpro" name="subroyecto" required>
-                                    <option value="" disabled selected></option>
-                                    <option value="SubP1">Subproyecto 1</option>
-                                    <option value="SubP2">Subproyecto 2</option>
-                                    <option value="SubP3">Subproyecto 3</option>
-                                </select>
-                                <label for="inc-subpro" class="input-label">Subproyecto:</label>
-                            </div>
-                        </div>
-                        <div class="input-group">
-                            <div class="relative">
-                                <span><i class="far fa-hourglass-half"></i></span>
-                                <select id="inc-turno" name="turno" required>
-                                    <option value="" disabled selected></option>
-                                    <option value="dia">Día</option>
-                                    <option value="noche">Noche</option>
-                                    <option value="ambos">Día/Noche</option>
-                                </select>
-                                <label for="inc-subpro" class="input-label">Turno:</label>
-                            </div>
-                        </div>
+                        <label for="incidenciaCoordinador" class="input-label">Coordinador:</label>
                     </div>
                 </div>
-                <button type="submit" class="submit-button" type="submit">Guardar</button>
-            </div>
-        </div>
-
-
-        <div class="custom-scrollbar-track">
-            <div class="custom-scrollbar-thumb"></div>
+                <div class="form-row">
+                    <div class="input-group">
+                        <div class="relative">
+                            <i class="fas fa-sitemap"></i> <!-- Icono de subproyecto -->
+                            <input type="text" id="incidenciaSubproyecto" name="incidenciaSubproyecto" placeholder=" "
+                                required>
+                        </div>
+                        <label for="incidenciaSubproyecto" class="input-label">Subproyecto:</label>
+                    </div>
+                    <div class="input-group">
+                        <div class="relative">
+                            <i class="fas fa-clock"></i> <!-- Icono de turno -->
+                            <select id="incidenciaTurno" name="incidenciaTurno" required>
+                                <option value="" disabled selected>Selecciona un turno</option>
+                                <option value="matutino">Matutino</option>
+                                <option value="vespertino">Vespertino</option>
+                                <option value="nocturno">Nocturno</option>
+                            </select>
+                        </div>
+                        <label for="incidenciaTurno" class="input-label">Turno:</label>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="input-group">
+                        <div class="relative">
+                            <i class="fas fa-info-circle"></i> <!-- Icono de descripción -->
+                            <textarea id="incidenciaDescripcion" name="incidenciaDescripcion" placeholder=" "
+                                rows="5"></textarea>
+                        </div>
+                        <label for="incidenciaDescripcion" class="input-label">Descripción Detallada:</label>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="submit-button">Guardar Incidencia</button>
+                    <button type="button" class="cancel-button">Cancelar</button>
+                </div>
+            </form>
         </div>
     </div>
 
-    <script src="/Frontend/js/animations.js"></script>
-    <script src="/Frontend/js/dashboard.js"></script>
-    <script src="/Frontend/js/scrollbar.js"></script>
-    <script src="/Frontend/js/incidencias.js"></script>
-</body>
+    <!-- Contenido de la Pestaña "Ver Incidencias" -->
+    <div id="ver-incidencias" class="tab-content">
+        <div class="form-section">
+            <h2 class="section-title">Listado de Incidencias</h2>
+            <p>Aquí se mostrará la tabla o lista de incidencias existentes.</p>
+            <!-- Puedes añadir una tabla aquí para mostrar las incidencias -->
+        </div>
+    </div>
+</div>
 
-</html>
+<script>
+    // Lógica JavaScript para las pestañas
+    document.addEventListener('DOMContentLoaded', () => {
+        const tabButtons = document.querySelectorAll('.tab-navigation .tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetTab = button.dataset.tab;
+
+                // Remover 'active' de todos los botones y contenidos
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                // Añadir 'active' al botón clicado y al contenido correspondiente
+                button.classList.add('active');
+                document.getElementById(targetTab).classList.add('active');
+            });
+        });
+    });
+</script>

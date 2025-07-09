@@ -17,6 +17,7 @@ window.loadPageContent = async (pageUrl) => {
         mainContentArea.innerHTML = contentHtml;
 
         console.log(`Contenido de ${pageUrl} cargado con éxito.`);
+        history.pushState({ path: pageUrl }, '', pageUrl);
 
         if (pageUrl === '/Frontend/html/persInfo.html') {
             window.dispatchEvent(new CustomEvent('persInfoContentChanged'));
@@ -64,24 +65,95 @@ async function loadSidebar() {
     }
 }
 
+let currentToggleClickListener = null;
+let currentMouseEnterListener = null;
+let currentMouseLeaveListener = null;
+
+function applySidebarBehavior() {
+    const sidebar = document.querySelector('.sidebar');
+    const sidebarToggleButton = document.getElementById('toggle-sidebar');
+    const appLayoutWrapper = document.querySelector('.app-layout-wrapper');
+
+    if (!sidebar || !sidebarToggleButton || !appLayoutWrapper) {
+        console.warn("Elementos de la barra lateral no encontrados para aplicar comportamiento.");
+        return;
+    }
+
+    if (currentToggleClickListener) {
+        sidebarToggleButton.removeEventListener('click', currentToggleClickListener);
+        currentToggleClickListener = null;
+    }
+    if (currentMouseEnterListener) {
+        sidebar.removeEventListener('mouseenter', currentMouseEnterListener);
+        currentMouseEnterListener = null;
+    }
+    if (currentMouseLeaveListener) {
+        sidebar.removeEventListener('mouseleave', currentMouseLeaveListener);
+        currentMouseLeaveListener = null;
+    }
+
+    if (window.innerWidth > 768) {
+        console.log("Aplicando comportamiento de HOVER para escritorio.");
+
+        sidebar.classList.add('closed');
+        appLayoutWrapper.classList.add('sidebar-closed');
+
+        currentMouseEnterListener = () => {
+            console.log("Mouse ENTER en sidebar (desktop).");
+            sidebar.classList.remove('closed');
+            appLayoutWrapper.classList.remove('sidebar-closed');
+        };
+        sidebar.addEventListener('mouseenter', currentMouseEnterListener);
+
+        currentMouseLeaveListener = () => {
+            console.log("Mouse LEAVE en sidebar (desktop).");
+            sidebar.classList.add('closed');
+            appLayoutWrapper.classList.add('sidebar-closed');
+        };
+        sidebar.addEventListener('mouseleave', currentMouseLeaveListener);
+        sidebarToggleButton.style.display = 'none';
+
+    } else {
+        console.log("Aplicando comportamiento de CLICK para móvil/tablet.");
+
+        sidebar.classList.add('closed');
+        appLayoutWrapper.classList.add('sidebar-closed');
+        sidebar.classList.remove('open-mobile');
+
+        currentToggleClickListener = () => {
+            console.log("Clic en botón de toggle (móvil/tablet).");
+            sidebar.classList.toggle('open-mobile');
+
+            if (sidebar.classList.contains('open-mobile')) {
+                sidebar.classList.remove('closed');
+            } else {
+                sidebar.classList.add('closed');
+            }
+
+            console.log("Estado de la barra lateral (móvil):", sidebar.classList.contains('open-mobile') ? 'abierta' : 'cerrada');
+            window.dispatchEvent(new CustomEvent('mainContentLoaded'));
+        };
+        sidebarToggleButton.addEventListener('click', currentToggleClickListener);
+
+        sidebarToggleButton.style.display = 'block';
+    }
+}
+
 async function initDashboard() {
     console.log("Iniciando initDashboard...");
 
     await loadSidebar();
+    applySidebarBehavior();
 
-    const sidebar = document.querySelector('.sidebar');
-    const sidebarToggleButton = document.getElementById('toggle-sidebar');
+    window.addEventListener('resize', () => {
+        console.log("Cambio de tamaño de ventana detectado. Re-aplicando comportamiento de sidebar.");
+        applySidebarBehavior();
+    });
+
     const registerEmployeesLink = document.getElementById('register-employees-link');
     const logoutButton = document.getElementById('sidebar-logout-button');
     const usernameDisplay = document.querySelector('.sidebar-user .username');
-    const appLayoutWrapper = document.querySelector('.app-layout-wrapper');
 
-    console.log("Depuración de elementos después de cargar sidebar:");
-    console.log("sidebar:", sidebar);
-    console.log("sidebarToggleButton:", sidebarToggleButton);
-    console.log("appLayoutWrapper:", appLayoutWrapper);
-
-    // Función para verificar autenticación y rol
     function checkAuthAndRole() {
         const jwtToken = localStorage.getItem('accessToken');
         const userRole = localStorage.getItem('role');
@@ -93,7 +165,7 @@ async function initDashboard() {
 
         if (!jwtToken || !userRole || !username) {
             console.log("No se encontró token JWT, rol de usuario o nombre de usuario. Redirigiendo a login.");
-            window.location.href = '/login.html';
+            window.location.href = 'login.html';
             return;
         }
 
@@ -119,38 +191,37 @@ async function initDashboard() {
             localStorage.removeItem('role');
             localStorage.removeItem('username');
             console.log("Usuario ha cerrado sesión. Limpiando localStorage y redirigiendo a login.");
-            window.location.href = '/login.html';
+            window.location.href = 'login.html';
         });
     } else {
         console.warn("Botón de cerrar sesión con ID 'sidebar-logout-button' no encontrado después de cargar la barra lateral.");
     }
 
-    if (sidebarToggleButton && sidebar && appLayoutWrapper) {
-        console.log("Elementos de toggle encontrados. Adjuntando event listener.");
-        sidebarToggleButton.addEventListener('click', () => {
-            console.log("Clic en el botón de toggle detectado.");
-            sidebar.classList.toggle('closed');
-            appLayoutWrapper.classList.toggle('sidebar-closed');
-
-            if (window.innerWidth <= 768) {
-                sidebar.classList.toggle('open-mobile');
-            }
-
-            console.log("Botón de alternar la barra lateral clicado. Estado de la barra lateral:", sidebar.classList.contains('closed') ? 'cerrada' : 'abierta');
-            window.dispatchEvent(new CustomEvent('mainContentLoaded'));
-        });
-    } else {
-        console.error("ERROR: Algunos elementos de alternancia de la barra lateral NO fueron encontrados después de cargar el sidebar. " +
-            "Verifica que #sidebar, #toggle-sidebar, y .app-layout-wrapper existan.");
-        if (!sidebarToggleButton) console.error("sidebarToggleButton es NULL.");
-        if (!sidebar) console.error("sidebar es NULL.");
-        if (!appLayoutWrapper) console.error("appLayoutWrapper es NULL.");
-    }
-
     checkAuthAndRole();
 
-    loadPageContent('/Frontend/html/home.html');
-    console.log("Cargando contenido inicial: html/home.html");
+    loadPageContent('html/home.html');
+    console.log("Cargando contenido inicial: /Frontend/html/home.html");
 }
+
+window.addEventListener('popstate', (event) => {
+    // Si el estado tiene una ruta, cárgala
+    if (event.state && event.state.path) {
+        console.log("Navegando con popstate a:", event.state.path);
+        loadPageContent(event.state.path);
+    } else {
+        // Si no hay estado (ej. al cargar la página por primera vez),
+        // carga la página inicial o la que corresponda a la URL actual
+        console.log("Popstate sin estado, cargando página actual o predeterminada.");
+        // Puedes poner aquí la lógica para cargar la página basada en window.location.pathname
+        // Por ejemplo, si tu URL es /Frontend/html/persInfo.html, cargar persInfo.html
+        const currentPath = window.location.pathname;
+        const lastSegment = currentPath.substring(currentPath.lastIndexOf('/') + 1);
+        if (lastSegment && lastSegment.endsWith('.html')) {
+            loadPageContent(`html/${lastSegment}`);
+        } else {
+            loadPageContent('/Frontend/html/home.html'); // O tu página por defecto
+        }
+    }
+});
 
 document.addEventListener('DOMContentLoaded', initDashboard);

@@ -1,13 +1,23 @@
-- Crear menus diferentes para cada rol (para esto tengo que saber los roles y sus funciones)
-- Hacer la interfaz para crear/editar incidencias
-- Hacer la interfaz para consultar el historial de cambios
-- Hacer la interfaz para consultar la lista de usuarios
-- Conectar de forma correcta el backend con el forntend
-- Conectar con una base de datos ya permanente
-
-
 Objetivo principal: Automatizar el proceso de realizacion de incidencias/reportes que realiza el personal.
 - Objetivos secundarios:
  - Atomatizar la generacion de altas del IMSS.
  - Hacer mas simple el proceso de cobranza.
  - Tener un control del personal.
+
+Tareas:
+ - Fraccionar persInfo.
+ - Corregir errores visuales.
+ - Añadir logos a la barra lateral:
+  - Identificador de empresas.
+ - Mejoras visuales.
+ - Animaciones.
+ - Pantallas de carga.
+ - Form de incidencias.
+ - Generador de Kardex.
+ - Notificaciones pop-up e historial de cambios.
+ - Corregirlos forms para que no permita avanzar hasta no llenar el form actual.
+ - Crear menus diferentes para cada rol (para esto tengo que saber los roles y sus funciones)
+ - Hacer la interfaz para consultar el historial de cambios
+ - Hacer la interfaz para consultar la lista de usuarios
+ - Conectar de forma correcta el backend con el forntend (William)
+ - Conectar con un servidor ya permanente (Por confirmar)

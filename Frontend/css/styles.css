@@ -13,7 +13,7 @@ html {
 body {
   margin: 0;
   font-family: "Montserrat", sans-serif;
-  background: linear-gradient(135deg, #518A99, #bffff8, #699792, #2e4d50);
+  background: linear-gradient(135deg, #518A99, #699792, #bffff8, #699792, #2e4d50);
   background-size: 400% 400%;
   animation: gradientAnimation 15s ease infinite;
   display: flex;
@@ -491,6 +491,7 @@ html {
     align-self: flex-end;
   }
 }
+/* Estilos generales para las secciones de formulario */
 .form-section {
   background-color: #fff;
   padding: 30px;
@@ -523,21 +524,26 @@ html {
   position: relative;
 }
 
+/* Contenedor relativo para el icono y el input */
 .input-group .relative {
   position: relative;
   width: 100%;
 }
 
+/* Estilos para los iconos dentro del input-group */
 .input-group .relative i {
   position: absolute;
   left: 15px;
+  /* Posición del icono desde la izquierda */
   top: 50%;
   transform: translateY(-50%);
   color: #6b7280;
   font-size: 1.1rem;
   z-index: 2;
+  /* Asegura que el icono esté por encima del input */
 }
 
+/* Estilos para los campos de entrada (input, select, textarea) */
 .input-group input[type=text],
 .input-group input[type=number],
 .input-group input[type=email],
@@ -546,7 +552,6 @@ html {
 .input-group select,
 .input-group textarea {
   width: 100%;
-  padding: 12px 15px 12px 45px;
   border: 1px solid #b0b0b0;
   border-radius: 0.8rem;
   font-size: 1rem;
@@ -554,6 +559,9 @@ html {
   background-color: #fff;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   box-sizing: border-box;
+  /* Ajustes de padding para la etiqueta flotante y el icono */
+  padding: 1.5rem 15px 0.8rem 45px;
+  /* top right bottom left */
 }
 
 .input-group input:focus,
@@ -564,32 +572,61 @@ html {
   outline: none;
 }
 
+/* Estilos para la etiqueta flotante */
 .input-label {
   position: absolute;
   left: 45px;
-  top: 50%;
-  transform: translateY(-50%);
+  /* Alineado con el padding del input para el texto */
+  top: 0.8rem;
+  /* Posición inicial de la etiqueta (arriba, pequeña) */
   color: #6b7280;
-  font-size: 1rem;
+  font-size: 0.75rem;
+  /* Tamaño inicial de la etiqueta (pequeña) */
   pointer-events: none;
-  transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  /* Permite hacer clic a través de la etiqueta */
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.7, 1);
   background-color: #fff;
+  /* Fondo para que "corte" el borde del input */
   padding: 0 5px;
   z-index: 1;
+  /* Asegura que la etiqueta esté sobre el input */
+  transform: translateY(0);
+  /* Evita transformaciones iniciales no deseadas */
 }
 
-.input-group input:focus + .input-label,
+/* Estilo para la etiqueta cuando el input está vacío y NO enfocado (placeholder visible) */
+.input-group input:placeholder-shown + .input-label,
+.input-group select:placeholder-shown + .input-label,
+.input-group textarea:placeholder-shown + .input-label {
+  top: 50%;
+  /* Posición cuando el placeholder está visible (centrado verticalmente) */
+  font-size: 1rem;
+  /* Tamaño normal */
+  transform: translateY(-50%);
+  /* Centrar verticalmente */
+  background: transparent;
+  /* Sin fondo */
+}
+
+/* Estilo para la etiqueta cuando el input tiene contenido O está enfocado */
 .input-group input:not(:placeholder-shown) + .input-label,
-.input-group select:focus + .input-label,
+.input-group input:focus + .input-label,
 .input-group select:not([value=""]) + .input-label,
-.input-group textarea:focus + .input-label,
-.input-group textarea:not(:placeholder-shown) + .input-label {
-  top: -10px;
-  font-size: 0.85rem;
+.input-group select:focus + .input-label,
+.input-group textarea:not(:placeholder-shown) + .input-label,
+.input-group textarea:focus + .input-label {
+  top: 0.8rem;
+  /* Posición cuando está flotando (arriba, pequeña) */
+  font-size: 0.75rem;
+  /* Tamaño pequeño */
   color: #2e4d50;
+  /* Color al flotar */
+  background-color: #fff;
+  padding: 0 5px;
   transform: translateY(0);
 }
 
+/* Asegúrate de que el placeholder sea transparente cuando la etiqueta está flotando */
 .input-group input:focus::placeholder,
 .input-group input:not(:placeholder-shown)::placeholder,
 .input-group select:focus::placeholder,
@@ -599,75 +636,100 @@ html {
   color: transparent;
 }
 
-.beneficiary-entry {
-  background-color: #f9fafb;
-  padding: 20px;
+/* Estilos para pestañas de navegación (ej. Datos Personales, Contacto y Domicilio) */
+.tab-navigation {
+  display: flex;
+  justify-content: flex-start;
+  /* Alinea las pestañas a la izquierda */
+  margin-bottom: 20px;
+  background-color: #fff;
+  /* Fondo de la barra de pestañas */
   border-radius: 0.8rem;
-  margin-bottom: 25px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  border: 1px solid #b0b0b0;
-  position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  /* Para que los bordes redondeados se vean bien */
 }
 
-.add-button {
-  background-color: #2e4d50;
-  color: #fff;
-  padding: 12px 25px;
+.tab-navigation .tab-button {
+  padding: 15px 25px;
+  cursor: pointer;
+  background-color: #fff;
+  color: #1f2937;
+  font-size: 1rem;
+  font-weight: 600;
   border: none;
+  border-bottom: 3px solid transparent;
+  /* Borde inferior para el estado activo */
+  transition: all 0.3s ease;
+  flex-grow: 1;
+  /* Permite que las pestañas se distribuyan uniformemente */
+  text-align: center;
+  white-space: nowrap;
+  /* Evita que el texto se rompa en varias líneas */
+}
+
+.tab-navigation .tab-button:hover {
+  background-color: #f9fafb;
+  color: #2e4d50;
+}
+
+.tab-navigation .tab-button.active {
+  background-color: #2e4d50;
+  /* Fondo de la pestaña activa */
+  color: #fff;
+  /* Texto de la pestaña activa */
+  border-bottom-color: #376063;
+  /* Borde inferior de la pestaña activa */
+}
+
+/* Estilos para el contenido de las pestañas */
+.tab-content {
+  display: none;
+  /* Ocultar contenido de pestañas por defecto */
+}
+
+.tab-content.active {
+  display: block;
+  /* Mostrar contenido de la pestaña activa */
+}
+
+/* Estilos para botones de acción en formularios */
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.form-actions button {
+  padding: 12px 25px;
   border-radius: 0.8rem;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: auto;
-  margin: 0 auto;
 }
 
-.add-button:hover {
+.form-actions .submit-button {
+  background-color: #2e4d50;
+  color: #fff;
+  border: none;
+}
+
+.form-actions .submit-button:hover {
   background-color: #376063;
   transform: translateY(-2px);
 }
 
-.add-button:active {
-  transform: translateY(0);
+.form-actions .cancel-button {
+  background-color: #f9fafb;
+  color: #333;
+  border: 1px solid #b0b0b0;
 }
 
-.delete-beneficiary-btn {
-  background-color: #dc3545;
-  color: #fff;
-  padding: 8px 15px;
-  border: none;
-  border-radius: 0.8rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  width: fit-content;
-  margin-left: auto;
-  margin-top: 10px;
-}
-
-.delete-beneficiary-btn:hover {
-  background-color: rgb(189.2151898734, 32.7848101266, 47.7721518987);
-}
-
-.beneficiary-entry .delete-button-container {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  margin-top: 15px;
-}
-
-.form-row.button-row {
-  margin-top: 30px;
-  justify-content: center;
+.form-actions .cancel-button:hover {
+  background-color: rgb(233.7, 237.25, 240.8);
+  transform: translateY(-2px);
 }
 
 @media (max-width: 768px) {
@@ -684,13 +746,51 @@ html {
   .form-section {
     padding: 20px;
   }
-  .add-button,
-  .delete-beneficiary-btn {
-    width: 100%;
-    margin: 0;
+  .form-actions {
+    flex-direction: column;
+    gap: 15px;
   }
-  .beneficiary-entry .delete-button-container {
-    justify-content: center;
+  .form-actions button {
+    width: 100%;
+  }
+  /* Ajustes para pestañas en móvil: scroll horizontal */
+  .tab-navigation {
+    display: flex;
+    /* Mantener flex para alinear en una fila */
+    overflow-x: auto;
+    /* Habilitar scroll horizontal */
+    -webkit-overflow-scrolling: touch;
+    /* Suavizar scroll en iOS */
+    white-space: nowrap;
+    /* Evitar que los botones se envuelvan */
+    justify-content: flex-start;
+    /* Asegurar que el contenido empiece a la izquierda */
+    border-radius: 0.8rem;
+    /* Mantener bordes redondeados */
+  }
+  .tab-navigation .tab-button {
+    flex-shrink: 0;
+    /* Evitar que los botones se encojan */
+    min-width: fit-content;
+    /* Permitir que cada botón ocupe solo el espacio necesario */
+    border-bottom: 3px solid transparent;
+    /* Mantener el borde inferior para el activo */
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+    /* Separador visual entre botones */
+  }
+  .tab-navigation .tab-button:last-child {
+    border-right: none;
+    /* Eliminar borde derecho del último botón */
+  }
+  .tab-navigation .tab-button.active {
+    border-bottom-color: #376063;
+    /* Color del borde inferior activo */
+    background-color: #2e4d50;
+    /* Fondo de la pestaña activa */
+    color: #fff;
+    /* Texto de la pestaña activa */
+    border-left: none;
+    /* Asegurarse de que no haya un borde izquierdo si antes lo tenía */
   }
 }
 /* Contenedor de la página de login para centrar el formulario */
@@ -1020,6 +1120,246 @@ html {
   }
   .login-button {
     font-size: 0.95rem;
+  }
+}
+.form-section {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 0.8rem;
+  box-shadow: 0 4px 15px rgba(44, 62, 80, 0.08);
+  margin-bottom: 30px;
+}
+
+.section-title {
+  color: #2e4d50;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  text-align: center;
+  border-bottom: 2px solid #2e4d50;
+  padding-bottom: 10px;
+  margin-top: 0;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  flex: 1;
+  min-width: 280px;
+  position: relative;
+}
+
+.input-group .relative {
+  position: relative;
+  width: 100%;
+}
+
+.input-group .relative i {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  font-size: 1.1rem;
+  z-index: 2;
+}
+
+.input-group input[type=text],
+.input-group input[type=number],
+.input-group input[type=email],
+.input-group input[type=password],
+.input-group input[type=date],
+.input-group select,
+.input-group textarea {
+  width: 100%;
+  border: 1px solid #b0b0b0;
+  border-radius: 0.8rem;
+  font-size: 1rem;
+  color: #1f2937;
+  background-color: #fff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+  /* Ajustes de padding para la etiqueta flotante y el icono */
+  padding: 1.5rem 15px 0.8rem 45px;
+  /* top right bottom left */
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+  border-color: #2e4d50;
+  box-shadow: 0 0 0 3px rgba(46, 77, 80, 0.2);
+  outline: none;
+}
+
+.input-label {
+  position: absolute;
+  left: 45px;
+  top: 0.8rem;
+  color: #6b7280;
+  font-size: 0.75rem;
+  pointer-events: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.7, 1);
+  background-color: #fff;
+  padding: 0 5px;
+  z-index: 1;
+  transform: translateY(0);
+}
+
+.input-group input:placeholder-shown + .input-label,
+.input-group select:placeholder-shown + .input-label,
+.input-group textarea:placeholder-shown + .input-label {
+  top: 50%;
+  font-size: 1rem;
+  transform: translateY(-50%);
+  background: transparent;
+}
+
+.input-group input:not(:placeholder-shown) + .input-label,
+.input-group input:focus + .input-label,
+.input-group select:not([value=""]) + .input-label,
+.input-group select:focus + .input-label,
+.input-group textarea:not(:placeholder-shown) + .input-label,
+.input-group textarea:focus + .input-label {
+  top: 0.8rem;
+  font-size: 0.75rem;
+  color: #2e4d50;
+  background-color: #fff;
+  padding: 0 5px;
+  transform: translateY(0);
+}
+
+.input-group input:focus::placeholder,
+.input-group input:not(:placeholder-shown)::placeholder,
+.input-group select:focus::placeholder,
+.input-group select:not([value=""])::placeholder,
+.input-group textarea:focus::placeholder,
+.input-group textarea:not(:placeholder-shown)::placeholder {
+  color: transparent;
+}
+
+.tab-navigation {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border-radius: 0.8rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.tab-navigation .tab-button {
+  padding: 15px 25px;
+  cursor: pointer;
+  background-color: #fff;
+  color: #1f2937;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.tab-navigation .tab-button:hover {
+  background-color: #f9fafb;
+  color: #2e4d50;
+}
+
+.tab-navigation .tab-button.active {
+  background-color: #2e4d50;
+  color: #fff;
+  border-bottom-color: #376063;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.form-actions button {
+  padding: 12px 25px;
+  border-radius: 0.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.form-actions .submit-button {
+  background-color: #2e4d50;
+  color: #fff;
+  border: none;
+}
+
+.form-actions .submit-button:hover {
+  background-color: #376063;
+  transform: translateY(-2px);
+}
+
+.form-actions .cancel-button {
+  background-color: #f9fafb;
+  color: #333;
+  border: 1px solid #b0b0b0;
+}
+
+.form-actions .cancel-button:hover {
+  background-color: rgb(233.7, 237.25, 240.8);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .input-group {
+    min-width: 100%;
+  }
+  .section-title {
+    font-size: 1.5rem;
+  }
+  .form-section {
+    padding: 20px;
+  }
+  .form-actions {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .form-actions button {
+    width: 100%;
+  }
+  .tab-navigation {
+    flex-direction: column;
+  }
+  .tab-navigation .tab-button {
+    flex-grow: 1;
+    width: 100%;
+    border-bottom: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  .tab-navigation .tab-button:first-child {
+    border-top: none;
+  }
+  .tab-navigation .tab-button.active {
+    border-bottom: none;
+    border-left: 3px solid #376063;
   }
 }
 
