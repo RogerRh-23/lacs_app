@@ -39,22 +39,23 @@ async function loadSidebar() {
         }
 
         const sidebarHtml = await response.text();
-        console.log("/Frontend/html/sidebar.html cargado con éxito. Procesando contenido...");
+        console.log("html/sidebar.html cargado con éxito. Procesando contenido...");
+
+        const sidebarPlaceholder = document.getElementById('sidebar-placeholder');
+        if (!sidebarPlaceholder) {
+            console.error("Error: El div 'sidebar-placeholder' no se encontró en index.html. La barra lateral no se adjuntará.");
+            return;
+        }
+
+        sidebarPlaceholder.innerHTML = '';
 
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = sidebarHtml;
         const sidebarElement = tempDiv.querySelector('#sidebar');
 
         if (sidebarElement) {
-            const sidebarPlaceholder = document.getElementById('sidebar-placeholder');
-            if (sidebarPlaceholder) {
-                sidebarPlaceholder.appendChild(sidebarElement);
-                console.log("Sidebar cargado con éxito y adjuntado a #sidebar-placeholder.");
-            } else {
-                console.error("Error: El div 'sidebar-placeholder' no se encontró en index.html. La barra lateral no se adjuntará.");
-                document.body.appendChild(sidebarElement);
-                console.warn("Fallback: Sidebar adjuntado directamente al body ya que #sidebar-placeholder no se encontró.");
-            }
+            sidebarPlaceholder.appendChild(sidebarElement);
+            console.log("Sidebar cargado con éxito y adjuntado a #sidebar-placeholder.");
         } else {
             console.error("Error: El elemento #sidebar no se encontró dentro del contenido de sidebar.html.");
         }
@@ -75,11 +76,12 @@ async function initDashboard() {
     const usernameDisplay = document.querySelector('.sidebar-user .username');
     const appLayoutWrapper = document.querySelector('.app-layout-wrapper');
 
-    console.log("Depuración de elementos:");
+    console.log("Depuración de elementos después de cargar sidebar:");
     console.log("sidebar:", sidebar);
     console.log("sidebarToggleButton:", sidebarToggleButton);
     console.log("appLayoutWrapper:", appLayoutWrapper);
 
+    // Función para verificar autenticación y rol
     function checkAuthAndRole() {
         const jwtToken = localStorage.getItem('accessToken');
         const userRole = localStorage.getItem('role');
@@ -91,7 +93,7 @@ async function initDashboard() {
 
         if (!jwtToken || !userRole || !username) {
             console.log("No se encontró token JWT, rol de usuario o nombre de usuario. Redirigiendo a login.");
-            window.location.href = '/Frontend/html/login.html';
+            window.location.href = '/login.html';
             return;
         }
 
@@ -102,7 +104,7 @@ async function initDashboard() {
 
         if (userRole === 'admin') {
             if (registerEmployeesLink) {
-                registerEmployeesLink.style.display = 'block'; // Mostrar si es admin
+                registerEmployeesLink.style.display = 'block';
             }
             console.log(`Usuario ${username} ha iniciado sesión como ADMIN.`);
         } else {
@@ -117,15 +119,16 @@ async function initDashboard() {
             localStorage.removeItem('role');
             localStorage.removeItem('username');
             console.log("Usuario ha cerrado sesión. Limpiando localStorage y redirigiendo a login.");
-            window.location.href = '/Frontend/html/login.html';
+            window.location.href = '/login.html';
         });
     } else {
         console.warn("Botón de cerrar sesión con ID 'sidebar-logout-button' no encontrado después de cargar la barra lateral.");
     }
 
     if (sidebarToggleButton && sidebar && appLayoutWrapper) {
-        console.log("Elementos de toggle encontrados (sidebarToggleButton, sidebar, appLayoutWrapper). Adjuntando event listener.");
+        console.log("Elementos de toggle encontrados. Adjuntando event listener.");
         sidebarToggleButton.addEventListener('click', () => {
+            console.log("Clic en el botón de toggle detectado.");
             sidebar.classList.toggle('closed');
             appLayoutWrapper.classList.toggle('sidebar-closed');
 
@@ -137,11 +140,11 @@ async function initDashboard() {
             window.dispatchEvent(new CustomEvent('mainContentLoaded'));
         });
     } else {
-        console.error("ERROR: Algunos elementos de alternancia de la barra lateral NO fueron encontrados. " +
-            "Asegúrate de que sidebar.html se carga correctamente y de que .app-layout-wrapper exista en index.html.");
-        if (!sidebarToggleButton) console.error("sidebarToggleButton no encontrado.");
-        if (!sidebar) console.error("sidebar no encontrado.");
-        if (!appLayoutWrapper) console.error("appLayoutWrapper no encontrado.");
+        console.error("ERROR: Algunos elementos de alternancia de la barra lateral NO fueron encontrados después de cargar el sidebar. " +
+            "Verifica que #sidebar, #toggle-sidebar, y .app-layout-wrapper existan.");
+        if (!sidebarToggleButton) console.error("sidebarToggleButton es NULL.");
+        if (!sidebar) console.error("sidebar es NULL.");
+        if (!appLayoutWrapper) console.error("appLayoutWrapper es NULL.");
     }
 
     checkAuthAndRole();

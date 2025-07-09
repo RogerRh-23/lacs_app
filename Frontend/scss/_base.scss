@@ -1,4 +1,4 @@
-@import 'variables';
+﻿@import 'variables';
 
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
@@ -11,12 +11,12 @@ html {
     scrollbar-width: none;
 }
 
-bodd {
+body {
     margin: 0;
     font-family: "Montserrat", sans-serif;
-    background: linear-gradient(135deg, $color-gradient-start, #bffff8, #699792, $color-gradient-end);
+    background: linear-gradient(135deg, $color-gradient-start, $color-gradient-middle-2, $color-gradient-middle-1, $color-gradient-middle-2, $color-gradient-end);
     background-size: 400% 400%;
-    animation: gradientAnimation 5s ease infinite;
+    animation: gradientAnimation 15s ease infinite;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
@@ -39,7 +39,6 @@ bodd {
     100% {
         background-position: 0% 50%;
     }
-
 }
 
 html {

@@ -43,7 +43,7 @@
     width: 100%;
     background-color: rgba(46, 77, 80, 0.5);
     border-radius: 4px;
-    cursor: default;
+    cursor: grab;
     position: absolute;
     top: 0;
     left: 0;
@@ -52,7 +52,7 @@
 }
 
 .custom-scrollbar-thumb:active {
-    cursor: pointer;
+    cursor: grabbing;
     background-color: rgba(55, 96, 99, 0.7);
 }
 
@@ -63,7 +63,7 @@
         padding-top: 60px;
     }
 
-    .app-layout-wrapper.app-layout-wrapper.sidebar-closed {
+    .app-layout-wrapper.sidebar-closed {
         padding-left: 0;
         padding-top: 60px;
     }

@@ -1,8 +1,9 @@
-const CACHE_NAME = 'app-gestion-v1';
+const CACHE_NAME = 'app-gestion-v2.1';
 
 const urlsToCache = [
+    '/',
     '/index.html',
-    '/Frontend/html/login.html',
+    '/login.html',
     '/Frontend/html/persInfo.html',
     '/Frontend/html/sidebar.html',
     '/Frontend/html/home.html',
@@ -12,15 +13,7 @@ const urlsToCache = [
     '/Frontend/html/logs.html',
     '/Frontend/html/listEmp.html',
     '/Frontend/html/bajs.html',
-    '/Frontend/css/style.css',
-    '/Frontend/css/login.css',
-    '/Frontend/css/bajas.css',
-    '/Frontend/css/logs.css',
-    '/Frontend/css/incidentes.css',
-    '/Frontend/css/sidebar.css',
-    '/Frontend/css/scrollbar.css',
-    '/Frontend/css/persInfo.css',
-    '/Frontend/css/incidencias.css',
+    '/Frontend/css/styles.css',
     '/Frontend/js/animations.js',
     '/Frontend/js/home.js',
     '/Frontend/js/dashboard.js',

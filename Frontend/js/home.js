@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const fetchProtectedDataButton = document.getElementById('fetchProtectedData');
 
     if (!accessToken) {
-        window.location.href = '/Frontend/html/login.html';
+        window.location.href = '/login.html';
         return;
     }
 
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     if (response.status === 401) {
                         setTimeout(() => {
                             localStorage.clear();
-                            window.location.href = '/Frontend/html/login.html';
+                            window.location.href = '/login.html';
                         }, 2000);
                     }
                 }

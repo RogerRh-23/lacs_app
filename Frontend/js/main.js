@@ -21,8 +21,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showLoadingOverlay(message = "¡Bienvenido!", redirecting = true) {
-        document.getElementById('welcome-message').textContent = message;
-        document.querySelector('.loading-content p').textContent = redirecting ? "Redirigiendo..." : "Cargando...";
+        const welcomeMessage = document.getElementById('welcome-message');
+        const loadingText = document.querySelector('.loading-content p');
+
+        if (welcomeMessage) {
+            welcomeMessage.textContent = message;
+        } else {
+            console.warn("Elemento #welcome-message no encontrado.");
+        }
+
+        if (loadingText) {
+            loadingText.textContent = redirecting ? "Redirigiendo..." : "Cargando...";
+        } else {
+            console.warn("Elemento .loading-content p no encontrado.");
+        }
+
         loadingOverlay.classList.remove('hidden');
     }
 
@@ -51,8 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
         showLoadingOverlay("Iniciando sesión...", false);
 
         const loginData = {
-            username: document.getElementById('login-usuario').value,
-            password: document.getElementById('login-password').value
+            username: document.getElementById('username').value,
+            password: document.getElementById('password').value
         };
 
         try {

@@ -1,34 +1,34 @@
-body {
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(135deg, var(--color-gradient-start), #99E1D9, var(--color-gradient-end));
+@import 'variables';
+
+/* Contenedor de la página de login para centrar el formulario */
+.login-page-container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    overflow: hidden;
-    color: var(--color-text-dark);
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    /* Añade padding para evitar que el formulario toque los bordes en móvil */
 }
 
 .login-box {
-    width: 90%;
     max-width: 480px;
-    padding: 3rem;
-    background: var(--color-white);
-    border-radius: var(--border-radius);
-    box-shadow: 0 10px 30px var(--color-shadow-medium);
-    transition: box-shadow 0.3s ease;
+    width: 100%;
+    /* Asegura que ocupe el ancho disponible dentro del padding */
+    background: $color-white;
+    border-radius: $border-radius;
+    box-shadow: 0 10px 30px $color-shadow-medium;
     overflow: hidden;
-    margin: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
+    padding: 30px;
+    box-sizing: border-box;
     min-height: auto;
 }
 
-
-.login-forms {
+.login-form {
     width: 100%;
     position: relative;
     min-height: auto;
@@ -38,15 +38,12 @@ body {
     opacity: 1;
     visibility: visible;
     position: relative;
-    top: 0;
     left: 0;
-    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    align-items: stretch;
+    width: 100%;
     box-sizing: border-box;
-    padding: 0;
     transform: translateX(0);
     animation: none;
 }
@@ -54,85 +51,110 @@ body {
 .form-title {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--color-primary);
+    color: $color-primary;
     margin-bottom: 1.5rem;
     text-align: center;
 }
 
-
 .input-group {
     position: relative;
-    margin-bottom: 0;
+    margin-bottom: 1.2rem;
 }
 
 .input-group input {
     width: 100%;
-    padding: 1.1rem 1.2rem;
-    border: 1px solid var(--color-border-light);
-    border-radius: 0.8rem;
+    padding: 1.2rem;
+    border: 1px solid $color-border-light;
+    border-radius: $border-radius;
     font-size: 1rem;
     font-family: "Montserrat", sans-serif;
-    background: var(--color-background-light);
-    color: var(--color-text-dark);
-    outline: none;
-    transition: border 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-    box-shadow: 0 2px 6px var(--color-shadow-light);
+    color: $color-dark-text;
+    background-color: $color-white;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    box-sizing: border-box;
+    /* Importante para la etiqueta flotante: el placeholder debe estar vacío o un espacio */
+    /* El placeholder se usa para que :not(:placeholder-shown) funcione */
+    padding-top: 1.5rem;
+    /* Ajusta el padding superior para la etiqueta flotante */
+    padding-bottom: 0.8rem;
+    /* Ajusta el padding inferior */
 }
 
 .input-group input:focus {
-    border: 2px solid var(--color-accent);
-    box-shadow: 0 4px 12px rgba(94, 114, 228, 0.2);
-    background: var(--color-white);
+    border-color: $color-accent;
+    box-shadow: 0 0 8px rgba(55, 96, 99, 0.2);
+    outline: none;
 }
 
 .input-group label {
     position: absolute;
     left: 1.2rem;
-    top: 1.1rem;
-    color: #9e9e9e;
-    font-size: 1rem;
-    pointer-events: none;
-    background: transparent;
-    transition: all 0.2s cubic-bezier(.4, 1.7, .7, 1);
-}
-
-.input-group input:focus+label,
-.input-group.is-active label {
-    top: -0.4rem;
-    left: 0.9rem;
+    top: 0.8rem;
+    /* Posición inicial de la etiqueta (arriba) */
+    color: $color-gray-text;
     font-size: 0.75rem;
-    color: var(--color-primary);
-    background: var(--color-white);
-    padding: 0 0.4rem;
-    z-index: 1;
+    /* Tamaño inicial de la etiqueta (pequeño) */
+    pointer-events: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.7, 1);
+    background: $color-white;
+    /* Fondo para que "corte" el borde del input */
+    padding: 0 0.2rem;
     border-radius: 0.3rem;
+    transform: translateY(0);
+    /* Asegura que no haya transform inicial */
+    z-index: 1;
+    /* Asegura que la etiqueta esté sobre el input */
 }
 
+/* Estilo para la etiqueta cuando el input está vacío y no enfocado */
+.input-group input:placeholder-shown+label {
+    top: 50%;
+    /* Posición cuando el placeholder está visible */
+    font-size: 1rem;
+    /* Tamaño normal */
+    transform: translateY(-50%);
+    /* Centrar verticalmente */
+    background: transparent;
+    /* Sin fondo */
+}
+
+/* Estilo para la etiqueta cuando el input tiene contenido o está enfocado */
+.input-group input:not(:placeholder-shown)+label,
+.input-group input:focus+label {
+    top: 0.8rem;
+    /* Posición cuando está flotando */
+    font-size: 0.75rem;
+    /* Tamaño pequeño */
+    color: $color-primary;
+    /* Color al flotar */
+    background: $color-white;
+    padding: 0 0.2rem;
+    border-radius: 0.3rem;
+    transform: translateY(0);
+}
 
 .login-button {
-    position: relative;
-    background: linear-gradient(45deg, var(--color-accent), var(--color-primary));
-    border: none;
+    width: 100%;
+    padding: 1.1rem;
+    background: linear-gradient(45deg, $color-accent, $color-primary);
+    color: $color-white;
     font-size: 1.1rem;
     font-family: "Montserrat", sans-serif;
-    cursor: pointer;
-    text-align: center;
-    width: 180px;
-    color: var(--color-white);
-    border-radius: 1.2rem;
-    padding: 1.1rem 0.5rem;
-    overflow: hidden;
-    align-self: center;
-    z-index: 1;
     font-weight: 600;
-    letter-spacing: 0.05em;
-    box-shadow: 0 6px 15px rgba(28, 43, 52, 0.3);
+    border: none;
+    border-radius: $border-radius;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 0.05rem;
+    box-shadow: 0 5px 15px rgba(28, 49, 52, 0.3);
     transition: all 0.3s ease;
     margin-top: 2rem;
 }
 
 .login-button:hover {
-    box-shadow: 0 8px 20px rgba(28, 43, 52, 0.4);
+    box-shadow: 0 8px 20px rgba(28, 49, 52, 0.4);
     transform: translateY(-3px);
     filter: brightness(1.1);
 }
@@ -144,10 +166,10 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.3);
+    transition: clip-path 0.5s ease-out;
     clip-path: circle(0% at 50% 50%);
-    transition: clip-path 0.6s ease-out;
-    z-index: 0;
+    z-index: -1;
 }
 
 .login-button:hover::before {
@@ -162,49 +184,48 @@ body {
     height: 100%;
     background: linear-gradient(135deg, rgba(167, 183, 205, 0.95), rgba(224, 234, 246, 0.95));
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    opacity: 1;
     visibility: visible;
+    opacity: 1;
     transition: opacity 0.5s ease, visibility 0.5s ease;
-    flex-direction: column;
-    color: var(--color-primary);
+    color: $color-primary;
 }
 
 .loading-overlay.hidden {
-    opacity: 0;
     visibility: hidden;
+    opacity: 0;
     pointer-events: none;
 }
 
 .loading-content {
-    text-align: center;
+    background: $color-white;
     padding: 2rem;
-    background: var(--color-white);
-    border-radius: var(--border-radius);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    border-radius: $border-radius;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
     transform: translateY(0);
-    opacity: 1;
     transition: transform 0.5s ease-out, opacity 0.5s ease-out;
 }
 
 .loading-content h2 {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
-    color: var(--color-accent);
+    color: $color-accent;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .loading-content p {
     font-size: 1.2rem;
-    color: var(--color-text-dark);
+    color: $color-text-dark;
     margin-top: 0;
 }
 
 .spinner {
     border: 8px solid rgba(255, 255, 255, 0.3);
-    border-top: 8px solid var(--color-accent);
+    border-top: 8px solid $color-accent;
     border-radius: 50%;
     width: 60px;
     height: 60px;
@@ -227,17 +248,17 @@ body {
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: var(--color-primary);
-    color: var(--color-white);
+    background-color: $color-primary;
+    color: $color-white;
     padding: 15px 25px;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    z-index: 1001;
+    z-index: 1000;
     font-size: 1rem;
     text-align: center;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .message-box.show {
@@ -258,27 +279,26 @@ body {
     }
 
     .input-group input {
-        padding: 0.9rem 1rem;
+        padding: 0.8rem 0.8rem 0.8rem 3rem;
         font-size: 0.95rem;
     }
 
     .input-group label {
+        top: 0.8rem;
+        left: 3rem;
         font-size: 0.9rem;
-        top: 0.9rem;
-        left: 1rem;
     }
 
     .input-group input:focus+label,
-    .input-group.is-active label {
+    .input-group input:not(:placeholder-shown)+label {
+        top: 0.5rem;
+        left: 3rem;
         font-size: 0.7rem;
-        top: -0.3rem;
-        left: 0.8rem;
     }
 
     .login-button {
-        width: 160px;
         font-size: 1rem;
-        padding: 0.9rem 0.5rem;
+        padding: 0.8rem;
     }
 
     .loading-content h2 {
@@ -297,38 +317,31 @@ body {
 
 @media (max-width: 400px) {
     .login-box {
-        padding: 1.5rem;
-        border-radius: 0.8rem;
+        padding: 0.8rem;
+        margin: 0.8rem;
     }
 
     .form-title {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
         margin-bottom: 0.8rem;
     }
 
     .input-group input {
-        padding: 0.8rem 0.8rem;
-        font-size: 0.9rem;
-        border-radius: 0.6rem;
+        padding: 0.8rem 0.8rem 0.8rem 3rem;
     }
 
     .input-group label {
-        font-size: 0.85rem;
         top: 0.8rem;
-        left: 0.8rem;
+        left: 3rem;
     }
 
     .input-group input:focus+label,
-    .input-group.is-active label {
-        font-size: 0.65rem;
-        top: -0.2rem;
-        left: 0.6rem;
+    .input-group input:not(:placeholder-shown)+label {
+        top: 0.5rem;
+        left: 3rem;
     }
 
     .login-button {
-        width: 100%;
         font-size: 0.95rem;
-        padding: 0.9rem;
-        border-radius: 1rem;
     }
 }
