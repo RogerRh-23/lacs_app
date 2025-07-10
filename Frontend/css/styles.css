@@ -491,6 +491,7 @@ html {
     align-self: flex-end;
   }
 }
+/* Estilos generales para las secciones de formulario */
 .form-section {
   background-color: #fff;
   padding: 30px;
@@ -523,21 +524,26 @@ html {
   position: relative;
 }
 
+/* Contenedor relativo para el icono y el input */
 .input-group .relative {
   position: relative;
   width: 100%;
 }
 
+/* Estilos para los iconos dentro del input-group */
 .input-group .relative i {
   position: absolute;
   left: 15px;
+  /* Posición del icono desde la izquierda */
   top: 50%;
   transform: translateY(-50%);
   color: #6b7280;
   font-size: 1.1rem;
   z-index: 2;
+  /* Asegura que el icono esté por encima del input */
 }
 
+/* Estilos para los campos de entrada (input, select, textarea) */
 .input-group input[type=text],
 .input-group input[type=number],
 .input-group input[type=email],
@@ -553,7 +559,9 @@ html {
   background-color: #fff;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   box-sizing: border-box;
+  /* Ajustes de padding para la etiqueta flotante y el icono */
   padding: 1.5rem 15px 0.8rem 45px;
+  /* top right bottom left */
 }
 
 .input-group input:focus,
@@ -564,29 +572,43 @@ html {
   outline: none;
 }
 
+/* Estilos para la etiqueta flotante */
 .input-label {
   position: absolute;
   left: 45px;
+  /* Alineado con el padding del input para el texto */
   top: 0.8rem;
+  /* Posición inicial de la etiqueta (arriba, pequeña) */
   color: #6b7280;
   font-size: 0.75rem;
+  /* Tamaño inicial de la etiqueta (pequeña) */
   pointer-events: none;
+  /* Permite hacer clic a través de la etiqueta */
   transition: all 0.2s cubic-bezier(0.4, 0, 0.7, 1);
   background-color: #fff;
+  /* Fondo para que "corte" el borde del input */
   padding: 0 5px;
   z-index: 1;
+  /* Asegura que la etiqueta esté sobre el input */
   transform: translateY(0);
+  /* Evita transformaciones iniciales no deseadas */
 }
 
+/* Estilo para la etiqueta cuando el input está vacío y NO enfocado (placeholder visible) */
 .input-group input:placeholder-shown + .input-label,
 .input-group select:placeholder-shown + .input-label,
 .input-group textarea:placeholder-shown + .input-label {
   top: 50%;
+  /* Posición cuando el placeholder está visible (centrado verticalmente) */
   font-size: 1rem;
+  /* Tamaño normal */
   transform: translateY(-50%);
+  /* Centrar verticalmente */
   background: transparent;
+  /* Sin fondo */
 }
 
+/* Estilo para la etiqueta cuando el input tiene contenido O está enfocado */
 .input-group input:not(:placeholder-shown) + .input-label,
 .input-group input:focus + .input-label,
 .input-group select:not([value=""]) + .input-label,
@@ -594,13 +616,17 @@ html {
 .input-group textarea:not(:placeholder-shown) + .input-label,
 .input-group textarea:focus + .input-label {
   top: 0.8rem;
+  /* Posición cuando está flotando (arriba, pequeña) */
   font-size: 0.75rem;
+  /* Tamaño pequeño */
   color: #2e4d50;
+  /* Color al flotar */
   background-color: #fff;
   padding: 0 5px;
   transform: translateY(0);
 }
 
+/* Asegúrate de que el placeholder sea transparente cuando la etiqueta está flotando */
 .input-group input:focus::placeholder,
 .input-group input:not(:placeholder-shown)::placeholder,
 .input-group select:focus::placeholder,
@@ -610,50 +636,67 @@ html {
   color: transparent;
 }
 
+/* Estilos para pestañas de navegación (ej. Datos Personales, Contacto y Domicilio) */
 .tab-navigation {
   display: flex;
   justify-content: flex-start;
+  /* Alinea las pestañas a la izquierda */
   margin-bottom: 20px;
   background-color: #2e4d50;
+  /* Fondo de la barra de pestañas (color de la sidebar) */
   border-radius: 0.8rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   overflow: hidden;
+  /* Para que los bordes redondeados se vean bien */
 }
 
 .tab-navigation .tab-button {
   padding: 15px 25px;
   cursor: pointer;
   background-color: #2e4d50;
+  /* Fondo de los botones (color de la sidebar) */
   color: #fff;
+  /* Texto de los botones */
   font-size: 1rem;
   font-weight: 600;
   border: none;
   border-bottom: 3px solid transparent;
+  /* Borde inferior para el estado activo */
   transition: all 0.3s ease;
   flex-grow: 1;
+  /* Permite que las pestañas se distribuyan uniformemente */
   text-align: center;
   white-space: nowrap;
+  /* Evita que el texto se rompa en varias líneas */
 }
 
 .tab-navigation .tab-button:hover {
   background-color: #376063;
+  /* Fondo al pasar el ratón */
   color: #fff;
 }
 
 .tab-navigation .tab-button.active {
   background-color: #376063;
+  /* Fondo de la pestaña activa */
   color: #fff;
+  /* Texto de la pestaña activa */
   border-bottom-color: #fff;
+  /* Borde inferior blanco para resaltar */
 }
 
+/* Estilos para el contenido de las pestañas */
 .tab-content {
   display: none;
+  /* Ocultar contenido de pestañas por defecto */
 }
 
 .tab-content.active {
   display: block;
+  /* Mostrar contenido de la pestaña activa */
 }
 
+/* Estilos para botones de acción en formularios */
 .form-actions {
   display: flex;
   justify-content: center;
@@ -713,28 +756,44 @@ html {
   .form-actions button {
     width: 100%;
   }
+  /* Ajustes para pestañas en móvil: scroll horizontal */
   .tab-navigation {
     display: flex;
+    /* Mantener flex para alinear en una fila */
     overflow-x: auto;
+    /* Habilitar scroll horizontal */
     -webkit-overflow-scrolling: touch;
+    /* Suavizar scroll en iOS */
     white-space: nowrap;
+    /* Evitar que los botones se envuelvan */
     justify-content: flex-start;
+    /* Asegurar que el contenido empiece a la izquierda */
     border-radius: 0.8rem;
+    /* Mantener bordes redondeados */
   }
   .tab-navigation .tab-button {
     flex-shrink: 0;
+    /* Evitar que los botones se encojan */
     min-width: fit-content;
+    /* Permitir que cada botón ocupe solo el espacio necesario */
     border-bottom: 3px solid transparent;
+    /* Mantener el borde inferior para el activo */
     border-right: 1px solid rgba(255, 255, 255, 0.1);
+    /* Separador visual sutil entre botones */
   }
   .tab-navigation .tab-button:last-child {
     border-right: none;
+    /* Eliminar borde derecho del último botón */
   }
   .tab-navigation .tab-button.active {
     border-bottom-color: #fff;
+    /* Color del borde inferior activo */
     background-color: #376063;
+    /* Fondo de la pestaña activa */
     color: #fff;
+    /* Texto de la pestaña activa */
     border-left: none;
+    /* Asegurarse de que no haya un borde izquierdo si antes lo tenía */
   }
 }
 /* Contenedor de la página de login para centrar el formulario */
@@ -1305,6 +1364,75 @@ html {
     border-bottom: none;
     border-left: 3px solid #376063;
   }
+}
+/* Frontend/scss/_scrollbar.scss */
+.app-layout-wrapper {
+  position: relative;
+  /* Necesario para posicionar el scrollbar personalizado */
+  display: flex;
+  /* Si es un flex container para sidebar y main */
+  flex-direction: row;
+  /* O column, dependiendo de tu layout */
+  height: 100vh;
+  /* O la altura que necesites para que el scroll funcione */
+  overflow-y: scroll;
+  /* Permite el scroll nativo, lo ocultaremos */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+.app-layout-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.custom-scrollbar-track {
+  position: absolute;
+  right: 5px;
+  /* Posición a la derecha */
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  /* Ancho de la barra de desplazamiento */
+  background-color: rgba(0, 0, 0, 0.1);
+  /* Fondo del track (transparente/claro) */
+  border-radius: 4px;
+  opacity: 0;
+  /* Oculto por defecto */
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  /* No interactuable cuando está oculto */
+  z-index: 100;
+  /* Asegura que esté por encima del contenido */
+}
+
+.custom-scrollbar-track.active {
+  opacity: 1;
+  /* Visible cuando se activa (scroll, hover, drag) */
+  pointer-events: auto;
+}
+
+.custom-scrollbar-thumb {
+  width: 100%;
+  background-color: var(--color-primary);
+  /* Usa el color primario de tu tema */
+  border-radius: 4px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  cursor: grab;
+  transition: background-color 0.2s ease;
+}
+
+.custom-scrollbar-thumb:active {
+  cursor: grabbing;
+}
+
+body.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -1,7 +1,18 @@
-document.addEventListener('DOMContentLoaded', () => {
+// js/scrollbar.js
+
+// Función de inicialización principal del scrollbar
+function initCustomScrollbar() {
     const scrollableContent = document.querySelector('.app-layout-wrapper');
     const customScrollbarTrack = document.querySelector('.custom-scrollbar-track');
     const customScrollbarThumb = document.querySelector('.custom-scrollbar-thumb');
+
+    // Salir si los elementos críticos no se encuentran
+    if (!scrollableContent || !customScrollbarTrack || !customScrollbarThumb) {
+        console.warn("[ScrollbarJS] Elementos de scrollbar no encontrados. Reintentando o la barra de desplazamiento personalizada NO funcionará.");
+        return; // No se puede inicializar si los elementos no están presentes
+    }
+
+    console.log("[ScrollbarJS] Elementos de scrollbar encontrados. Inicializando...");
 
     let isDragging = false;
     let scrollTimeout;
@@ -11,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const showScrollbar = () => {
         if (!customScrollbarTrack || !scrollableContent) return;
 
+        // Ocultar si no hay suficiente contenido para scrollear
         if (scrollableContent.scrollHeight <= scrollableContent.clientHeight) {
             customScrollbarTrack.style.opacity = '0';
             customScrollbarTrack.style.pointerEvents = 'none';
@@ -34,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const updateScrollbar = () => {
         if (!scrollableContent || !customScrollbarTrack || !customScrollbarThumb) {
-            console.warn("Elementos de scrollbar no encontrados (o no están listos), no se puede actualizar.");
+            console.warn("[ScrollbarJS] Elementos de scrollbar no encontrados durante la actualización. No se puede actualizar.");
             return;
         }
 
@@ -53,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const thumbHeight = (visibleHeight / contentHeight) * trackHeight;
-        customScrollbarThumb.style.height = `${Math.max(20, thumbHeight)}px`;
+        customScrollbarThumb.style.height = `${Math.max(20, thumbHeight)}px`; // Mínimo 20px de alto para el thumb
 
         const scrollTop = scrollableContent.scrollTop;
         const maxScrollTop = contentHeight - visibleHeight;
@@ -65,9 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
         showScrollbar();
     };
 
-    /**
-     * @param {MouseEvent} e 
-     */
     const startDrag = (e) => {
         e.preventDefault();
         isDragging = true;
@@ -79,9 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const trackTop = customScrollbarTrack.getBoundingClientRect().top;
         const thumbOffset = startY - initialThumbTop;
 
-        /**
-         * @param {MouseEvent} e
-         */
         const onDrag = (e) => {
             if (!isDragging) return;
 
@@ -109,16 +115,10 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('mouseup', stopDrag);
     };
 
-    /**
-     * @param {WheelEvent} e 
-     */
     const handleWheelScroll = (e) => {
         updateScrollbar();
     };
 
-    /**
-     * @param {TouchEvent} e 
-     */
     const handleTouchStart = (e) => {
         if (e.touches.length === 1) {
             touchStartY = e.touches[0].clientY;
@@ -127,9 +127,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    /**
-     * @param {TouchEvent} e 
-     */
     const handleTouchMove = (e) => {
         if (e.touches.length === 1) {
             const touchCurrentY = e.touches[0].clientY;
@@ -143,40 +140,61 @@ document.addEventListener('DOMContentLoaded', () => {
         showScrollbar();
     };
 
-    if (customScrollbarThumb) {
-        customScrollbarThumb.addEventListener('mousedown', startDrag);
-    } else {
-        console.warn("customScrollbarThumb no encontrado, no se adjuntará mousedown listener.");
-    }
+    // Remover listeners anteriores para evitar duplicados si initCustomScrollbar se llama varias veces
+    customScrollbarThumb.removeEventListener('mousedown', startDrag);
+    scrollableContent.removeEventListener('wheel', handleWheelScroll);
+    scrollableContent.removeEventListener('touchstart', handleTouchStart);
+    scrollableContent.removeEventListener('touchmove', handleTouchMove);
+    scrollableContent.removeEventListener('touchend', handleTouchEnd);
+    scrollableContent.removeEventListener('scroll', updateScrollbar);
+    document.body.removeEventListener('mousemove', showScrollbar);
+    document.body.removeEventListener('mouseenter', showScrollbar);
 
-    if (scrollableContent) {
-        scrollableContent.addEventListener('wheel', handleWheelScroll, { passive: true });
-        scrollableContent.addEventListener('touchstart', handleTouchStart, { passive: true });
-        scrollableContent.addEventListener('touchmove', handleTouchMove, { passive: true });
-        scrollableContent.addEventListener('touchend', handleTouchEnd);
-        scrollableContent.addEventListener('scroll', updateScrollbar);
-        document.body.addEventListener('mousemove', showScrollbar);
-        document.body.addEventListener('mouseenter', showScrollbar);
-    } else {
-        console.error("¡CRÍTICO! scrollableContent (.app-layout-wrapper) no encontrado. La barra de desplazamiento personalizada NO funcionará.");
-    }
 
-    window.addEventListener('resize', updateScrollbar);
+    // Adjuntar listeners
+    customScrollbarThumb.addEventListener('mousedown', startDrag);
+    scrollableContent.addEventListener('wheel', handleWheelScroll, { passive: true });
+    scrollableContent.addEventListener('touchstart', handleTouchStart, { passive: true });
+    scrollableContent.addEventListener('touchmove', handleTouchMove, { passive: true });
+    scrollableContent.addEventListener('touchend', handleTouchEnd);
+    scrollableContent.addEventListener('scroll', updateScrollbar);
+    document.body.addEventListener('mousemove', showScrollbar); // Para mostrar la barra al mover el ratón
+    document.body.addEventListener('mouseenter', showScrollbar); // Para mostrar la barra al entrar el ratón en la ventana
 
-    window.addEventListener('mainContentLoaded', () => {
-        console.log("Evento 'mainContentLoaded' recibido. Intentando actualizar scrollbar en breve...");
-        setTimeout(updateScrollbar, 50);
-    });
+    // Actualizar scrollbar al inicio y en cada cambio de contenido
+    updateScrollbar();
+}
 
-    const observer = new MutationObserver((mutations, obs) => {
-        if (document.querySelector('.app-layout-wrapper')) {
-            console.log("app-layout-wrapper detectado. Realizando actualización inicial de scrollbar.");
-            updateScrollbar();
-            obs.disconnect();
+// Lógica de inicialización:
+// Exponer la función de inicialización para que dashboard.js pueda llamarla
+window.initCustomScrollbar = initCustomScrollbar;
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Intentar inicializar inmediatamente si los elementos ya están en el DOM (poco probable con carga dinámica)
+    initCustomScrollbar();
+
+    // Observador para detectar la adición de .app-layout-wrapper
+    const observer = new MutationObserver((mutationsList, observer) => {
+        for (const mutation of mutationsList) {
+            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                if (document.querySelector('.app-layout-wrapper')) {
+                    console.log("[ScrollbarJS] app-layout-wrapper detectado por MutationObserver. Inicializando scrollbar.");
+                    initCustomScrollbar();
+                    observer.disconnect();
+                    break;
+                }
+            }
         }
     });
-
     observer.observe(document.body, { childList: true, subtree: true });
 
-    setTimeout(updateScrollbar, 500);
+    // Escuchar el evento personalizado de dashboard.js cuando el contenido principal cambia
+    window.addEventListener('mainContentLoaded', () => {
+        console.log("[ScrollbarJS] Evento 'mainContentLoaded' recibido. Re-inicializando scrollbar.");
+        // Pequeño retraso para asegurar que el contenido se haya renderizado completamente
+        setTimeout(initCustomScrollbar, 100);
+    });
+
+    // Fallback con un pequeño retraso por si acaso
+    setTimeout(initCustomScrollbar, 500);
 });

@@ -1,41 +1,37 @@
-<div id="sidebar-placeholder"></div>
+<div class="persinfo-page-container">
+    <h1 class="page-main-title section-title">Información General del Empleado</h1>
 
-<div class="pers-box">
-    <div class="main-content-wrapper">
-        <div class="tab-buttons-container">
-            <button class="tab-button active" data-tab="datos-personales">Datos Personales</button>
-            <button class="tab-button" data-tab="contacto-domicilio">Contacto y Domicilio</button>
-            <button class="tab-button" data-tab="laborales">Datos Laborales</button>
-            <button class="tab-button" data-tab="informacion-salarial">Información Salarial</button>
-            <button class="tab-button" data-tab="seguridad-social-bancarios">Seguridad Social y Bancarios</button>
-            <button class="tab-button" data-tab="adicional-beneficiarios">Adicional y Beneficiarios</button>
-        </div>
+    <!-- Contenedor de Pestañas -->
+    <div class="tab-navigation">
+        <button class="tab-button active" data-tab="datos-personales">Datos Personales</button>
+        <button class="tab-button" data-tab="contacto-domicilio">Contacto y Domicilio</button>
+        <button class="tab-button" data-tab="datos-laborales">Datos Laborales</button>
+        <button class="tab-button" data-tab="informacion-salarial">Información Salarial</button>
+        <button class="tab-button" data-tab="seguridad-social-bancarios">Seguridad Social y Bancarios</button>
+        <button class="tab-button" data-tab="adicional-beneficiarios">Adicional y Beneficiarios</button>
     </div>
 
-    <div class="pers-forms">
-        <!-- Pestaña Datos Personales -->
-        <div id="datos-personales" class="tab-content active"></div>
-
-        <!-- Pestaña Información de Contacto y Domicilio -->
-        <div id="contacto-domicilio" class="tab-content"></div>
-
-        <!-- Pestaña Información Salarial -->
-        <div id="informacion-salarial" class="tab-content"></div>
-
-        <!-- Pestaña Seguridad Social y Bancarios -->
-        <div id="seguridad-social-bancarios" class="tab-content"></div>
-
-        <!-- Pestaña Información Adicional y Beneficiarios -->
-        <div id="adicional-beneficiarios" class="tab-content"></div>
+    <div id="datos-personales" class="tab-content active">
+        <!-- Contenido de datos-personales.html se cargará aquí -->
     </div>
 
-    <div class="custom-scrollbar-track">
-        <div class="custom-scrollbar-thumb"></div>
+    <div id="contacto-domicilio" class="tab-content">
+        <!-- Contenido de contacto-domicilio.html se cargará aquí -->
+    </div>
+
+    <div id="datos-laborales" class="tab-content">
+        <!-- Contenido de datos-laborales.html se cargará aquí -->
+    </div>
+
+    <div id="informacion-salarial" class="tab-content">
+        <!-- Contenido de informacion-salarial.html se cargará aquí -->
+    </div>
+
+    <div id="seguridad-social-bancarios" class="tab-content">
+        <!-- Contenido de seguridad-social-bancarios.html se cargará aquí -->
+    </div>
+
+    <div id="adicional-beneficiarios" class="tab-content">
+        <!-- Contenido de adicional-beneficiarios.html se cargará aquí -->
     </div>
 </div>
-
-<script src="/Frontend/js/animations.js"></script>
-<script src="/Frontend/js/dashboard.js"></script>
-<script src="/Frontend/js/scrollbar.js"></script>
-<script src="/Frontend/js/persInfo.js"></script>
-<script src="/Frontend/js/persInfoTabLoader.js"></script>

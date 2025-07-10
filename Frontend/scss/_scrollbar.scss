@@ -1,0 +1,77 @@
+/* Frontend/scss/_scrollbar.scss */
+
+// Oculta el scrollbar nativo del .app-layout-wrapper
+.app-layout-wrapper {
+    position: relative;
+    /* Necesario para posicionar el scrollbar personalizado */
+    display: flex;
+    /* Si es un flex container para sidebar y main */
+    flex-direction: row;
+    /* O column, dependiendo de tu layout */
+    height: 100vh;
+    /* O la altura que necesites para que el scroll funcione */
+    overflow-y: scroll;
+    /* Permite el scroll nativo, lo ocultaremos */
+
+    // Ocultar scrollbar nativo para diferentes navegadores
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+
+    &::-webkit-scrollbar {
+        display: none; // Chrome, Safari, Opera
+    }
+}
+
+// Estilos del contenedor de la barra de desplazamiento (el "track")
+.custom-scrollbar-track {
+    position: absolute;
+    right: 5px;
+    /* Posición a la derecha */
+    top: 0;
+    bottom: 0;
+    width: 8px;
+    /* Ancho de la barra de desplazamiento */
+    background-color: rgba(0, 0, 0, 0.1);
+    /* Fondo del track (transparente/claro) */
+    border-radius: 4px;
+    opacity: 0;
+    /* Oculto por defecto */
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    /* No interactuable cuando está oculto */
+    z-index: 100;
+    /* Asegura que esté por encima del contenido */
+}
+
+.custom-scrollbar-track.active {
+    opacity: 1;
+    /* Visible cuando se activa (scroll, hover, drag) */
+    pointer-events: auto;
+}
+
+// Estilos del "thumb" (el pulgar/control de desplazamiento)
+.custom-scrollbar-thumb {
+    width: 100%;
+    background-color: var(--color-primary);
+    /* Usa el color primario de tu tema */
+    border-radius: 4px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: grab;
+    transition: background-color 0.2s ease;
+}
+
+.custom-scrollbar-thumb:active {
+    cursor: grabbing;
+}
+
+// Clase usada por scrollbar.js durante el arrastre para evitar selección de texto
+body.no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
