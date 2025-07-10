@@ -1,0 +1,68 @@
+<h3 class="section-title">Detalles del Salario</h3>
+<div class="form-section">
+    <div class="input-group">
+        <div class="relative">
+            <span><i class="fas fa-usd"></i></span>
+            <input type="number" step="0.01" id="pers-sueldoBruto" name="sueldo_bruto" placeholder=" " required>
+            <label for="pers-sueldoBruto" class="input-label">Sueldo Mensual Bruto:</label>
+        </div>
+    </div>
+    <div class="input-group">
+        <div class="relative">
+            <span><i class="fas fa-usd"></i></span>
+            <input type="number" step="0.01" id="pers-sueldoNeto" name="sueldo_neto" placeholder=" " required>
+            <label for="pers-sueldoNeto" class="input-label">Sueldo Mensual Neto:</label>
+        </div>
+    </div>
+    <div class="input-group">
+        <div class="relative">
+            <span><i class="fas fa-dollar-sign"></i></span>
+            <input type="text" id="pers-tipoSalario" name="tipo_salario" placeholder=" " required>
+            <label for="pers-tipoSalario" class="input-label">Tipo de Salario:</label>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="input-group">
+            <div class="relative">
+                <span><i class="fas fa-dollar-sign"></i></span>
+                <input type="number" step="0.01" id="pers-sd" name="sd" placeholder=" " required>
+                <label for="pers-sd" class="input-label">SD:</label>
+            </div>
+        </div>
+        <div class="input-group">
+            <div class="relative">
+                <span><i class="fas fa-calculator"></i></span>
+                <input type="number" step="0.01" id="pers-factorIntegracion" name="factor_integracion" placeholder=" "
+                    required>
+                <label for="pers-factorIntegracion" class="input-label">Factor Integración:</label>
+            </div>
+        </div>
+    </div>
+    <div class="input-group">
+        <div class="relative">
+            <span><i class="fas fa-money-bill-alt"></i></span>
+            <input type="number" step="0.01" id="pers-sdi" name="sdi" placeholder=" " required>
+            <label for="pers-sdi" class="input-label">SDI:</label>
+        </div>
+    </div>
+    <div class="input-group">
+        <div class="relative">
+            <span><i class="fas fa-building"></i></span>
+            <input type="text" id="pers-empresaPagadora" name="empresa_pagadora" placeholder=" " required>
+            <label for="pers-empresaPagadora" class="input-label">Empresa Pagadora:</label>
+        </div>
+    </div>
+    <div class="input-group">
+        <div class="relative">
+            <span><i class="fas fa-money-check-alt"></i></span>
+            <select id="pers-formaPago" name="forma_pago">
+                <option value=" " disabled selected></option>
+                <option value="quincenal">Quincenal</option>
+                <option value="semanal">Semanal</option>
+            </select>
+            <label for="pers-formaPago" class="input-label">Forma de Pago (Quincenal/Semanal y Días
+
+        </div>
+    </div>
+</div>
+<button type="submit" class="submit-button">Guardar Información Salarial</button>

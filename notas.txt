@@ -5,7 +5,7 @@ Objetivo principal: Automatizar el proceso de realizacion de incidencias/reporte
  - Tener un control del personal.
 
 Tareas:
- - Fraccionar persInfo.
+ - Fraccionar persInfo. (LISTO)
  - Corregir errores visuales.
  - Añadir logos a la barra lateral:
   - Identificador de empresas.
@@ -17,8 +17,7 @@ Tareas:
  - Notificaciones pop-up e historial de cambios.
  - Arreglar el dropdown de usuario y agregar uno para empleados e incidencias.
  - Corregirlos forms para que no permita avanzar hasta no llenar el form actual.
- - Crear menus diferentes para cada rol (para esto tengo que saber los roles y sus funciones)
+ - Modificar la vista de cada rol
  - Hacer la interfaz para consultar el historial de cambios
  - Hacer la interfaz para consultar la lista de usuarios
- - Conectar de forma correcta el backend con el forntend (William)
- - Conectar con un servidor ya permanente (Por confirmar)
+ - Agregar Dart/Flutter a la estructura del forntend

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'app-gestion-v2.2.1';
+const CACHE_NAME = 'app-gestion-v2.5';
 
 const urlsToCache = [
     '/',
@@ -13,6 +13,11 @@ const urlsToCache = [
     '/Frontend/html/logs.html',
     '/Frontend/html/listEmp.html',
     '/Frontend/html/bajs.html',
+    '/Frontend/html/altasInfo/persDt.html',
+    '/Frontend/html/altasInfo/dom.html',
+    '/Frontend/html/altasInfo/infoSal.html',
+    '/Frontend/html/altasInfo/segBan.html',
+    '/Frontend/html/altasInfo/add.html',
     '/Frontend/css/styles.css',
     '/Frontend/js/animations.js',
     '/Frontend/js/home.js',

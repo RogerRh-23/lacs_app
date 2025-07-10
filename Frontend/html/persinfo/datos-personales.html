@@ -1,0 +1,87 @@
+<h3 class="section-title">Información General del Empleado</h3>
+<div class="form-section">
+    <div class="form-row">
+        <div class="input-group">
+            <div class="relative">
+                <span><i class="fas fa-user"></i></span>
+                <input type="text" id="pers-apellidoPaterno" name="apellido_paterno" placeholder=" " required>
+                <label for="pers-apellidoPaterno" class="input-label">Apellido Paterno:</label>
+            </div>
+        </div>
+        <div class="input-group">
+            <div class="relative">
+                <span><i class="fas fa-user"></i></span>
+                <input type="text" id="pers-apellidoMaterno" name="apellido_materno" placeholder=" " required>
+                <label for="pers-apellidoMaterno" class="input-label">Apellido Materno:</label>
+            </div>
+        </div>
+        <div class="input-group">
+            <div class="relative">
+                <span><i class="fas fa-user"></i></span>
+                <input type="text" id="pers-nombre" name="nombre" placeholder=" " required>
+                <label for="pers-nombre" class="input-label">Nombre(s):</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="input-group">
+            <div class="relative">
+                <span><i class="fas fa-calendar-alt"></i></span>
+                <input type="date" id="pers-fechNac" name="fecha_nacimiento" placeholder=" " required>
+                <label for="pers-fechNac" class="input-label">Fecha de Nacimiento:</label>
+            </div>
+        </div>
+        <div class="input-group">
+            <div class="relative">
+                <span><i class="fas fa-user-circle"></i></span>
+                <input type="text" id="pers-edad" name="edad" placeholder=" " readonly>
+                <label for="pers-edad" class="input-label">Edad:</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="input-group">
+            <div class="relative">
+                <span><i class="fas fa-map-pin"></i></span>
+                <input type="text" id="pers-lugarNac" name="lugar_nacimiento" placeholder=" " required>
+                <label for="pers-lugarNac" class="input-label">Lugar de Nacimiento:</label>
+            </div>
+        </div>
+        <div class="input-group">
+            <div class="relative">
+                <span><i class="fas fa-flag"></i></span>
+                <input type="text" id="pers-naci" name="nacionalidad" placeholder=" " required>
+                <label for="pers-naci" class="input-label">Nacionalidad:</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="input-group">
+            <div class="relative">
+                <span><i class="fas fa-venus-mars"></i></span>
+                <select id="pers-sex" name="sexo" required>
+                    <option value="" disabled selected></option>
+                    <option value="masculino">Masculino</option>
+                    <option value="femenino">Femenino</option>
+                    <option value="femenino">Otro</option>
+                </select>
+                <label for="pers-sex" class="input-label">Sexo:</label>
+            </div>
+        </div>
+        <div class="input-group">
+            <div class="relative">
+                <span><i class="fas fa-heart"></i></span>
+                <select id="pers-edocivil" name="estado_civil" required>
+                    <option value="" disabled selected></option>
+                    <option value="soltero">Soltero(a)</option>
+                    <option value="casado">Casado(a)</option>
+                    <option value="divorciado">Divorciado(a)</option>
+                    <option value="viudo">Viudo(a)</option>
+                    <option value="unionLibre">Unión Libre</option>
+                </select>
+                <label for="pers-edocivil" class="input-label">Estado Civil:</label>
+            </div>
+        </div>
+    </div>
+</div>
+<button type="submit" class="submit-button">Guardar Datos Personales</button>

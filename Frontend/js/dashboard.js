@@ -19,9 +19,35 @@ window.loadPageContent = async (pageUrl) => {
         console.log(`Contenido de ${pageUrl} cargado con éxito.`);
         history.pushState({ path: pageUrl }, '', pageUrl);
 
-        if (pageUrl === '/Frontend/html/persInfo.html') {
-            window.dispatchEvent(new CustomEvent('persInfoContentChanged'));
+        let newUrl = pageUrl;
+        if (pageUrl === '/Frontend/html/persInfo.html' && window.location.hash) {
+            newUrl += window.location.hash;
         }
+        history.pushState({ path: pageUrl }, '', newUrl);
+        window.dispatchEvent(new CustomEvent('mainContentLoaded', { detail: { pageUrl: pageUrl } }));
+
+        if (pageUrl === '/Frontend/html/persInfo.html') {
+            if (!document.getElementById('persInfoTabLoaderScript')) {
+                const script = document.createElement('script');
+                script.src = '/Frontend/js/persInfoTabLoader.js';
+                script.id = 'persInfoTabLoaderScript';
+                script.onload = () => {
+                    console.log("persInfoTabLoader.js cargado. Inicializando...");
+                    if (window.initPersInfoTabs) {
+                        window.initPersInfoTabs();
+                    }
+                };
+                document.body.appendChild(script);
+            } else {
+                console.log("persInfoTabLoader.js ya cargado. Re-inicializando...");
+                if (window.initPersInfoTabs) {
+                    window.initPersInfoTabs();
+                }
+            }
+        }
+        else {
+        }
+
         window.dispatchEvent(new CustomEvent('mainContentLoaded', { detail: { pageUrl: pageUrl } }));
 
     } catch (error) {
@@ -204,22 +230,17 @@ async function initDashboard() {
 }
 
 window.addEventListener('popstate', (event) => {
-    // Si el estado tiene una ruta, cárgala
     if (event.state && event.state.path) {
         console.log("Navegando con popstate a:", event.state.path);
         loadPageContent(event.state.path);
     } else {
-        // Si no hay estado (ej. al cargar la página por primera vez),
-        // carga la página inicial o la que corresponda a la URL actual
         console.log("Popstate sin estado, cargando página actual o predeterminada.");
-        // Puedes poner aquí la lógica para cargar la página basada en window.location.pathname
-        // Por ejemplo, si tu URL es /Frontend/html/persInfo.html, cargar persInfo.html
         const currentPath = window.location.pathname;
         const lastSegment = currentPath.substring(currentPath.lastIndexOf('/') + 1);
         if (lastSegment && lastSegment.endsWith('.html')) {
             loadPageContent(`html/${lastSegment}`);
         } else {
-            loadPageContent('/Frontend/html/home.html'); // O tu página por defecto
+            loadPageContent('/Frontend/html/home.html');
         }
     }
 });

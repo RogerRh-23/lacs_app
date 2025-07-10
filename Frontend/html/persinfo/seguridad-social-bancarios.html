@@ -1,0 +1,86 @@
+<h3 class="section-title">Documentos de Identificación</h3>
+<div class="form-section">
+    <div class="input-group">
+        <div class="relative">
+            <span><i class="fas fa-id-card"></i></span>
+            <input type="text" id="pers-curp" name="curp" placeholder=" " required>
+            <label for="pers-curp" class="input-label">CURP:</label>
+        </div>
+    </div>
+    <div class="input-group">
+        <div class="relative">
+            <span><i class="fas fa-file-invoice"></i></span>
+            <input type="text" id="pers-rfc" name="rfc" placeholder=" " required>
+            <label for="pers-rfc" class="input-label">RFC:</label>
+        </div>
+    </div>
+</div>
+
+<h3 class="section-title">Información IMSS / Infonavit</h3>
+<div class="form-section">
+    <div class="input-group">
+        <div class="relative">
+            <span><i class="fas fa-hospital-user"></i></span>
+            <input type="text" id="pers-nss" name="nss" placeholder=" " required>
+            <label for="pers-nss" class="input-label">No. de Seguro Social (NSS):</label>
+        </div>
+    </div>
+    <div class="input-group">
+        <div class="relative">
+            <span><i class="fas fa-calendar-plus"></i></span>
+            <input type="date" id="pers-fechaAltaImss" name="fecha_alta_imss" placeholder=" " required>
+            <label for="pers-fechaAltaImss" class="input-label">Fecha Alta IMSS:</label>
+        </div>
+    </div>
+    <div class="input-group">
+        <div class="input-group checkbox-group">
+            <input type="checkbox" id="pers-creditoInfonavit" name="pers-creditoInfonavit">
+            <label for="pers-creditoInfonavit" class="input-label">Crédito Infonavit:</label>
+        </div>
+    </div>
+    <div class="input-group">
+        <span><i class="fas fa-sort-numeric-up-alt"></i></span>
+        <input type="text" id="pers-numInfonavit" name="numero_infonavit" placeholder=" ">
+        <label for="pers-numInfonavit" class="input-label">Número Infonavit:</label>
+    </div>
+    <div class="input-group">
+        <div class="relative">
+            <span><i class="fas fa-registered"></i></span>
+            <input type="text" id="pers-registroPatronal" name="registro_patronal" placeholder=" " required>
+            <label for="pers-registroPatronal" class="input-label">Registro Patronal:</label>
+        </div>
+    </div>
+    <div class="input-group">
+        <div class="relative">
+            <span><i class="fas fa-hospital-alt"></i></span>
+            <input type="text" id="pers-claseRt" name="clase_rt" placeholder=" " required>
+            <label for="pers-claseRt" class="input-label">Clase RT:</label>
+        </div>
+    </div>
+</div>
+
+<h3 class="section-title">Datos Bancarios</h3>
+<div class="form-section">
+    <div class="input-group">
+        <div class="relative">
+            <span><i class="fas fa-bank"></i></span>
+            <input type="text" id="pers-banco" name="banco" placeholder=" " required>
+            <label for="pers-banco" class="input-label">Banco:</label>
+        </div>
+    </div>
+    <div class="input-group">
+        <div class="relative">
+            <span><i class="fas fa-credit-card"></i></span>
+            <input type="text" id="pers-cuentaBancaria" name="cuenta_bancaria" placeholder=" " required>
+            <label for="pers-cuentaBancaria" class="input-label">Cuenta Bancaria:</label>
+        </div>
+    </div>
+    <div class="input-group">
+        <div class="relative">
+            <span><i class="fas fa-money-check-alt"></i></span>
+            <input type="text" id="pers-clabeInterbancaria" name="clabe_interbancaria" placeholder=" " required>
+            <label for="pers-clabeInterbancaria" class="input-label">CLABE Interbancaria:</label>
+        </div>
+    </div>
+</div>
+<button type="submit" class="submit-button">Guardar Seguridad Social y Bancarios</button>
