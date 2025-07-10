@@ -116,7 +116,7 @@ html {
   height: 100vh;
   width: 280px;
   background-color: #2e4d50;
-  color: #fff;
+  color: #e1dfea;
   padding: 20px 20px;
   box-sizing: border-box;
   transition: width 0.3s ease, padding 0.3s ease;
@@ -157,7 +157,7 @@ html {
 #toggle-sidebar {
   background: none;
   border: none;
-  color: #fff;
+  color: #e1dfea;
   font-size: 1.8rem;
   cursor: pointer;
   padding: 5px;
@@ -196,7 +196,7 @@ html {
   align-items: center;
   justify-content: flex-start;
   padding: 12px 15px;
-  color: #fff;
+  color: #e1dfea;
   text-decoration: none;
   font-size: 1rem;
   border-radius: 8px;
@@ -230,7 +230,7 @@ html {
 
 .sidebar-section-title {
   font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(225, 223, 234, 0.6);
   padding: 15px 15px 10px;
   width: 100%;
   text-transform: uppercase;
@@ -261,7 +261,7 @@ html {
   align-items: center;
   justify-content: flex-start;
   padding: 8px 15px;
-  color: #fff;
+  color: #e1dfea;
   text-decoration: none;
   font-size: 0.95rem;
   border-radius: 8px;
@@ -283,14 +283,14 @@ html {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(225, 223, 234, 0.1);
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 0.8rem;
   font-weight: 600;
   margin-right: 10px;
-  color: #fff;
+  color: #e1dfea;
 }
 
 .sidebar.closed .sidebar-section-list li .icon-circle {
@@ -336,7 +336,7 @@ html {
 }
 
 .sidebar-user .username {
-  color: #fff;
+  color: #e1dfea;
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
@@ -372,7 +372,7 @@ html {
 }
 
 .dropdown-content a {
-  color: #fff;
+  color: #e1dfea;
   padding: 12px 16px;
   text-decoration: none;
   display: flex;
@@ -386,7 +386,7 @@ html {
 }
 
 .dropdown-content a:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(225, 223, 234, 0.1);
 }
 
 .sidebar-user .dropdown-content.show {
@@ -493,7 +493,7 @@ html {
 }
 /* Estilos generales para las secciones de formulario */
 .form-section {
-  background-color: #fff;
+  background-color: #e1dfea;
   padding: 30px;
   border-radius: 0.8rem;
   box-shadow: 0 4px 15px rgba(44, 62, 80, 0.08);
@@ -556,7 +556,7 @@ html {
   border-radius: 0.8rem;
   font-size: 1rem;
   color: #1f2937;
-  background-color: #fff;
+  background-color: #e1dfea;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   box-sizing: border-box;
   /* Ajustes de padding para la etiqueta flotante y el icono */
@@ -585,7 +585,7 @@ html {
   pointer-events: none;
   /* Permite hacer clic a través de la etiqueta */
   transition: all 0.2s cubic-bezier(0.4, 0, 0.7, 1);
-  background-color: #fff;
+  background-color: #e1dfea;
   /* Fondo para que "corte" el borde del input */
   padding: 0 5px;
   z-index: 1;
@@ -621,7 +621,7 @@ html {
   /* Tamaño pequeño */
   color: #2e4d50;
   /* Color al flotar */
-  background-color: #fff;
+  background-color: #e1dfea;
   padding: 0 5px;
   transform: translateY(0);
 }
@@ -655,7 +655,7 @@ html {
   cursor: pointer;
   background-color: #2e4d50;
   /* Fondo de los botones (color de la sidebar) */
-  color: #fff;
+  color: #e1dfea;
   /* Texto de los botones */
   font-size: 1rem;
   font-weight: 600;
@@ -673,15 +673,15 @@ html {
 .tab-navigation .tab-button:hover {
   background-color: #376063;
   /* Fondo al pasar el ratón */
-  color: #fff;
+  color: #e1dfea;
 }
 
 .tab-navigation .tab-button.active {
   background-color: #376063;
   /* Fondo de la pestaña activa */
-  color: #fff;
+  color: #e1dfea;
   /* Texto de la pestaña activa */
-  border-bottom-color: #fff;
+  border-bottom-color: #e1dfea;
   /* Borde inferior blanco para resaltar */
 }
 
@@ -715,7 +715,7 @@ html {
 
 .form-actions .submit-button {
   background-color: #2e4d50;
-  color: #fff;
+  color: #e1dfea;
   border: none;
 }
 
@@ -786,11 +786,11 @@ html {
     /* Eliminar borde derecho del último botón */
   }
   .tab-navigation .tab-button.active {
-    border-bottom-color: #fff;
+    border-bottom-color: #e1dfea;
     /* Color del borde inferior activo */
     background-color: #376063;
     /* Fondo de la pestaña activa */
-    color: #fff;
+    color: #e1dfea;
     /* Texto de la pestaña activa */
     border-left: none;
     /* Asegurarse de que no haya un borde izquierdo si antes lo tenía */
@@ -812,7 +812,7 @@ html {
   max-width: 480px;
   width: 100%;
   /* Asegura que ocupe el ancho disponible dentro del padding */
-  background: #fff;
+  background: #e1dfea;
   border-radius: 0.8rem;
   box-shadow: 0 10px 30px rgba(44, 62, 80, 0.08);
   overflow: hidden;
@@ -865,7 +865,7 @@ html {
   font-size: 1rem;
   font-family: "Montserrat", sans-serif;
   color: #333;
-  background-color: #fff;
+  background-color: #e1dfea;
   transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
   box-sizing: border-box;
   /* Importante para la etiqueta flotante: el placeholder debe estar vacío o un espacio */
@@ -892,7 +892,7 @@ html {
   /* Tamaño inicial de la etiqueta (pequeño) */
   pointer-events: none;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.7, 1);
-  background: #fff;
+  background: #e1dfea;
   /* Fondo para que "corte" el borde del input */
   padding: 0 0.2rem;
   border-radius: 0.3rem;
@@ -923,7 +923,7 @@ html {
   /* Tamaño pequeño */
   color: #2e4d50;
   /* Color al flotar */
-  background: #fff;
+  background: #e1dfea;
   padding: 0 0.2rem;
   border-radius: 0.3rem;
   transform: translateY(0);
@@ -933,7 +933,7 @@ html {
   width: 100%;
   padding: 1.1rem;
   background: linear-gradient(45deg, #376063, #2e4d50);
-  color: #fff;
+  color: #e1dfea;
   font-size: 1.1rem;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
@@ -997,7 +997,7 @@ html {
 }
 
 .loading-content {
-  background: #fff;
+  background: #e1dfea;
   padding: 2rem;
   border-radius: 0.8rem;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
@@ -1043,7 +1043,7 @@ html {
   left: 50%;
   transform: translateX(-50%);
   background-color: #2e4d50;
-  color: #fff;
+  color: #e1dfea;
   padding: 15px 25px;
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -1126,7 +1126,7 @@ html {
   }
 }
 .form-section {
-  background-color: #fff;
+  background-color: #e1dfea;
   padding: 30px;
   border-radius: 0.8rem;
   box-shadow: 0 4px 15px rgba(44, 62, 80, 0.08);
@@ -1184,7 +1184,7 @@ html {
   border-radius: 0.8rem;
   font-size: 1rem;
   color: #1f2937;
-  background-color: #fff;
+  background-color: #e1dfea;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   box-sizing: border-box;
   /* Ajustes de padding para la etiqueta flotante y el icono */
@@ -1208,7 +1208,7 @@ html {
   font-size: 0.75rem;
   pointer-events: none;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.7, 1);
-  background-color: #fff;
+  background-color: #e1dfea;
   padding: 0 5px;
   z-index: 1;
   transform: translateY(0);
@@ -1232,7 +1232,7 @@ html {
   top: 0.8rem;
   font-size: 0.75rem;
   color: #2e4d50;
-  background-color: #fff;
+  background-color: #e1dfea;
   padding: 0 5px;
   transform: translateY(0);
 }
@@ -1250,7 +1250,7 @@ html {
   display: flex;
   justify-content: flex-start;
   margin-bottom: 20px;
-  background-color: #fff;
+  background-color: #e1dfea;
   border-radius: 0.8rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   overflow: hidden;
@@ -1259,7 +1259,7 @@ html {
 .tab-navigation .tab-button {
   padding: 15px 25px;
   cursor: pointer;
-  background-color: #fff;
+  background-color: #e1dfea;
   color: #1f2937;
   font-size: 1rem;
   font-weight: 600;
@@ -1277,7 +1277,7 @@ html {
 
 .tab-navigation .tab-button.active {
   background-color: #2e4d50;
-  color: #fff;
+  color: #e1dfea;
   border-bottom-color: #376063;
 }
 
@@ -1307,7 +1307,7 @@ html {
 
 .form-actions .submit-button {
   background-color: #2e4d50;
-  color: #fff;
+  color: #e1dfea;
   border: none;
 }
 
