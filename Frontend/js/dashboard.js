@@ -121,7 +121,6 @@ async function loadSidebarHtml() {
     }
 }
 
-// Función auxiliar para cargar scripts dinámicamente
 function loadScript(src, id, callback) {
     let scriptElement = document.getElementById(id);
     if (!scriptElement) {
@@ -163,15 +162,9 @@ window.loadPageContent = async (pageUrl) => {
         history.pushState({ path: pageUrl }, '', newUrl);
 
         if (pageUrl === '/Frontend/html/persInfo.html') {
-            loadScript('/Frontend/js/persInfo.js', 'persInfoScript', () => {
-                loadScript('/Frontend/js/persInfoTabLoader.js', 'persInfoTabLoaderScript', () => {
-                    if (window.initPersInfoTabs) {
-                        window.initPersInfoTabs();
-                    }
-                });
-            });
+            loadScript('/Frontend/js/persInfo.js', 'persInfoScript'); // persInfo.js si tiene lógica específica
         } else if (pageUrl === '/Frontend/html/incidencias.html') {
-            loadScript('/Frontend/js/incidencias.js', 'incidenciasScript', () => {
+            loadScript('/Frontend/js/incidencias.js', 'incidenciasScript', () => { // ¡NUEVO! Carga incidencias.js
                 if (window.initIncidenciasLogic) {
                     window.initIncidenciasLogic();
                 }
@@ -214,12 +207,10 @@ function applySidebarBehavior() {
     }
 
     if (window.innerWidth > 768) {
-
         sidebarElement.classList.add('sidebar--closed');
         appLayoutWrapper.classList.add('sidebar-closed');
         sidebarElement.classList.remove('sidebar--open');
         sidebarToggleButton.style.display = 'none';
-
 
         currentMouseEnterListener = () => {
             sidebarElement.classList.remove('sidebar--closed');
@@ -232,15 +223,14 @@ function applySidebarBehavior() {
 
         currentMouseLeaveListener = () => {
             sidebarElement.classList.add('sidebar--closed');
-            sidebarElement.classList.remove('sidebar--open');
             appLayoutWrapper.classList.add('sidebar-closed');
+            sidebarElement.classList.remove('sidebar--open');
             if (window.initCustomScrollbar) { setTimeout(window.initCustomScrollbar, 50); }
             toggleSidebarLogoVisibility(false);
         };
         sidebarElement.addEventListener('mouseleave', currentMouseLeaveListener);
 
     } else {
-
         sidebarElement.classList.add('sidebar--closed');
         appLayoutWrapper.classList.add('sidebar-closed');
         sidebarElement.classList.remove('sidebar--open');
@@ -291,7 +281,8 @@ async function initDashboard() {
 
     const registerEmployeesLink = document.getElementById('register-employees-link');
     const logoutButton = document.getElementById('sidebar-logout-button');
-    const usernameDisplay = document.querySelector('.sidebar-user .username');
+    const usernameDisplay = document.querySelector('.sidebar-user .username .user-name-text'); // ACTUALIZADO: Selector para el nombre de usuario
+    const userMenuBtn = document.getElementById('user-menu-btn'); // Referencia al botón del usuario
 
     function checkAuthAndRole() {
         const jwtToken = localStorage.getItem('accessToken');
@@ -309,6 +300,12 @@ async function initDashboard() {
 
         if (usernameDisplay) {
             usernameDisplay.textContent = username;
+        }
+
+        // Si existe el elemento user-role-text, actualízalo también
+        const userRoleText = document.querySelector('.sidebar-user .user-role-text');
+        if (userRoleText) {
+            userRoleText.textContent = userRole; // Asumiendo que el rol se guarda en localStorage
         }
 
         if (userRole === 'admin') {
@@ -329,6 +326,25 @@ async function initDashboard() {
     } else {
         console.warn("[initDashboard] Botón de cerrar sesión con ID 'sidebar-logout-button' no encontrado después de cargar la barra lateral.");
     }
+
+    // Lógica para el dropdown del usuario (simplificada, si se necesita un dropdown real, se puede expandir)
+    if (userMenuBtn) {
+        const userDropdown = document.getElementById('user-dropdown');
+        if (userDropdown) {
+            userMenuBtn.addEventListener('click', (event) => {
+                event.stopPropagation(); // Evita que el clic se propague y cierre el dropdown inmediatamente
+                userDropdown.classList.toggle('show');
+            });
+
+            // Cerrar el dropdown si se hace clic fuera
+            document.addEventListener('click', (event) => {
+                if (!userMenuBtn.contains(event.target) && !userDropdown.contains(event.target)) {
+                    userDropdown.classList.remove('show');
+                }
+            });
+        }
+    }
+
 
     loadScript('/Frontend/js/animations.js', 'animationsScript');
 
