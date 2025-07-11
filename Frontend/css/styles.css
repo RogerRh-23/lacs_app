@@ -1,8 +1,8 @@
 @charset "UTF-8";
 .sidebar {
   width: 55px; /* Más fina cuando está cerrada */
-  background-color: #e1dfea;
-  color: #333;
+  background-color: #e1dfea; /* Ligeramente translúcida (80% opacidad) */
+  color: #333; /* Color principal del texto de la sidebar (para el logo grande, etc.) */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,9 +17,10 @@
   margin-top: 10px; /* Margen superior */
   margin-bottom: 10px; /* Margen inferior para despegarla */
   border-radius: 15px; /* Bordes redondeados en todas las esquinas para forma de pastilla */
-  /* ¡AJUSTE CLAVE AQUÍ! Oculta el texto (span) con display: none */
+  /* Oculta el texto (span) cuando la sidebar NO tiene la clase --open */
   /* Muestra el texto cuando la sidebar SÍ tiene la clase --open */
-  /* ¡AJUSTE CLAVE AQUÍ! Oculta el nombre de usuario y el dropdown con display: none */
+  /* Controla el margin-right del icono basado en el estado de la sidebar */
+  /* Oculta el nombre de usuario y el dropdown con display: none */
   /* Muestra el nombre de usuario y el dropdown cuando la sidebar SÍ tiene la clase --open */
 }
 .sidebar--open {
@@ -80,8 +81,8 @@
 .sidebar__nav a {
   display: flex;
   align-items: center; /* Alinea verticalmente icono y texto */
-  padding: 15px 20px; /* Padding para el enlace completo */
-  color: #004B49; /* ¡AJUSTADO! Color oscuro para los iconos y texto de los enlaces */
+  padding: 15px 15px; /* Padding base para el enlace. El icono se centrará aquí. */
+  color: #004B49; /* Color oscuro para los iconos y texto de los enlaces */
   text-decoration: none;
   font-size: 1rem;
   white-space: nowrap; /* Evita que el texto se envuelva */
@@ -95,26 +96,27 @@
   color: #e1dfea; /* Color del texto/icono al hacer hover */
 }
 .sidebar__nav a i {
-  margin-right: 10px; /* Espacio entre icono y texto */
   font-size: 1.2rem; /* Tamaño explícito para el icono */
   flex-shrink: 0; /* Evita que el icono se encoja */
   color: #004B49; /* ¡Explícitamente definido para el icono! */
   z-index: 1; /* Asegura que el icono esté por encima */
   min-width: 20px; /* Asegura un ancho mínimo para el icono */
   text-align: center; /* Centra el icono dentro de su min-width */
+  /* margin-right se controla por el estado de la sidebar */
 }
 .sidebar:not(.sidebar--open) .sidebar__nav a span {
   display: none; /* Oculta completamente el span */
-  transition: display 0.3s ease-in-out;
 }
 .sidebar--open .sidebar__nav a span {
   display: inline-block; /* Muestra el span como bloque en línea */
-  width: auto; /* Permite que el texto ocupe su ancho natural */
-  opacity: 1; /* Hace que sea visible */
-  font-size: 1rem; /* Restaura el tamaño de fuente */
-  padding: 0; /* Asegura que no haya padding extra */
-  margin-left: 10px; /* Restaura el margen con el icono */
-  transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out, font-size 0.3s ease-in-out, margin-left 0.3s ease-in-out;
+  margin-left: 10px; /* Espacio entre icono y texto cuando está abierto */
+  transition: margin-left 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+.sidebar:not(.sidebar--open) .sidebar__nav a i {
+  margin-right: 0; /* No hay margen a la derecha del icono cuando el texto está oculto */
+}
+.sidebar--open .sidebar__nav a i {
+  margin-right: 10px; /* Margen a la derecha del icono cuando el texto está visible */
 }
 .sidebar__toggle-button {
   background-color: #376063;
@@ -178,7 +180,6 @@
 }
 .sidebar:not(.sidebar--open) .sidebar-user .username, .sidebar:not(.sidebar--open) .sidebar-user .dropdown-content {
   display: none; /* Oculta completamente el username y el dropdown */
-  transition: display 0.3s ease-in-out;
 }
 .sidebar--open .sidebar-user .username, .sidebar--open .sidebar-user .dropdown-content {
   display: block; /* Muestra el username y el dropdown */
