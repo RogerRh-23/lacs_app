@@ -119,7 +119,7 @@
     /* ¡AJUSTE CLAVE AQUÍ! Oculta el texto (span) con display: none */
     &:not(.sidebar--open) &__nav a span {
         display: none; /* Oculta completamente el span */
-        transition: display 0.3s ease-in-out; /* La transición en display no es animable, pero es para claridad */
+        transition: display 0.3s ease-in-out; 
     }
     /* Muestra el texto cuando la sidebar SÍ tiene la clase --open */
     &--open &__nav a span {

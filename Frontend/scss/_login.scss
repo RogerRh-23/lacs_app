@@ -15,7 +15,7 @@
     width: 100%;
     background: $color-white;
     border-radius: $border-radius;
-    box-shadow: 0 10px 30px $color-shadow-medium;
+    box-shadow: 0 2px 1px $color-shadow-medium, 0 4px 2px $color-shadow-medium, 0 8px 4px $color-shadow-medium, 0 16px 8px $color-shadow-medium, 0 32px 16px $color-shadow-medium;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -75,7 +75,7 @@
 
 .input-group input:focus {
     border-color: $color-accent;
-    box-shadow: 0 0 8px rgba(55, 96, 99, 0.2);
+    box-shadow: 0 2px 1px rgba(55, 96, 99, 0.2), 0 4px 2px rgba(55, 96, 99, 0.2), 0 8px 4px rgba(55, 96, 99, 0.2), 0 16px 8px rgba(55, 96, 99, 0.2), 0 32px 16px rgba(55, 96, 99, 0.2);
     outline: none;
 }
 
@@ -127,13 +127,13 @@
     position: relative;
     z-index: 1;
     letter-spacing: 0.05rem;
-    box-shadow: 0 5px 15px rgba(28, 49, 52, 0.3);
+    box-shadow: 0 2px 1px rgba(28, 49, 52, 0.3), 0 4px 2px rgba(28, 49, 52, 0.3), 0 8px 4px rgba(28, 49, 52, 0.3), 0 16px 8px rgba(28, 49, 52, 0.3), 0 32px 16px rgba(28, 49, 52, 0.3);
     transition: all 0.3s ease;
     margin-top: 2rem;
 }
 
 .login-button:hover {
-    box-shadow: 0 8px 20px rgba(28, 49, 52, 0.4);
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.4), 0 4px 2px rgba(0, 0, 0, 0.4), 0 8px 4px rgba(0, 0, 0, 0.4), 0 16px 8px rgba(0, 0, 0, 0.4), 0 32px 16px rgba(0, 0, 0, 0.4);
     transform: translateY(-3px);
     filter: brightness(1.1);
 }
@@ -183,7 +183,7 @@
     background: $color-white;
     padding: 2rem;
     border-radius: $border-radius;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1), 0 4px 2px rgba(0, 0, 0, 0.1), 0 8px 4px rgba(0, 0, 0, 0.1), 0 16px 8px rgba(0, 0, 0, 0.1), 0 32px 16px rgba(0, 0, 0, 0.1);
     text-align: center;
     transform: translateY(0);
     transition: transform 0.5s ease-out, opacity 0.5s ease-out;
@@ -231,7 +231,7 @@
     color: $color-white;
     padding: 15px 25px;
     border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2), 0 4px 2px rgba(0, 0, 0, 0.2), 0 8px 4px rgba(0, 0, 0, 0.2), 0 16px 8px rgba(0, 0, 0, 0.2), 0 32px 16px rgba(0, 0, 0, 0.2);
     opacity: 0;
     visibility: hidden;
     z-index: 1000;

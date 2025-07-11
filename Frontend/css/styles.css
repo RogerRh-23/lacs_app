@@ -105,7 +105,7 @@
 }
 .sidebar:not(.sidebar--open) .sidebar__nav a span {
   display: none; /* Oculta completamente el span */
-  transition: display 0.3s ease-in-out; /* La transición en display no es animable, pero es para claridad */
+  transition: display 0.3s ease-in-out;
 }
 .sidebar--open .sidebar__nav a span {
   display: inline-block; /* Muestra el span como bloque en línea */
@@ -351,7 +351,7 @@ html, body {
   width: 100%;
   background: #e1dfea;
   border-radius: 0.8rem;
-  box-shadow: 0 10px 30px rgba(44, 62, 80, 0.08);
+  box-shadow: 0 2px 1px rgba(44, 62, 80, 0.08), 0 4px 2px rgba(44, 62, 80, 0.08), 0 8px 4px rgba(44, 62, 80, 0.08), 0 16px 8px rgba(44, 62, 80, 0.08), 0 32px 16px rgba(44, 62, 80, 0.08);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -411,7 +411,7 @@ html, body {
 
 .input-group input:focus {
   border-color: #376063;
-  box-shadow: 0 0 8px rgba(55, 96, 99, 0.2);
+  box-shadow: 0 2px 1px rgba(55, 96, 99, 0.2), 0 4px 2px rgba(55, 96, 99, 0.2), 0 8px 4px rgba(55, 96, 99, 0.2), 0 16px 8px rgba(55, 96, 99, 0.2), 0 32px 16px rgba(55, 96, 99, 0.2);
   outline: none;
 }
 
@@ -463,13 +463,13 @@ html, body {
   position: relative;
   z-index: 1;
   letter-spacing: 0.05rem;
-  box-shadow: 0 5px 15px rgba(28, 49, 52, 0.3);
+  box-shadow: 0 2px 1px rgba(28, 49, 52, 0.3), 0 4px 2px rgba(28, 49, 52, 0.3), 0 8px 4px rgba(28, 49, 52, 0.3), 0 16px 8px rgba(28, 49, 52, 0.3), 0 32px 16px rgba(28, 49, 52, 0.3);
   transition: all 0.3s ease;
   margin-top: 2rem;
 }
 
 .login-button:hover {
-  box-shadow: 0 8px 20px rgba(28, 49, 52, 0.4);
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.4), 0 4px 2px rgba(0, 0, 0, 0.4), 0 8px 4px rgba(0, 0, 0, 0.4), 0 16px 8px rgba(0, 0, 0, 0.4), 0 32px 16px rgba(0, 0, 0, 0.4);
   transform: translateY(-3px);
   filter: brightness(1.1);
 }
@@ -519,7 +519,7 @@ html, body {
   background: #e1dfea;
   padding: 2rem;
   border-radius: 0.8rem;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1), 0 4px 2px rgba(0, 0, 0, 0.1), 0 8px 4px rgba(0, 0, 0, 0.1), 0 16px 8px rgba(0, 0, 0, 0.1), 0 32px 16px rgba(0, 0, 0, 0.1);
   text-align: center;
   transform: translateY(0);
   transition: transform 0.5s ease-out, opacity 0.5s ease-out;
@@ -565,7 +565,7 @@ html, body {
   color: #e1dfea;
   padding: 15px 25px;
   border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2), 0 4px 2px rgba(0, 0, 0, 0.2), 0 8px 4px rgba(0, 0, 0, 0.2), 0 16px 8px rgba(0, 0, 0, 0.2), 0 32px 16px rgba(0, 0, 0, 0.2);
   opacity: 0;
   visibility: hidden;
   z-index: 1000;
