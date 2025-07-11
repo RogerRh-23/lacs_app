@@ -1,6 +1,6 @@
 {
-    "name": "Gestión de Personal",
-    "short_name": "Gestión Personal",
+    "name": "Metztli",
+    "short_name": "Metztli",
     "description": "Aplicación para la gestión de información de empleados, datos laborales, salariales e incidentes.",
     "start_url": "/login.html",
     "display": "standalone",

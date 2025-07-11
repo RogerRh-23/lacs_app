@@ -1,4 +1,4 @@
-const CACHE_NAME = 'app-gestion-v2.7.11';
+const CACHE_NAME = 'app-gestion-v1';
 
 const urlsToCache = [
     '/',
@@ -13,17 +13,19 @@ const urlsToCache = [
     '/Frontend/html/logs.html',
     '/Frontend/html/listEmp.html',
     '/Frontend/html/bajs.html',
-    '/Frontend/html/altasInfo/persDt.html',
-    '/Frontend/html/altasInfo/dom.html',
-    '/Frontend/html/altasInfo/infoSal.html',
-    '/Frontend/html/altasInfo/segBan.html',
-    '/Frontend/html/altasInfo/add.html',
+    '/Frontend/html/persInfo/datos-personales.html',
+    '/Frontend/html/persInfo/contacto-domicilio.html',
+    '/Frontend/html/persInfo/datos-laborales.html',
+    '/Frontend/html/persInfo/seguridad-social-bancarios.html',
+    '/Frontend/html/persInfo/informacion-salarial.html',
+    '/Frontend/html/persInfo/adicional-beneficiarios.html',
     '/Frontend/css/styles.css',
     '/Frontend/js/animations.js',
     '/Frontend/js/home.js',
     '/Frontend/js/dashboard.js',
     '/Frontend/js/scrollbar.js',
     '/Frontend/js/persInfo.js',
+    '/Frontend/js/persInfoTabLoader.js',
     '/Frontend/js/incidencias.js',
     '/Frontend/js/main.js',
     '/manifest.json',

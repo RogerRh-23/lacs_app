@@ -1,20 +1,25 @@
 @charset "UTF-8";
 .sidebar {
-  width: 80px;
-  background-color: #e1dfea;
+  width: 55px;
+  background-color: rgba(225, 223, 234, 0.8);
   color: #333;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px 0;
-  transition: width 0.3s ease-in-out;
+  transition: width 0.3s ease-in-out, margin 0.3s ease-in-out;
   box-shadow: 2px 0 5px rgba(44, 62, 80, 0.08);
   overflow: hidden;
   position: relative;
   z-index: 1000;
+  height: calc(100vh - 60px);
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 15px;
 }
 .sidebar--open {
-  width: 250px;
+  width: 220px;
 }
 .sidebar__logo-container {
   height: 60px;
@@ -37,7 +42,7 @@
 .sidebar .logo-compact {
   opacity: 1;
   display: block;
-  max-width: 50px;
+  max-width: 45px;
   transform: scale(1);
 }
 .sidebar .logo-full {
@@ -72,30 +77,41 @@
   display: flex;
   align-items: center;
   padding: 15px 20px;
-  color: #e1dfea;
+  color: #004B49;
   text-decoration: none;
   font-size: 1rem;
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: clip;
   transition: background-color 0.2s ease-in-out;
   font-family: "Montserrat", sans-serif;
 }
 .sidebar__nav a:hover {
   background-color: #376063;
+  color: #e1dfea;
 }
 .sidebar__nav a i {
   margin-right: 10px;
   font-size: 1.2rem;
+  flex-shrink: 0;
+  color: #004B49;
+  z-index: 1;
 }
 .sidebar:not(.sidebar--open) .sidebar__nav a span {
-  display: none;
+  width: 0;
   opacity: 0;
-  transition: opacity 0.1s ease-out;
+  font-size: 0;
+  padding: 0;
+  margin-left: 0;
+  transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out, font-size 0.3s ease-in-out, margin-left 0.3s ease-in-out;
 }
 .sidebar--open .sidebar__nav a span {
-  display: inline-block;
+  width: auto;
   opacity: 1;
-  transition: opacity 0.3s ease-in;
+  font-size: 1rem;
+  padding: 0;
+  margin-left: 10px;
+  transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out, font-size 0.3s ease-in-out, margin-left 0.3s ease-in-out;
 }
 .sidebar__toggle-button {
   background-color: #376063;
@@ -158,24 +174,28 @@
   overflow: hidden;
 }
 .sidebar:not(.sidebar--open) .sidebar-user .username, .sidebar:not(.sidebar--open) .sidebar-user .dropdown-content {
-  display: none;
+  max-width: 0;
+  font-size: 0;
   opacity: 0;
-  transition: opacity 0.1s ease-out;
+  padding: 0;
+  transition: max-width 0.3s ease-in-out, font-size 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 .sidebar--open .sidebar-user .username, .sidebar--open .sidebar-user .dropdown-content {
-  display: block;
+  max-width: 100%;
+  font-size: 1rem;
   opacity: 1;
-  transition: opacity 0.3s ease-in;
+  padding: 0;
+  transition: max-width 0.3s ease-in-out, font-size 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 .sidebar .sidebar-user .avatar img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #e1dfea;
+  border: 2px solid #004B49;
 }
 .sidebar .sidebar-user .username {
-  color: #e1dfea;
+  color: #333;
   font-weight: 600;
   cursor: pointer;
   background: none;
@@ -218,9 +238,7 @@ body {
   padding: 0;
   width: 100%;
   height: 100%;
-  /* ¡Asegura 100% de altura! */
   overflow: hidden;
-  /* Evita scrollbars en el nivel más alto */
 }
 
 body {
@@ -244,7 +262,6 @@ body {
     background-position: 0% 50%;
   }
 }
-/* Estas reglas ya están en html, body arriba, o se manejan por scrollbar.js */
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   display: none;
@@ -259,78 +276,70 @@ html {
 .app-layout-wrapper {
   display: flex;
   width: 100vw;
-  /* Ocupa todo el ancho del viewport */
   height: 100vh;
-  /* Ocupa toda la altura del viewport */
   overflow: hidden;
-  /* Evita scrollbars no deseadas en el layout principal */
+  align-items: stretch;
+  /* Asegura que los elementos hijos se estiren para llenar la altura */
 }
 
 .main-content {
   flex-grow: 1;
-  /* Ocupa todo el espacio disponible en el eje principal (horizontal) */
   padding: 20px;
   background-color: #f9fafb;
   overflow-y: auto;
-  /* Permite scroll si el contenido es largo dentro de main-content */
   transition: margin-left 0.3s ease-in-out;
-  /* Transición para el margen */
   height: 100%;
   /* Asegura que main-content ocupe el 100% de la altura de su padre flex item */
 }
 
-/* Regla para cuando la sidebar está cerrada (aplicada al wrapper) */
+/* Margen para el contenido principal cuando la sidebar está cerrada */
 .app-layout-wrapper.sidebar-closed .main-content {
-  margin-left: 80px;
-  /* Margen igual al ancho de la sidebar cerrada */
+  margin-left: 75px;
+  /* Ancho de sidebar cerrada (55px) + margen izquierdo de sidebar (10px) + un extra para compensar el margen derecho de la sidebar */
 }
 
-/* Regla para cuando la sidebar está abierta (aplicada al wrapper) */
+/* Margen para el contenido principal cuando la sidebar está abierta */
 .app-layout-wrapper:not(.sidebar-closed) .main-content {
-  margin-left: 250px;
-  /* Margen igual al ancho de la sidebar abierta */
+  margin-left: 240px;
+  /* Ancho de sidebar abierta (220px) + margen izquierdo de sidebar (10px) + un extra */
 }
 
-/* Asegura que la sidebar también ocupe el 100% de la altura de su padre flex container */
-.sidebar {
+/* Estas reglas ya están en style.scss o se manejan por el layout flex */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
   height: 100%;
-  /* La sidebar debe ocupar el 100% de la altura de .app-layout-wrapper */
-  /* ... tus otras propiedades de sidebar ... */
+  overflow: hidden;
 }
 
-/* Media query para dispositivos móviles */
+/* La altura de la sidebar se define en _sidebar.scss */
+/* .sidebar {
+    height: 100%;
+} */
 @media (max-width: 768px) {
   .app-layout-wrapper {
     flex-direction: column;
-    /* Apila la sidebar y el contenido en móviles */
   }
   .main-content {
     margin-left: 0 !important;
-    /* No hay margen en móvil, la sidebar se superpone o se apila */
     width: 100%;
-    /* Ocupa todo el ancho disponible */
     height: auto;
-    /* En móvil, la altura puede ser automática si la sidebar se superpone */
   }
   .sidebar {
     position: fixed;
-    /* O absolute */
     height: 100vh;
-    /* En móvil, la sidebar ocupa toda la altura del viewport */
     top: 0;
     left: 0;
     z-index: 1001;
-    /* Asegura que esté por encima del main content */
     transform: translateX(-100%);
-    /* Oculta la sidebar fuera de la vista */
     transition: transform 0.3s ease-in-out;
   }
   .sidebar.sidebar--open {
     transform: translateX(0);
-    /* Muestra la sidebar */
   }
 }
-/* Contenedor de la página de login para centrar el formulario */
 .login-page-container {
   display: flex;
   justify-content: center;
@@ -339,13 +348,11 @@ html {
   width: 100%;
   box-sizing: border-box;
   padding: 20px;
-  /* Añade padding para evitar que el formulario toque los bordes en móvil */
 }
 
 .login-box {
   max-width: 480px;
   width: 100%;
-  /* Asegura que ocupe el ancho disponible dentro del padding */
   background: #e1dfea;
   border-radius: 0.8rem;
   box-shadow: 0 10px 30px rgba(44, 62, 80, 0.08);
@@ -402,12 +409,8 @@ html {
   background-color: #e1dfea;
   transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
   box-sizing: border-box;
-  /* Importante para la etiqueta flotante: el placeholder debe estar vacío o un espacio */
-  /* El placeholder se usa para que :not(:placeholder-shown) funcione */
   padding-top: 1.5rem;
-  /* Ajusta el padding superior para la etiqueta flotante */
   padding-bottom: 0.8rem;
-  /* Ajusta el padding inferior */
 }
 
 .input-group input:focus {
@@ -420,43 +423,29 @@ html {
   position: absolute;
   left: 1.2rem;
   top: 0.8rem;
-  /* Posición inicial de la etiqueta (arriba) */
   color: #6b7280;
   font-size: 0.75rem;
-  /* Tamaño inicial de la etiqueta (pequeño) */
   pointer-events: none;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.7, 1);
   background: #e1dfea;
-  /* Fondo para que "corte" el borde del input */
   padding: 0 0.2rem;
   border-radius: 0.3rem;
   transform: translateY(0);
-  /* Asegura que no haya transform inicial */
   z-index: 1;
-  /* Asegura que la etiqueta esté sobre el input */
 }
 
-/* Estilo para la etiqueta cuando el input está vacío y no enfocado */
 .input-group input:placeholder-shown + label {
   top: 50%;
-  /* Posición cuando el placeholder está visible */
   font-size: 1rem;
-  /* Tamaño normal */
   transform: translateY(-50%);
-  /* Centrar verticalmente */
   background: transparent;
-  /* Sin fondo */
 }
 
-/* Estilo para la etiqueta cuando el input tiene contenido o está enfocado */
 .input-group input:not(:placeholder-shown) + label,
 .input-group input:focus + label {
   top: 0.8rem;
-  /* Posición cuando está flotando */
   font-size: 0.75rem;
-  /* Tamaño pequeño */
   color: #2e4d50;
-  /* Color al flotar */
   background: #e1dfea;
   padding: 0 0.2rem;
   border-radius: 0.3rem;
@@ -924,62 +913,38 @@ html {
   .form-actions button {
     width: 100%;
   }
-  /* Ajustes para pestañas en móvil: scroll horizontal */
   .tab-navigation {
     display: flex;
-    /* Mantener flex para alinear en una fila */
     overflow-x: auto;
-    /* Habilitar scroll horizontal */
     -webkit-overflow-scrolling: touch;
-    /* Suavizar scroll en iOS */
     white-space: nowrap;
-    /* Evitar que los botones se envuelvan */
     justify-content: flex-start;
-    /* Asegurar que el contenido empiece a la izquierda */
     border-radius: 0.8rem;
-    /* Mantener bordes redondeados */
   }
   .tab-navigation .tab-button {
     flex-shrink: 0;
-    /* Evitar que los botones se encojan */
     min-width: fit-content;
-    /* Permitir que cada botón ocupe solo el espacio necesario */
     border-bottom: 3px solid transparent;
-    /* Mantener el borde inferior para el activo */
     border-right: 1px solid rgba(255, 255, 255, 0.1);
-    /* Separador visual sutil entre botones */
   }
   .tab-navigation .tab-button:last-child {
     border-right: none;
-    /* Eliminar borde derecho del último botón */
   }
   .tab-navigation .tab-button.active {
     border-bottom-color: #e1dfea;
-    /* Color del borde inferior activo */
     background-color: #376063;
-    /* Fondo de la pestaña activa */
     color: #e1dfea;
-    /* Texto de la pestaña activa */
     border-left: none;
-    /* Asegurarse de que no haya un borde izquierdo si antes lo tenía */
   }
 }
-/* Frontend/scss/_scrollbar.scss */
 .app-layout-wrapper {
   position: relative;
-  /* Necesario para posicionar el scrollbar personalizado */
   display: flex;
-  /* Si es un flex container para sidebar y main */
   flex-direction: row;
-  /* O column, dependiendo de tu layout */
   height: 100vh;
-  /* O la altura que necesites para que el scroll funcione */
   overflow-y: scroll;
-  /* Permite el scroll nativo, lo ocultaremos */
   -ms-overflow-style: none;
-  /* IE and Edge */
   scrollbar-width: none;
-  /* Firefox */
 }
 .app-layout-wrapper::-webkit-scrollbar {
   display: none;
@@ -988,33 +953,25 @@ html {
 .custom-scrollbar-track {
   position: absolute;
   right: 5px;
-  /* Posición a la derecha */
   top: 0;
   bottom: 0;
   width: 8px;
-  /* Ancho de la barra de desplazamiento */
   background-color: rgba(0, 0, 0, 0.1);
-  /* Fondo del track (transparente/claro) */
   border-radius: 4px;
   opacity: 0;
-  /* Oculto por defecto */
   transition: opacity 0.3s ease;
   pointer-events: none;
-  /* No interactuable cuando está oculto */
   z-index: 100;
-  /* Asegura que esté por encima del contenido */
 }
 
 .custom-scrollbar-track.active {
   opacity: 1;
-  /* Visible cuando se activa (scroll, hover, drag) */
   pointer-events: auto;
 }
 
 .custom-scrollbar-thumb {
   width: 100%;
   background-color: var(--color-primary);
-  /* Usa el color primario de tu tema */
   border-radius: 4px;
   position: absolute;
   left: 0;

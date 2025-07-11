@@ -1,81 +1,73 @@
-// scss/_layout.scss
 @import 'variables';
 
 .app-layout-wrapper {
     display: flex;
     width: 100vw;
-    /* Ocupa todo el ancho del viewport */
     height: 100vh;
-    /* Ocupa toda la altura del viewport */
     overflow: hidden;
-    /* Evita scrollbars no deseadas en el layout principal */
+    align-items: stretch;
+    /* Asegura que los elementos hijos se estiren para llenar la altura */
 }
 
 .main-content {
     flex-grow: 1;
-    /* Ocupa todo el espacio disponible en el eje principal (horizontal) */
     padding: 20px;
     background-color: $color-background-light;
     overflow-y: auto;
-    /* Permite scroll si el contenido es largo dentro de main-content */
     transition: margin-left 0.3s ease-in-out;
-    /* Transición para el margen */
     height: 100%;
     /* Asegura que main-content ocupe el 100% de la altura de su padre flex item */
 }
 
-/* Regla para cuando la sidebar está cerrada (aplicada al wrapper) */
+/* Margen para el contenido principal cuando la sidebar está cerrada */
 .app-layout-wrapper.sidebar-closed .main-content {
-    margin-left: 80px;
-    /* Margen igual al ancho de la sidebar cerrada */
+    margin-left: calc(55px + 10px + 10px);
+    /* Ancho de sidebar cerrada (55px) + margen izquierdo de sidebar (10px) + un extra para compensar el margen derecho de la sidebar */
 }
 
-/* Regla para cuando la sidebar está abierta (aplicada al wrapper) */
+/* Margen para el contenido principal cuando la sidebar está abierta */
 .app-layout-wrapper:not(.sidebar-closed) .main-content {
-    margin-left: 250px;
-    /* Margen igual al ancho de la sidebar abierta */
+    margin-left: calc(220px + 10px + 10px);
+    /* Ancho de sidebar abierta (220px) + margen izquierdo de sidebar (10px) + un extra */
 }
 
-/* Asegura que la sidebar también ocupe el 100% de la altura de su padre flex container */
-.sidebar {
+/* Estas reglas ya están en style.scss o se manejan por el layout flex */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
     height: 100%;
-    /* La sidebar debe ocupar el 100% de la altura de .app-layout-wrapper */
-    /* ... tus otras propiedades de sidebar ... */
+    overflow: hidden;
 }
 
+/* La altura de la sidebar se define en _sidebar.scss */
+/* .sidebar {
+    height: 100%;
+} */
 
-/* Media query para dispositivos móviles */
 @media (max-width: 768px) {
     .app-layout-wrapper {
         flex-direction: column;
-        /* Apila la sidebar y el contenido en móviles */
     }
 
     .main-content {
         margin-left: 0 !important;
-        /* No hay margen en móvil, la sidebar se superpone o se apila */
         width: 100%;
-        /* Ocupa todo el ancho disponible */
         height: auto;
-        /* En móvil, la altura puede ser automática si la sidebar se superpone */
     }
 
     .sidebar {
         position: fixed;
-        /* O absolute */
         height: 100vh;
-        /* En móvil, la sidebar ocupa toda la altura del viewport */
         top: 0;
         left: 0;
         z-index: 1001;
-        /* Asegura que esté por encima del main content */
         transform: translateX(-100%);
-        /* Oculta la sidebar fuera de la vista */
         transition: transform 0.3s ease-in-out;
     }
 
     .sidebar.sidebar--open {
         transform: translateX(0);
-        /* Muestra la sidebar */
     }
 }

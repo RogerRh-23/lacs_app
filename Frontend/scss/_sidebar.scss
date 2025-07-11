@@ -1,21 +1,28 @@
 @import 'variables';
 
 .sidebar {
-    width: 80px;
-    background-color: $color-white;
+    width: 55px;
+    background-color: rgba($color-white, 0.8);
     color: $color-black;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px 0;
-    transition: width 0.3s ease-in-out;
+    transition: width 0.3s ease-in-out, margin 0.3s ease-in-out;
     box-shadow: 2px 0 5px $color-shadow-medium;
     overflow: hidden;
     position: relative;
     z-index: 1000;
 
+    height: calc(100vh - 60px);
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+
+
     &--open {
-        width: 250px;
+        width: 220px;
     }
 
     &__logo-container {
@@ -42,7 +49,7 @@
     .logo-compact {
         opacity: 1;
         display: block;
-        max-width: 50px;
+        max-width: 45px;
         transform: scale(1);
     }
 
@@ -84,34 +91,45 @@
         display: flex;
         align-items: center;
         padding: 15px 20px;
-        color: $color-white;
+        color: $color-dark;
         text-decoration: none;
         font-size: 1rem;
         white-space: nowrap;
         overflow: hidden;
+        text-overflow: clip;
         transition: background-color 0.2s ease-in-out;
         font-family: "Montserrat", sans-serif;
     }
 
     &__nav a:hover {
         background-color: $color-accent;
+        color: $color-white;
     }
 
     &__nav a i {
         margin-right: 10px;
         font-size: 1.2rem;
+        flex-shrink: 0;
+        color: $color-dark;
+        z-index: 1;
     }
 
     &:not(.sidebar--open) &__nav a span {
-        display: none;
+        width: 0;
         opacity: 0;
-        transition: opacity 0.1s ease-out;
+        font-size: 0;
+        padding: 0;
+        margin-left: 0;
+        transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out, font-size 0.3s ease-in-out, margin-left 0.3s ease-in-out;
     }
 
     &--open &__nav a span {
-        display: inline-block;
+        width: auto;
         opacity: 1;
-        transition: opacity 0.3s ease-in;
+        font-size: 1rem;
+        padding: 0;
+        margin-left: 10px;
+        transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out, font-size 0.3s ease-in-out, margin-left 0.3s ease-in-out;
     }
 
     &__toggle-button {
@@ -183,16 +201,20 @@
 
     &:not(.sidebar--open) .sidebar-user .username,
     &:not(.sidebar--open) .sidebar-user .dropdown-content {
-        display: none;
+        max-width: 0;
+        font-size: 0;
         opacity: 0;
-        transition: opacity 0.1s ease-out;
+        padding: 0;
+        transition: max-width 0.3s ease-in-out, font-size 0.3s ease-in-out, opacity 0.3s ease-in-out;
     }
 
     &--open .sidebar-user .username,
     &--open .sidebar-user .dropdown-content {
-        display: block;
+        max-width: 100%;
+        font-size: 1rem;
         opacity: 1;
-        transition: opacity 0.3s ease-in;
+        padding: 0;
+        transition: max-width 0.3s ease-in-out, font-size 0.3s ease-in-out, opacity 0.3s ease-in-out;
     }
 
 
@@ -201,11 +223,11 @@
         height: 40px;
         border-radius: 50%;
         object-fit: cover;
-        border: 2px solid $color-white;
+        border: 2px solid $color-dark;
     }
 
     .sidebar-user .username {
-        color: $color-white;
+        color: $color-black;
         font-weight: 600;
         cursor: pointer;
         background: none;
@@ -246,4 +268,4 @@
     .sidebar-user .dropdown-content.show {
         display: block;
     }
-}
+} 

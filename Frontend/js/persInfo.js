@@ -1,9 +1,5 @@
-// js/persInfo.js
-
-// Contador de beneficiarios (global para este script, se reinicia al cargar la pestaña)
 let beneficiaryCount = 0;
 
-// Re-definiendo showMessageModal para que sea global y accesible
 const showMessageModal = (message) => {
     let modal = document.getElementById('customMessageModal');
     if (!modal) {
@@ -54,11 +50,10 @@ const showMessageModal = (message) => {
     modal.style.display = 'flex';
 };
 
-// --- Lógica para la pestaña 'datos-personales' ---
 function initDatosPersonalesLogic() {
     console.log("[persInfo.js] Inicializando lógica de Datos Personales.");
-    const birthDateInput = document.getElementById('fechaNacimiento'); // Usar ID del HTML proporcionado
-    const ageInput = document.getElementById('edad'); // Usar ID del HTML proporcionado
+    const birthDateInput = document.getElementById('fechaNacimiento');
+    const ageInput = document.getElementById('edad');
 
     const calculateAge = () => {
         if (birthDateInput && ageInput && birthDateInput.value) {
@@ -71,28 +66,23 @@ function initDatosPersonalesLogic() {
                 age--;
             }
             ageInput.value = age >= 0 ? age : '';
-            // La clase 'is-active' para la etiqueta flotante se maneja con CSS :placeholder-shown y :focus
         } else if (ageInput) {
             ageInput.value = '';
-            // La clase 'is-active' para la etiqueta flotante se maneja con CSS :placeholder-shown y :focus
         }
     };
 
     if (birthDateInput) {
-        birthDateInput.removeEventListener('change', calculateAge); // Evitar duplicados
+        birthDateInput.removeEventListener('change', calculateAge);
         birthDateInput.addEventListener('change', calculateAge);
-        calculateAge(); // Calcular la edad al cargar si ya hay un valor
+        calculateAge();
     }
 
-    // Configurar el envío del formulario para esta pestaña
     setupFormSubmission('datos-personales');
 }
 
-// --- Lógica para la pestaña 'adicional-beneficiarios' ---
 function initAdicionalBeneficiariosLogic() {
     console.log("[persInfo.js] Inicializando lógica de beneficiarios.");
 
-    // Re-inicializar beneficiaryCount basado en los elementos actuales en el DOM
     beneficiaryCount = document.querySelectorAll('#beneficiarios-container .beneficiary-entry').length;
     console.log(`[persInfo.js] Beneficiarios existentes en el DOM al inicializar: ${beneficiaryCount}`);
 
@@ -107,21 +97,18 @@ function initAdicionalBeneficiariosLogic() {
         console.warn("[persInfo.js] Botón 'Añadir Beneficiario' o contenedor no encontrado para beneficiarios.");
     }
 
-    // Adjuntar/re-adjuntar listeners para todos los botones de eliminar existentes
     document.querySelectorAll('#beneficiarios-container .delete-beneficiary-btn').forEach(button => {
         button.removeEventListener('click', handleDeleteBeneficiary); // Prevenir duplicados
         button.addEventListener('click', handleDeleteBeneficiary);
     });
     console.log("[persInfo.js] Listeners para 'Eliminar Beneficiario' adjuntados.");
 
-    // Configurar el envío del formulario para esta pestaña (si tiene uno en el fragmento)
     setupFormSubmission('adicional-beneficiarios');
 }
 
-// Función para manejar la adición de un beneficiario
 function handleAddBeneficiary() {
     console.log("[persInfo.js] Clic en Añadir Beneficiario.");
-    beneficiaryCount++; // Usar un contador para IDs/nombres únicos
+    beneficiaryCount++;
     const newBeneficiaryHtml = `
         <div class="beneficiary-entry">
             <div class="form-row">
@@ -166,14 +153,11 @@ function handleDeleteBeneficiary(event) {
     if (entry) {
         entry.remove();
         console.log("[persInfo.js] Beneficiario eliminado.");
-        // No es necesario decrementar beneficiaryCount, ya que solo lo usamos para IDs únicos
-        // y se re-inicializa al cargar la pestaña.
     } else {
         console.warn("[persInfo.js] No se encontró la entrada del beneficiario a eliminar.");
     }
 }
 
-// --- Lógica genérica de envío de formularios ---
 function setupFormSubmission(formContentId) {
     const formContent = document.getElementById(formContentId);
     if (!formContent) {
@@ -181,7 +165,7 @@ function setupFormSubmission(formContentId) {
         return;
     }
 
-    const form = formContent.querySelector('form'); // Busca el formulario dentro del contenido de la pestaña
+    const form = formContent.querySelector('form');
     if (!form) {
         console.warn(`[persInfo.js] No se encontró un formulario dentro del contenido de la pestaña: ${formContentId}`);
         return;
@@ -192,11 +176,10 @@ function setupFormSubmission(formContentId) {
     form.addEventListener('submit', handleSubmitForm);
 
     function handleSubmitForm(event) {
-        event.preventDefault(); // Previene el envío por defecto del formulario
+        event.preventDefault();
 
         console.log(`[persInfo.js] Formulario de ${formContentId} enviado.`);
 
-        // Recolectar datos del formulario actual
         const currentTabData = {};
         form.querySelectorAll('input, select, textarea').forEach(input => {
             if (input.name) {
@@ -209,7 +192,6 @@ function setupFormSubmission(formContentId) {
         });
         console.log(`Datos de la pestaña ${formContent.id} (guardado simulado):`, currentTabData);
 
-        // Aquí es donde enviarías los datos al backend
         // fetch('/api/guardar-datos', {
         //     method: 'POST',
         //     headers: {
@@ -230,35 +212,20 @@ function setupFormSubmission(formContentId) {
         showMessageModal(`Datos de ${formContent.id} guardados (simulado).`);
     }
 }
-
-
-// --- Función principal de inicialización para persInfo.js ---
-// Esta función será el punto de entrada llamado por persInfoTabLoader.js
 window.initPersInfoLogic = (activeTabId) => {
     console.log(`[persInfo.js] initPersInfoLogic llamado para la pestaña: ${activeTabId}`);
 
-    // Llama a la lógica específica para cada pestaña
     if (activeTabId === 'datos-personales') {
         initDatosPersonalesLogic();
     } else if (activeTabId === 'contacto-domicilio') {
-        // Si tienes lógica específica para esta pestaña, créala aquí:
-        // initContactoDomicilioLogic();
         setupFormSubmission('contacto-domicilio');
     } else if (activeTabId === 'datos-laborales') {
-        // initDatosLaboralesLogic();
         setupFormSubmission('datos-laborales');
     } else if (activeTabId === 'informacion-salarial') {
-        // initInformacionSalarialLogic();
         setupFormSubmission('informacion-salarial');
     } else if (activeTabId === 'seguridad-social-bancarios') {
-        // initSeguridadSocialBancariosLogic();
         setupFormSubmission('seguridad-social-bancarios');
     } else if (activeTabId === 'adicional-beneficiarios') {
         initAdicionalBeneficiariosLogic();
-        // La lógica de envío de formulario para esta pestaña ya está en initAdicionalBeneficiariosLogic
-        // si el formulario de Información Médica está dentro del mismo fragmento.
-        // Si tienes un form separado para beneficiarios, también llama a setupFormSubmission('id-del-form-beneficiarios');
     }
-    // Asegúrate de llamar a setupFormSubmission para cada pestaña que contenga un formulario
-    // si no lo haces dentro de su función initXLogic específica.
 };

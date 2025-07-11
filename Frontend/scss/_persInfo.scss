@@ -274,46 +274,30 @@
         width: 100%;
     }
 
-    /* Ajustes para pestañas en móvil: scroll horizontal */
     .tab-navigation {
         display: flex;
-        /* Mantener flex para alinear en una fila */
         overflow-x: auto;
-        /* Habilitar scroll horizontal */
         -webkit-overflow-scrolling: touch;
-        /* Suavizar scroll en iOS */
         white-space: nowrap;
-        /* Evitar que los botones se envuelvan */
         justify-content: flex-start;
-        /* Asegurar que el contenido empiece a la izquierda */
         border-radius: $border-radius;
-        /* Mantener bordes redondeados */
     }
 
     .tab-navigation .tab-button {
         flex-shrink: 0;
-        /* Evitar que los botones se encojan */
         min-width: fit-content;
-        /* Permitir que cada botón ocupe solo el espacio necesario */
         border-bottom: 3px solid transparent;
-        /* Mantener el borde inferior para el activo */
         border-right: 1px solid rgba(255, 255, 255, 0.1);
-        /* Separador visual sutil entre botones */
     }
 
     .tab-navigation .tab-button:last-child {
         border-right: none;
-        /* Eliminar borde derecho del último botón */
     }
 
     .tab-navigation .tab-button.active {
         border-bottom-color: $color-white;
-        /* Color del borde inferior activo */
         background-color: $color-accent;
-        /* Fondo de la pestaña activa */
         color: $color-white;
-        /* Texto de la pestaña activa */
         border-left: none;
-        /* Asegurarse de que no haya un borde izquierdo si antes lo tenía */
     }
 }

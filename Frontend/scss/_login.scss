@@ -1,6 +1,5 @@
 @import 'variables';
 
-/* Contenedor de la página de login para centrar el formulario */
 .login-page-container {
     display: flex;
     justify-content: center;
@@ -9,13 +8,11 @@
     width: 100%;
     box-sizing: border-box;
     padding: 20px;
-    /* Añade padding para evitar que el formulario toque los bordes en móvil */
 }
 
 .login-box {
     max-width: 480px;
     width: 100%;
-    /* Asegura que ocupe el ancho disponible dentro del padding */
     background: $color-white;
     border-radius: $border-radius;
     box-shadow: 0 10px 30px $color-shadow-medium;
@@ -72,12 +69,8 @@
     background-color: $color-white;
     transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
     box-sizing: border-box;
-    /* Importante para la etiqueta flotante: el placeholder debe estar vacío o un espacio */
-    /* El placeholder se usa para que :not(:placeholder-shown) funcione */
     padding-top: 1.5rem;
-    /* Ajusta el padding superior para la etiqueta flotante */
     padding-bottom: 0.8rem;
-    /* Ajusta el padding inferior */
 }
 
 .input-group input:focus {
@@ -90,43 +83,29 @@
     position: absolute;
     left: 1.2rem;
     top: 0.8rem;
-    /* Posición inicial de la etiqueta (arriba) */
     color: $color-gray-text;
     font-size: 0.75rem;
-    /* Tamaño inicial de la etiqueta (pequeño) */
     pointer-events: none;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.7, 1);
     background: $color-white;
-    /* Fondo para que "corte" el borde del input */
     padding: 0 0.2rem;
     border-radius: 0.3rem;
     transform: translateY(0);
-    /* Asegura que no haya transform inicial */
     z-index: 1;
-    /* Asegura que la etiqueta esté sobre el input */
 }
 
-/* Estilo para la etiqueta cuando el input está vacío y no enfocado */
 .input-group input:placeholder-shown+label {
     top: 50%;
-    /* Posición cuando el placeholder está visible */
     font-size: 1rem;
-    /* Tamaño normal */
     transform: translateY(-50%);
-    /* Centrar verticalmente */
     background: transparent;
-    /* Sin fondo */
 }
 
-/* Estilo para la etiqueta cuando el input tiene contenido o está enfocado */
 .input-group input:not(:placeholder-shown)+label,
 .input-group input:focus+label {
     top: 0.8rem;
-    /* Posición cuando está flotando */
     font-size: 0.75rem;
-    /* Tamaño pequeño */
     color: $color-primary;
-    /* Color al flotar */
     background: $color-white;
     padding: 0 0.2rem;
     border-radius: 0.3rem;

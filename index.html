@@ -4,45 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Personal - Dashboard</title>
-
-    <link rel="manifest" href="/manifest.json">
+    <title>LACS / DORNISH - Dashboard</title>
     <link rel="stylesheet" href="/Frontend/css/styles.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
     <div class="app-layout-wrapper">
         <div id="sidebar-placeholder"></div>
+
         <main class="main-content">
             <div id="main-content-area">
-                <h1>Cargando contenido...</h1>
+                <h1>Cargando contenido inicial...</h1>
             </div>
         </main>
     </div>
 
-    <div class="custom-scrollbar-track">
-        <div class="custom-scrollbar-thumb"></div>
-    </div>
-
-    <script src="/Frontend/js/dashboard.js"></script>
-
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then((reg) => {
-                        console.log('Service Worker registrado con éxito:', reg);
-                    })
-                    .catch((err) => {
-                        console.error('Fallo en el registro del Service Worker:', err);
-                    });
-            });
-        }
-    </script>
+    <script src="Frontend/js/dashboard.js"></script>
 </body>
 
 </html>
