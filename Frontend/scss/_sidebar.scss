@@ -93,7 +93,7 @@
 
     &__nav a {
         display: flex;
-        align-items: center;
+        align-items: center; /* Alinea verticalmente icono y texto */
         padding: 12px 15px; /* Padding para el enlace */
         color: $sidebar-text-light; /* Color del texto e iconos */
         text-decoration: none;
@@ -123,8 +123,7 @@
         flex-shrink: 0;
         color: $sidebar-text-light; /* Color de icono por defecto */
         z-index: 1;
-        min-width: 20px;
-        text-align: center;
+        /* Eliminado min-width y text-align: center para alineación natural */
         transition: margin-right 0.3s ease-in-out, color 0.2s ease-in-out;
     }
 
@@ -207,16 +206,25 @@
         margin-top: 20px; /* Espacio superior para la tarjeta de usuario */
         padding: 15px;
         width: calc(100% - 20px); /* Ocupa el ancho del padding de la sidebar */
-        background-color: $sidebar-user-card-bg; /* Fondo de la tarjeta de usuario */
+        background-color: transparent; /* ¡Eliminado el fondo blanco! */
         border-radius: 10px; /* Bordes redondeados */
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* Sombra para la tarjeta */
+        box-shadow: none; /* ¡Eliminado la sombra! */
         display: flex;
         align-items: center;
         gap: 10px;
         white-space: nowrap;
         overflow: hidden;
         flex-shrink: 0; /* Evita que se encoja */
-        transition: opacity 0.3s ease-in-out, max-width 0.3s ease-in-out, padding 0.3s ease-in-out;
+        transition: background-color 0.2s ease-in-out, opacity 0.3s ease-in-out, max-width 0.3s ease-in-out, padding 0.3s ease-in-out;
+        cursor: pointer; /* Para el hover */
+
+        &:hover {
+            background-color: $sidebar-hover-bg; /* Fondo al hacer hover */
+            .username, .user-role-text, .avatar img {
+                color: $sidebar-active-text; /* Texto e icono blanco puro al hacer hover */
+                border-color: $sidebar-active-text; /* Borde del avatar blanco puro al hacer hover */
+            }
+        }
     }
 
     &:not(.sidebar--open) .sidebar-user {
@@ -231,15 +239,24 @@
         height: 40px;
         border-radius: 50%;
         object-fit: cover;
-        border: 2px solid $color-primary; /* Borde del avatar */
+        border: 2px solid $sidebar-text-light; /* Borde del avatar, color inicial */
         flex-shrink: 0; /* Evita que el avatar se encoja */
+        transition: border-color 0.2s ease-in-out; /* Transición para el borde del avatar */
+    }
+
+    .sidebar-user .user-text-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+        flex-grow: 1; /* Permite que ocupe el espacio restante */
     }
 
     .sidebar-user .username,
     .sidebar-user .user-role-text {
-        color: $sidebar-user-card-text; /* Color del texto del usuario */
+        color: $sidebar-text-light; /* Color del texto del usuario */
         font-weight: 600;
-        transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        transition: color 0.2s ease-in-out, max-width 0.3s ease-in-out, opacity 0.3s ease-in-out;
         overflow: hidden;
         text-overflow: ellipsis; /* Añadir elipsis si el texto es muy largo */
         white-space: nowrap;
@@ -271,6 +288,7 @@
         max-width: 150px; /* Ancho para el texto */
         opacity: 1;
         margin-left: 5px; /* Pequeño margen entre avatar y texto */
+        pointer-events: auto;
         transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out, margin-left 0.3s ease-in-out;
     }
 
@@ -278,7 +296,7 @@
         display: none; /* Se maneja con JS para mostrar/ocultar */
         position: absolute;
         bottom: 150px; /* Ajustar posición si es necesario */
-        background-color: $sidebar-hover-bg;
+        background-color: $sidebar-bg-dark; /* Fondo oscuro para el dropdown */
         min-width: 160px;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         z-index: 1;
@@ -298,7 +316,7 @@
     }
 
     .sidebar-user .dropdown-content a:hover {
-        background-color: lighten($sidebar-hover-bg, 5%);
+        background-color: $sidebar-hover-bg; /* Hover oscuro para los elementos del dropdown */
     }
 
     .sidebar-user .dropdown-content.show {
