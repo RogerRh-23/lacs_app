@@ -1,4 +1,4 @@
-const CACHE_NAME = 'app-gestion-v1';
+const CACHE_NAME = 'app-gestion-v4';
 
 const urlsToCache = [
     '/',
