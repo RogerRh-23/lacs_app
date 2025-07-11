@@ -1,28 +1,28 @@
 @import 'variables';
 
 .sidebar {
-    width: 55px;
-    background-color: rgba($color-white, 0.8);
+    width: 55px; /* Más fina cuando está cerrada */
+    background-color: $color-white; 
     color: $color-black;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px 0;
-    transition: width 0.3s ease-in-out, margin 0.3s ease-in-out;
+    transition: width 0.3s ease-in-out, margin 0.3s ease-in-out; /* Añadir transición para el margen */
     box-shadow: 2px 0 5px $color-shadow-medium;
-    overflow: hidden;
+    overflow: hidden; /* Asegura que el contenido que se desborda se oculte */
     position: relative;
     z-index: 1000;
 
-    height: calc(100vh - 60px);
-    margin-left: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border-radius: 15px;
+    height: calc(100vh - 60px); /* Ocupa casi toda la altura del viewport, dejando espacio para los márgenes */
+    margin-left: 10px; /* Separada de la orilla izquierda */
+    margin-top: 10px; /* Margen superior */
+    margin-bottom: 10px; /* Margen inferior para despegarla */
+    border-radius: 15px; /* Bordes redondeados en todas las esquinas para forma de pastilla */
 
 
     &--open {
-        width: 220px;
+        width: 220px; /* Más fina cuando está abierta */
     }
 
     &__logo-container {
@@ -78,7 +78,7 @@
     }
 
     &__nav ul {
-        list-style: none;
+        list-style: none; /* ¡CRUCIAL! Elimina los puntos de lista */
         padding: 0;
         margin: 0;
     }
@@ -89,46 +89,46 @@
 
     &__nav a {
         display: flex;
-        align-items: center;
-        padding: 15px 20px;
-        color: $color-dark;
+        align-items: center; /* Alinea verticalmente icono y texto */
+        padding: 15px 20px; /* Padding para el enlace completo */
+        color: $color-dark; /* ¡AJUSTADO! Color oscuro para los iconos y texto de los enlaces */
         text-decoration: none;
         font-size: 1rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: clip;
+        white-space: nowrap; /* Evita que el texto se envuelva */
+        overflow: hidden; /* Asegura que el texto se corte si se desborda */
+        text-overflow: clip; /* Asegura que el texto se corte sin elipsis */
         transition: background-color 0.2s ease-in-out;
         font-family: "Montserrat", sans-serif;
     }
 
     &__nav a:hover {
         background-color: $color-accent;
-        color: $color-white;
+        color: $color-white; /* Color del texto/icono al hacer hover */
     }
 
     &__nav a i {
-        margin-right: 10px;
-        font-size: 1.2rem;
-        flex-shrink: 0;
-        color: $color-dark;
-        z-index: 1;
+        margin-right: 10px; /* Espacio entre icono y texto */
+        font-size: 1.2rem; /* Tamaño explícito para el icono */
+        flex-shrink: 0; /* Evita que el icono se encoja */
+        color: $color-dark; /* ¡Explícitamente definido para el icono! */
+        z-index: 1; /* Asegura que el icono esté por encima */
+        min-width: 20px; /* Asegura un ancho mínimo para el icono */
+        text-align: center; /* Centra el icono dentro de su min-width */
     }
 
+    /* ¡AJUSTE CLAVE AQUÍ! Oculta el texto (span) con display: none */
     &:not(.sidebar--open) &__nav a span {
-        width: 0;
-        opacity: 0;
-        font-size: 0;
-        padding: 0;
-        margin-left: 0;
-        transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out, font-size 0.3s ease-in-out, margin-left 0.3s ease-in-out;
+        display: none; /* Oculta completamente el span */
+        transition: display 0.3s ease-in-out; /* La transición en display no es animable, pero es para claridad */
     }
-
+    /* Muestra el texto cuando la sidebar SÍ tiene la clase --open */
     &--open &__nav a span {
-        width: auto;
-        opacity: 1;
-        font-size: 1rem;
-        padding: 0;
-        margin-left: 10px;
+        display: inline-block; /* Muestra el span como bloque en línea */
+        width: auto; /* Permite que el texto ocupe su ancho natural */
+        opacity: 1; /* Hace que sea visible */
+        font-size: 1rem; /* Restaura el tamaño de fuente */
+        padding: 0; /* Asegura que no haya padding extra */
+        margin-left: 10px; /* Restaura el margen con el icono */
         transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out, font-size 0.3s ease-in-out, margin-left 0.3s ease-in-out;
     }
 
@@ -199,21 +199,20 @@
         overflow: hidden;
     }
 
+    /* ¡AJUSTE CLAVE AQUÍ! Oculta el nombre de usuario y el dropdown con display: none */
     &:not(.sidebar--open) .sidebar-user .username,
     &:not(.sidebar--open) .sidebar-user .dropdown-content {
-        max-width: 0;
-        font-size: 0;
-        opacity: 0;
-        padding: 0;
-        transition: max-width 0.3s ease-in-out, font-size 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        display: none; /* Oculta completamente el username y el dropdown */
+        transition: display 0.3s ease-in-out;
     }
-
+    /* Muestra el nombre de usuario y el dropdown cuando la sidebar SÍ tiene la clase --open */
     &--open .sidebar-user .username,
     &--open .sidebar-user .dropdown-content {
-        max-width: 100%;
-        font-size: 1rem;
-        opacity: 1;
-        padding: 0;
+        display: block; /* Muestra el username y el dropdown */
+        max-width: 100%; /* Permite que ocupe su ancho natural */
+        font-size: 1rem; /* Restaura el tamaño de fuente */
+        opacity: 1; /* Hace que sea visible */
+        padding: 0; /* Asegura que no haya padding extra */
         transition: max-width 0.3s ease-in-out, font-size 0.3s ease-in-out, opacity 0.3s ease-in-out;
     }
 
@@ -223,11 +222,11 @@
         height: 40px;
         border-radius: 50%;
         object-fit: cover;
-        border: 2px solid $color-dark;
+        border: 2px solid $color-dark; /* Ajustado el color del borde del avatar */
     }
 
     .sidebar-user .username {
-        color: $color-black;
+        color: $color-black; /* Color del texto del nombre de usuario */
         font-weight: 600;
         cursor: pointer;
         background: none;
@@ -237,19 +236,19 @@
     }
 
     .sidebar-user .dropdown-content {
-        display: none;
+        display: none; /* Se maneja con JS para mostrar/ocultar */
         position: absolute;
         bottom: 150px;
         background-color: $color-primary;
         min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         z-index: 1;
         border-radius: $border-radius;
         overflow: hidden;
     }
 
     .sidebar-user .dropdown-content a {
-        color: $color-white;
+        color: $color-white; /* Color del texto de los elementos del dropdown */
         padding: 12px 16px;
         text-decoration: none;
         display: block;
