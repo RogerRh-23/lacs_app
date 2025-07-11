@@ -2,14 +2,14 @@
 
 .sidebar {
     width: 55px; /* Más fina cuando está cerrada */
-    background-color: $color-white; /* Ligeramente translúcida (80% opacidad) */
+    background-color: rgba($color-white, 0.8); /* Ligeramente translúcida (80% opacidad) */
     color: $color-black; /* Color principal del texto de la sidebar (para el logo grande, etc.) */
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px 0;
     transition: width 0.3s ease-in-out, margin 0.3s ease-in-out; /* Añadir transición para el margen */
-    box-shadow: 2px 0 5px $color-shadow-medium;
+     box-shadow: 0 2px 1px rgba(28, 49, 52, 0.2), 0 4px 2px rgba(28, 49, 52, 0.2), 0 8px 4px rgba(28, 49, 52, 0.2), 0 16px 8px rgba(28, 49, 52, 0.2), 0 32px 16px rgba(28, 49, 52, 0.2);
     overflow: hidden; /* Asegura que el contenido que se desborda se oculte */
     position: relative;
     z-index: 1000;
@@ -78,7 +78,7 @@
     }
 
     &__nav ul {
-        list-style: none; /* ¡CRUCIAL! Elimina los puntos de lista */
+        list-style: none; /* ¡CORRECCIÓN CLAVE! Elimina los puntos de lista */
         padding: 0;
         margin: 0;
     }
@@ -113,18 +113,23 @@
         z-index: 1; /* Asegura que el icono esté por encima */
         min-width: 20px; /* Asegura un ancho mínimo para el icono */
         text-align: center; /* Centra el icono dentro de su min-width */
-        /* margin-right se controla por el estado de la sidebar */
+        transition: margin-right 0.3s ease-in-out; /* Transición para el margen del icono */
     }
 
     /* Oculta el texto (span) cuando la sidebar NO tiene la clase --open */
     &:not(.sidebar--open) &__nav a span {
-        display: none; /* Oculta completamente el span */
+        max-width: 0; /* Colapsa el ancho */
+        opacity: 0; /* Hace que sea invisible */
+        overflow: hidden; /* Oculta el contenido desbordado */
+        margin-left: 0; /* Elimina margen */
+        transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out, margin-left 0.3s ease-in-out;
     }
     /* Muestra el texto cuando la sidebar SÍ tiene la clase --open */
     &--open &__nav a span {
-        display: inline-block; /* Muestra el span como bloque en línea */
+        max-width: 150px; /* Un ancho máximo para que se muestre */
+        opacity: 1; /* Hace que sea visible */
         margin-left: 10px; /* Espacio entre icono y texto cuando está abierto */
-        transition: margin-left 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out, margin-left 0.3s ease-in-out;
     }
 
     /* Controla el margin-right del icono basado en el estado de la sidebar */
@@ -203,20 +208,20 @@
         overflow: hidden;
     }
 
-    /* Oculta el nombre de usuario y el dropdown con display: none */
+    /* Oculta el nombre de usuario y el dropdown con max-width y opacity */
     &:not(.sidebar--open) .sidebar-user .username,
     &:not(.sidebar--open) .sidebar-user .dropdown-content {
-        display: none; /* Oculta completamente el username y el dropdown */
+        max-width: 0; /* Colapsa el ancho */
+        opacity: 0; /* Hace que sea invisible */
+        overflow: hidden; /* Oculta el contenido desbordado */
+        transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out;
     }
     /* Muestra el nombre de usuario y el dropdown cuando la sidebar SÍ tiene la clase --open */
     &--open .sidebar-user .username,
     &--open .sidebar-user .dropdown-content {
-        display: block; /* Muestra el username y el dropdown */
         max-width: 100%; /* Permite que ocupe su ancho natural */
-        font-size: 1rem; /* Restaura el tamaño de fuente */
         opacity: 1; /* Hace que sea visible */
-        padding: 0; /* Asegura que no haya padding extra */
-        transition: max-width 0.3s ease-in-out, font-size 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out;
     }
 
 
