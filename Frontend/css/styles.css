@@ -105,20 +105,20 @@
   flex-shrink: 0;
   color: #e0e0e0; /* Color de icono por defecto */
   z-index: 1;
-  /* Eliminado min-width y text-align: center para alineación natural */
   transition: margin-right 0.3s ease-in-out, color 0.2s ease-in-out;
 }
 .sidebar__nav a:hover i, .sidebar__nav a.active i {
   color: #ffffff; /* Icono blanco puro al hacer hover/activo */
 }
 .sidebar:not(.sidebar--open) .sidebar__nav a span {
-  max-width: 0;
-  opacity: 0;
-  overflow: hidden;
-  margin-left: 0;
-  transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out, margin-left 0.3s ease-in-out;
+  display: none; /* ¡Cambio a display: none para ocultar completamente! */
+  opacity: 0; /* Por si acaso, aunque display: none lo anula */
+  max-width: 0; /* Por si acaso */
+  overflow: hidden; /* Por si acaso */
+  margin-left: 0; /* Por si acaso */
 }
 .sidebar--open .sidebar__nav a span {
+  display: inline-block; /* Vuelve a mostrarlo */
   max-width: 180px; /* Un ancho máximo para que se muestre */
   opacity: 1;
   margin-left: 10px; /* Espacio entre icono y texto cuando está abierto */
@@ -200,9 +200,7 @@
   margin-right: 0;
 }
 .sidebar:not(.sidebar--open) .employees-dropdown-toggle span {
-  max-width: 0;
-  opacity: 0;
-  margin-left: 0;
+  display: none; /* ¡Cambio a display: none para ocultar completamente! */
 }
 .sidebar:not(.sidebar--open) .employees-dropdown-toggle .dropdown-arrow {
   display: none; /* Ocultar la flecha cuando está cerrada */
@@ -252,23 +250,25 @@
   margin-bottom: 0;
 }
 .sidebar .company-switcher button {
-  background-color: #2b2a33; /* Fondo oscuro, como la sidebar */
+  background-color: transparent; /* Fondo transparente para que se vea el fondo de la sidebar */
   color: #e0e0e0; /* Texto claro */
-  border: 1px solid #e0e0e0; /* Borde claro */
+  border: none; /* Sin borde */
   border-radius: 10px; /* Bordes redondeados */
   padding: 12px 10px; /* Mismo padding que los enlaces de navegación */
   cursor: pointer;
-  font-size: 1rem; /* Mismo tamaño de fuente que los iconos de navegación */
+  font-size: 1rem; /* Ajustado a 1rem */
   font-weight: 600; /* Negrita como los textos de navegación */
   white-space: nowrap;
-  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  box-shadow: none; /* Sin sombra inicial */
   width: 100%; /* Asegura que ocupen el 100% del contenedor */
+  display: flex; /* Para centrar contenido si es necesario */
+  align-items: center;
+  justify-content: flex-start; /* Alineación a la izquierda por defecto */
 }
 .sidebar .company-switcher button:hover {
   background-color: #3e3d4f; /* Fondo de hover */
   color: #ffffff; /* Texto blanco puro */
-  border-color: #ffffff; /* Borde blanco puro */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al hover */
 }
 .sidebar .sidebar-user {
@@ -297,8 +297,13 @@
 }
 .sidebar:not(.sidebar--open) .sidebar-user {
   max-width: 45px; /* Solo muestra el avatar */
-  padding: 5px; /* Reduce el padding */
-  justify-content: center; /* Centra el avatar */
+  height: 45px; /* Asegura una altura fija para centrar */
+  padding: 0; /* Eliminar padding para centrado más preciso */
+  display: flex; /* Usar flexbox para centrar */
+  flex-direction: column; /* Para centrar verticalmente si hay múltiples elementos */
+  justify-content: center; /* Centrar verticalmente */
+  align-items: center; /* Centrar horizontalmente */
+  margin: 0 auto; /* Centrar el contenedor del avatar horizontalmente */
   overflow: hidden;
 }
 .sidebar .sidebar-user .avatar img {
@@ -354,7 +359,8 @@
 .sidebar .sidebar-user .dropdown-content {
   display: none; /* Se maneja con JS para mostrar/ocultar */
   position: absolute;
-  bottom: calc(100% + 10px); /* Posicionar encima del .sidebar-user */
+  bottom: auto; /* Eliminar bottom para que se posicione con top */
+  top: 0; /* Alinear con la parte superior del .sidebar-user */
   background-color: #2b2a33; /* Fondo oscuro para el dropdown */
   min-width: 180px; /* Ancho mínimo para el dropdown */
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.4); /* Sombra más oscura */
