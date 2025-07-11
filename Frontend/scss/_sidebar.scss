@@ -92,7 +92,7 @@
     &__nav a {
         display: flex;
         align-items: center; /* Alinea verticalmente icono y texto */
-        padding: 12px 15px; /* Padding para el enlace */
+        padding: 12px 10px; /* ¡Padding ajustado para pegar al borde izquierdo! */
         color: $sidebar-text-light; /* Color del texto e iconos */
         text-decoration: none;
         font-size: 1rem; /* Tamaño base para el icono en ambos estados */
@@ -104,16 +104,10 @@
         border-radius: 10px; /* Bordes redondeados para el efecto "pill" */
     }
 
-    &__nav a:hover {
+    &__nav a:hover,
+    &__nav a.active { /* Aplicar hover a las opciones de navegación */
         background-color: $sidebar-hover-bg;
         color: $sidebar-active-text; /* Blanco puro al hacer hover */
-    }
-
-    /* Estado activo (puedes añadir una clase 'active' con JS) */
-    &__nav a.active {
-        background-color: $sidebar-hover-bg;
-        color: $sidebar-active-text;
-        font-weight: 600;
     }
 
     &__nav a i {
@@ -180,9 +174,89 @@
         padding-left: 0;
     }
 
-    &__toggle-button {
-        display: none; /* Ocultar el botón de toggle si el comportamiento es por hover en desktop */
-        /* Si necesitas un botón para móviles, se mostrará con media query */
+    /* Estilos para el dropdown de "Empleados" */
+    .employees-dropdown-toggle {
+        display: flex;
+        align-items: center;
+        padding: 12px 10px; /* Mismo padding que otros enlaces */
+        color: $sidebar-text-light;
+        text-decoration: none;
+        font-size: 1rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: clip;
+        transition: background-color 0.2s ease-in-out, border-radius 0.2s ease-in-out, color 0.2s ease-in-out;
+        font-family: "Montserrat", sans-serif;
+        border-radius: 10px;
+        cursor: pointer;
+        width: 100%;
+        position: relative; /* Para el icono de flecha */
+
+        &:hover {
+            background-color: $sidebar-hover-bg;
+            color: $sidebar-active-text;
+        }
+
+        i {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            color: $sidebar-text-light;
+            z-index: 1;
+            transition: margin-right 0.3s ease-in-out, color 0.2s ease-in-out;
+        }
+
+        span {
+            max-width: 180px;
+            opacity: 1;
+            margin-left: 10px;
+            font-size: 1.2rem;
+            transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out, margin-left 0.3s ease-in-out, font-size 0.3s ease-in-out;
+        }
+
+        .dropdown-arrow {
+            margin-left: auto; /* Empuja la flecha a la derecha */
+            transition: transform 0.3s ease-in-out;
+        }
+    }
+
+    &:not(.sidebar--open) .employees-dropdown-toggle {
+        justify-content: center; /* Centrar icono cuando está cerrada */
+        padding: 12px 0; /* Ajustar padding para centrar */
+
+        i {
+            margin-right: 0;
+        }
+        span {
+            max-width: 0;
+            opacity: 0;
+            margin-left: 0;
+        }
+        .dropdown-arrow {
+            display: none; /* Ocultar la flecha cuando está cerrada */
+        }
+    }
+
+    .employees-dropdown-content {
+        display: none; /* Oculto por defecto */
+        list-style: none;
+        padding: 5px 0;
+        margin: 0;
+        background-color: lighten($sidebar-bg-dark, 5%); /* Fondo ligeramente más claro */
+        border-radius: 10px;
+        margin-top: 5px;
+        overflow: hidden; /* Para animaciones de altura */
+
+        &.show {
+            display: block;
+        }
+
+        li a {
+            padding: 10px 15px 10px 40px; /* Indentación para sub-opciones */
+            font-size: 1.1rem; /* Un poco más pequeño que las opciones principales */
+            &:hover {
+                background-color: $sidebar-hover-bg;
+            }
+        }
     }
 
     .company-switcher {

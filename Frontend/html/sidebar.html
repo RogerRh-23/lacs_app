@@ -21,13 +21,17 @@
 
     <div class="sidebar__section-title">General</div>
     <ul>
-        <li><a onclick="loadPageContent('/Frontend/html/listEmp.html')"><i class="fas fa-users"></i>
-                <span>Lista de empleados</span></a></li>
-        <li id="register-employees-link" style="display: none;"><a
-                onclick="loadPageContent('/Frontend/html/persInfo.html')"><i class="fas fa-user-plus"></i>
-                <span>Altas</span></a></li>
-        <li><a onclick="loadPageContent('/Frontend/html/bajas.html')"><i class="fas fa-user-minus"></i>
-                <span>Bajas</span></a>
+        <li>
+            <a id="employees-dropdown-toggle" class="employees-dropdown-toggle">
+                <i class="fas fa-users"></i>
+                <span>Empleados</span>
+                <i class="fas fa-chevron-down dropdown-arrow"></i>
+            </a>
+            <ul id="employees-dropdown-content" class="employees-dropdown-content">
+                <li><a onclick="loadPageContent('/Frontend/html/listEmp.html')"><i class="fas fa-list"></i> <span>Lista de empleados</span></a></li>
+                <li id="register-employees-link" style="display: none;"><a onclick="loadPageContent('/Frontend/html/persInfo.html')"><i class="fas fa-user-plus"></i> <span>Altas</span></a></li>
+                <li><a onclick="loadPageContent('/Frontend/html/bajas.html')"><i class="fas fa-user-minus"></i> <span>Bajas</span></a></li>
+            </ul>
         </li>
     </ul>
 

@@ -286,6 +286,11 @@ async function initDashboard() {
     const userDropdown = document.getElementById('user-dropdown'); // Selector para el dropdown
     const userMenuBtn = document.querySelector('.sidebar-user'); // El elemento .sidebar-user completo será el activador del dropdown
 
+    // Nuevos selectores para el dropdown de Empleados
+    const employeesDropdownToggle = document.getElementById('employees-dropdown-toggle');
+    const employeesDropdownContent = document.getElementById('employees-dropdown-content');
+
+
     function checkAuthAndRole() {
         const jwtToken = localStorage.getItem('accessToken');
         const userRole = localStorage.getItem('role');
@@ -338,6 +343,28 @@ async function initDashboard() {
         document.addEventListener('click', (event) => {
             if (!userMenuBtn.contains(event.target) && !userDropdown.contains(event.target)) {
                 userDropdown.classList.remove('show');
+            }
+        });
+    }
+
+    // Lógica para el dropdown de Empleados
+    if (employeesDropdownToggle && employeesDropdownContent) {
+        employeesDropdownToggle.addEventListener('click', (event) => {
+            event.stopPropagation(); // Evita que el clic se propague
+            employeesDropdownContent.classList.toggle('show');
+            const arrowIcon = employeesDropdownToggle.querySelector('.dropdown-arrow');
+            if (employeesDropdownContent.classList.contains('show')) {
+                arrowIcon.style.transform = 'rotate(180deg)';
+            } else {
+                arrowIcon.style.transform = 'rotate(0deg)';
+            }
+        });
+
+        // Cerrar el dropdown de Empleados si se hace clic fuera
+        document.addEventListener('click', (event) => {
+            if (!employeesDropdownToggle.contains(event.target) && !employeesDropdownContent.contains(event.target)) {
+                employeesDropdownContent.classList.remove('show');
+                employeesDropdownToggle.querySelector('.dropdown-arrow').style.transform = 'rotate(0deg)';
             }
         });
     }

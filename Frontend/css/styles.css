@@ -15,11 +15,11 @@
   height: calc(100vh - 60px); /* Aproximadamente 15px más pequeña (20px arriba, 20px abajo, 10px de margen en total) */
   margin: 10px; /* 10px de margen en todos los lados */
   border-radius: 20px; /* Bordes redondeados más pronunciados */
-  /* Estado activo (puedes añadir una clase 'active' con JS) */
   /* Oculta el texto (span) cuando la sidebar NO tiene la clase --open */
   /* Muestra el texto cuando la sidebar SÍ tiene la clase --open */
   /* Controla el margin-right del icono basado en el estado de la sidebar */
   /* Títulos de sección como "Main Menu", "General", "Account" */
+  /* Estilos para el dropdown de "Empleados" */
   /* Oculta el texto del usuario cuando la sidebar está cerrada */
   /* Muestra el texto del usuario cuando la sidebar está abierta */
 }
@@ -85,7 +85,7 @@
 .sidebar__nav a {
   display: flex;
   align-items: center; /* Alinea verticalmente icono y texto */
-  padding: 12px 15px; /* Padding para el enlace */
+  padding: 12px 10px; /* ¡Padding ajustado para pegar al borde izquierdo! */
   color: #e0e0e0; /* Color del texto e iconos */
   text-decoration: none;
   font-size: 1rem; /* Tamaño base para el icono en ambos estados */
@@ -96,14 +96,9 @@
   font-family: "Montserrat", sans-serif;
   border-radius: 10px; /* Bordes redondeados para el efecto "pill" */
 }
-.sidebar__nav a:hover {
+.sidebar__nav a:hover, .sidebar__nav a.active { /* Aplicar hover a las opciones de navegación */
   background-color: #3e3d4f;
   color: #ffffff; /* Blanco puro al hacer hover */
-}
-.sidebar__nav a.active {
-  background-color: #3e3d4f;
-  color: #ffffff;
-  font-weight: 600;
 }
 .sidebar__nav a i {
   font-size: 1.2rem; /* Tamaño explícito para el icono */
@@ -158,9 +153,79 @@
   margin-bottom: 0;
   padding-left: 0;
 }
-.sidebar__toggle-button {
-  display: none; /* Ocultar el botón de toggle si el comportamiento es por hover en desktop */
-  /* Si necesitas un botón para móviles, se mostrará con media query */
+.sidebar .employees-dropdown-toggle {
+  display: flex;
+  align-items: center;
+  padding: 12px 10px; /* Mismo padding que otros enlaces */
+  color: #e0e0e0;
+  text-decoration: none;
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  transition: background-color 0.2s ease-in-out, border-radius 0.2s ease-in-out, color 0.2s ease-in-out;
+  font-family: "Montserrat", sans-serif;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+  position: relative; /* Para el icono de flecha */
+}
+.sidebar .employees-dropdown-toggle:hover {
+  background-color: #3e3d4f;
+  color: #ffffff;
+}
+.sidebar .employees-dropdown-toggle i {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  color: #e0e0e0;
+  z-index: 1;
+  transition: margin-right 0.3s ease-in-out, color 0.2s ease-in-out;
+}
+.sidebar .employees-dropdown-toggle span {
+  max-width: 180px;
+  opacity: 1;
+  margin-left: 10px;
+  font-size: 1.2rem;
+  transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out, margin-left 0.3s ease-in-out, font-size 0.3s ease-in-out;
+}
+.sidebar .employees-dropdown-toggle .dropdown-arrow {
+  margin-left: auto; /* Empuja la flecha a la derecha */
+  transition: transform 0.3s ease-in-out;
+}
+.sidebar:not(.sidebar--open) .employees-dropdown-toggle {
+  justify-content: center; /* Centrar icono cuando está cerrada */
+  padding: 12px 0; /* Ajustar padding para centrar */
+}
+.sidebar:not(.sidebar--open) .employees-dropdown-toggle i {
+  margin-right: 0;
+}
+.sidebar:not(.sidebar--open) .employees-dropdown-toggle span {
+  max-width: 0;
+  opacity: 0;
+  margin-left: 0;
+}
+.sidebar:not(.sidebar--open) .employees-dropdown-toggle .dropdown-arrow {
+  display: none; /* Ocultar la flecha cuando está cerrada */
+}
+.sidebar .employees-dropdown-content {
+  display: none; /* Oculto por defecto */
+  list-style: none;
+  padding: 5px 0;
+  margin: 0;
+  background-color: rgb(54.7903225806, 53.5161290323, 64.9838709677); /* Fondo ligeramente más claro */
+  border-radius: 10px;
+  margin-top: 5px;
+  overflow: hidden; /* Para animaciones de altura */
+}
+.sidebar .employees-dropdown-content.show {
+  display: block;
+}
+.sidebar .employees-dropdown-content li a {
+  padding: 10px 15px 10px 40px; /* Indentación para sub-opciones */
+  font-size: 1.1rem; /* Un poco más pequeño que las opciones principales */
+}
+.sidebar .employees-dropdown-content li a:hover {
+  background-color: #3e3d4f;
 }
 .sidebar .company-switcher {
   position: relative; /* Cambiar a relative para que fluya con el contenido */
