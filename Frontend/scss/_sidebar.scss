@@ -2,27 +2,27 @@
 
 .sidebar {
     width: 55px; /* Más fina cuando está cerrada */
-    background-color: rgba($color-white, 0.8); /* Ligeramente translúcida (80% opacidad) */
-    color: $color-black; /* Color principal del texto de la sidebar (para el logo grande, etc.) */
+    background-color: $sidebar-bg-dark; /* Fondo oscuro de la sidebar */
+    color: $sidebar-text-light; /* Color principal del texto de la sidebar */
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px 0;
-    transition: width 0.3s ease-in-out, margin 0.3s ease-in-out; /* Añadir transición para el margen */
-     box-shadow: 0 2px 1px rgba(28, 49, 52, 0.2), 0 4px 2px rgba(28, 49, 52, 0.2), 0 8px 4px rgba(28, 49, 52, 0.2), 0 16px 8px rgba(28, 49, 52, 0.2), 0 32px 16px rgba(28, 49, 52, 0.2);
-    overflow: hidden; /* Asegura que el contenido que se desborda se oculte */
+    transition: width 0.3s ease-in-out, margin 0.3s ease-in-out;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+    overflow: hidden;
     position: relative;
     z-index: 1000;
 
-    height: calc(100vh - 60px); /* Ocupa casi toda la altura del viewport, dejando espacio para los márgenes */
-    margin-left: 10px; /* Separada de la orilla izquierda */
-    margin-top: 10px; /* Margen superior */
-    margin-bottom: 10px; /* Margen inferior para despegarla */
-    border-radius: 15px; /* Bordes redondeados en todas las esquinas para forma de pastilla */
+    height: calc(100vh - 40px); /* Ocupa casi toda la altura del viewport */
+    margin-left: 20px; /* Separada de la orilla izquierda */
+    margin-top: 20px; /* Margen superior */
+    margin-bottom: 20px; /* Margen inferior */
+    border-radius: 20px; /* Bordes redondeados más pronunciados */
 
 
     &--open {
-        width: 220px; /* Más fina cuando está abierta */
+        width: 250px; /* Ancho cuando está abierta */
     }
 
     &__logo-container {
@@ -34,6 +34,7 @@
         overflow: hidden;
         width: 100%;
         padding: 0 10px;
+        flex-shrink: 0; /* Evita que se encoja */
     }
 
     &--open &__logo-container {
@@ -44,6 +45,7 @@
         height: 100%;
         object-fit: contain;
         transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        filter: brightness(0) invert(1); /* Hace que los logos sean blancos si son oscuros */
     }
 
     .logo-compact {
@@ -75,204 +77,317 @@
     &__nav {
         width: 100%;
         flex-grow: 1;
+        padding: 0 10px; /* Padding para que los elementos "pill" no toquen los bordes */
     }
 
     &__nav ul {
-        list-style: none; /* ¡CORRECCIÓN CLAVE! Elimina los puntos de lista */
+        list-style: none;
         padding: 0;
         margin: 0;
     }
 
     &__nav li {
         width: 100%;
+        margin-bottom: 10px; /* Espacio entre elementos de navegación */
     }
 
     &__nav a {
         display: flex;
-        align-items: center; /* Alinea verticalmente icono y texto */
-        padding: 15px 15px; /* Padding base para el enlace. El icono se centrará aquí. */
-        color: $color-dark; /* Color oscuro para los iconos y texto de los enlaces */
+        align-items: center;
+        padding: 12px 15px; /* Padding para el enlace */
+        color: $sidebar-text-light; /* Color del texto e iconos */
         text-decoration: none;
         font-size: 1rem;
-        white-space: nowrap; /* Evita que el texto se envuelva */
-        overflow: hidden; /* Asegura que el texto se corte si se desborda */
-        text-overflow: clip; /* Asegura que el texto se corte sin elipsis */
-        transition: background-color 0.2s ease-in-out;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: clip;
+        transition: background-color 0.2s ease-in-out, border-radius 0.2s ease-in-out, color 0.2s ease-in-out;
         font-family: "Montserrat", sans-serif;
+        border-radius: 10px; /* Bordes redondeados para el efecto "pill" */
     }
 
     &__nav a:hover {
-        background-color: $color-accent;
-        color: $color-white; /* Color del texto/icono al hacer hover */
+        background-color: $sidebar-hover-bg;
+        color: $sidebar-active-text; /* Blanco puro al hacer hover */
+    }
+
+    /* Estado activo (puedes añadir una clase 'active' con JS) */
+    &__nav a.active {
+        background-color: $sidebar-hover-bg;
+        color: $sidebar-active-text;
+        font-weight: 600;
     }
 
     &__nav a i {
-        font-size: 1.2rem; /* Tamaño explícito para el icono */
-        flex-shrink: 0; /* Evita que el icono se encoja */
-        color: $color-dark; /* ¡Explícitamente definido para el icono! */
-        z-index: 1; /* Asegura que el icono esté por encima */
-        min-width: 20px; /* Asegura un ancho mínimo para el icono */
-        text-align: center; /* Centra el icono dentro de su min-width */
-        transition: margin-right 0.3s ease-in-out; /* Transición para el margen del icono */
+        font-size: 1.2rem;
+        flex-shrink: 0;
+        color: $sidebar-text-light; /* Color de icono por defecto */
+        z-index: 1;
+        min-width: 20px;
+        text-align: center;
+        transition: margin-right 0.3s ease-in-out, color 0.2s ease-in-out;
+    }
+
+    &__nav a:hover i,
+    &__nav a.active i {
+        color: $sidebar-active-text; /* Icono blanco puro al hacer hover/activo */
     }
 
     /* Oculta el texto (span) cuando la sidebar NO tiene la clase --open */
     &:not(.sidebar--open) &__nav a span {
-        max-width: 0; /* Colapsa el ancho */
-        opacity: 0; /* Hace que sea invisible */
-        overflow: hidden; /* Oculta el contenido desbordado */
-        margin-left: 0; /* Elimina margen */
+        max-width: 0;
+        opacity: 0;
+        overflow: hidden;
+        margin-left: 0;
         transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out, margin-left 0.3s ease-in-out;
     }
     /* Muestra el texto cuando la sidebar SÍ tiene la clase --open */
     &--open &__nav a span {
-        max-width: 150px; /* Un ancho máximo para que se muestre */
-        opacity: 1; /* Hace que sea visible */
-        margin-left: 10px; /* Espacio entre icono y texto cuando está abierto */
+        max-width: 180px; /* Un ancho máximo para que se muestre */
+        opacity: 1;
+        margin-left: 10px;
         transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out, margin-left 0.3s ease-in-out;
     }
 
     /* Controla el margin-right del icono basado en el estado de la sidebar */
     &:not(.sidebar--open) &__nav a i {
-        margin-right: 0; /* No hay margen a la derecha del icono cuando el texto está oculto */
+        margin-right: 0;
     }
     &--open &__nav a i {
-        margin-right: 10px; /* Margen a la derecha del icono cuando el texto está visible */
+        margin-right: 10px;
     }
 
 
     &__toggle-button {
-        background-color: $color-accent;
-        color: $color-white;
-        border: none;
-        border-radius: $border-radius;
-        padding: 10px 15px;
-        cursor: pointer;
-        font-size: 1.5rem;
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        transition: background-color 0.2s ease-in-out, transform 0.3s ease-in-out;
-        box-shadow: 0 2px 5px $color-shadow-medium;
-    }
-
-    &__toggle-button:hover {
-        background-color: $color-dark;
+        display: none; /* Ocultar el botón de toggle si el comportamiento es por hover en desktop */
+        /* Si necesitas un botón para móviles, se mostrará con media query */
     }
 
     .company-switcher {
-        position: absolute;
-        bottom: 80px;
-        left: 50%;
-        transform: translateX(-50%);
+        position: relative; /* Cambiar a relative para que fluya con el contenido */
+        margin-top: auto; /* Empuja hacia abajo */
+        margin-bottom: 20px; /* Espacio antes del usuario */
         display: flex;
         flex-direction: column;
         gap: 10px;
         z-index: 1;
         transition: opacity 0.3s ease-in-out;
+        width: calc(100% - 20px); /* Ocupa el ancho del padding de la sidebar */
+        padding: 0 10px; /* Asegura el padding correcto */
     }
 
     .sidebar:not(&--open) .company-switcher {
         opacity: 0;
         pointer-events: none;
+        height: 0; /* Colapsa la altura cuando está cerrado */
+        margin-bottom: 0;
     }
 
     .company-switcher button {
-        background-color: $color-dark;
-        color: $color-white;
-        border: 1px solid $color-accent;
-        border-radius: $border-radius;
+        background-color: $sidebar-hover-bg; /* Color de fondo para los botones */
+        color: $sidebar-text-light;
+        border: 1px solid $sidebar-hover-bg;
+        border-radius: 8px; /* Bordes ligeramente redondeados */
         padding: 8px 12px;
         cursor: pointer;
         font-size: 0.9rem;
         white-space: nowrap;
-        transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+        transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        width: 100%; /* Asegura que ocupen el 100% del contenedor */
     }
 
     .company-switcher button:hover {
-        background-color: $color-primary;
-        border-color: $color-white;
+        background-color: lighten($sidebar-hover-bg, 5%);
+        border-color: $sidebar-active-text;
+        color: $sidebar-active-text;
     }
 
     .sidebar-user {
-        margin-top: auto;
-        padding: 20px 10px;
-        width: 100%;
-        text-align: center;
+        margin-top: 20px; /* Espacio superior para la tarjeta de usuario */
+        padding: 15px;
+        width: calc(100% - 20px); /* Ocupa el ancho del padding de la sidebar */
+        background-color: $sidebar-user-card-bg; /* Fondo de la tarjeta de usuario */
+        border-radius: 10px; /* Bordes redondeados */
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* Sombra para la tarjeta */
         display: flex;
-        flex-direction: column;
         align-items: center;
         gap: 10px;
         white-space: nowrap;
         overflow: hidden;
+        flex-shrink: 0; /* Evita que se encoja */
+        transition: opacity 0.3s ease-in-out, max-width 0.3s ease-in-out, padding 0.3s ease-in-out;
     }
 
-    /* Oculta el nombre de usuario y el dropdown con max-width y opacity */
-    &:not(.sidebar--open) .sidebar-user .username,
-    &:not(.sidebar--open) .sidebar-user .dropdown-content {
-        max-width: 0; /* Colapsa el ancho */
-        opacity: 0; /* Hace que sea invisible */
-        overflow: hidden; /* Oculta el contenido desbordado */
-        transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    &:not(.sidebar--open) .sidebar-user {
+        max-width: 45px; /* Solo muestra el avatar */
+        padding: 5px; /* Reduce el padding */
+        justify-content: center; /* Centra el avatar */
+        overflow: hidden;
     }
-    /* Muestra el nombre de usuario y el dropdown cuando la sidebar SÍ tiene la clase --open */
-    &--open .sidebar-user .username,
-    &--open .sidebar-user .dropdown-content {
-        max-width: 100%; /* Permite que ocupe su ancho natural */
-        opacity: 1; /* Hace que sea visible */
-        transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out;
-    }
-
 
     .sidebar-user .avatar img {
         width: 40px;
         height: 40px;
         border-radius: 50%;
         object-fit: cover;
-        border: 2px solid $color-dark; /* Ajustado el color del borde del avatar */
+        border: 2px solid $color-primary; /* Borde del avatar */
+        flex-shrink: 0; /* Evita que el avatar se encoja */
+    }
+
+    .sidebar-user .username,
+    .sidebar-user .user-role-text {
+        color: $sidebar-user-card-text; /* Color del texto del usuario */
+        font-weight: 600;
+        transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        overflow: hidden;
+        text-overflow: ellipsis; /* Añadir elipsis si el texto es muy largo */
+        white-space: nowrap;
+        display: block; /* Para que cada span ocupe su propia línea si es necesario */
     }
 
     .sidebar-user .username {
-        color: $color-black; /* Color del texto del nombre de usuario */
-        font-weight: 600;
-        cursor: pointer;
-        background: none;
-        border: none;
-        padding: 0;
         font-size: 1rem;
+        margin-bottom: 2px; /* Espacio entre nombre y rol */
+    }
+
+    .sidebar-user .user-role-text {
+        font-size: 0.8rem;
+        font-weight: 400;
+        opacity: 0.8;
+    }
+
+    /* Oculta el texto del usuario cuando la sidebar está cerrada */
+    &:not(.sidebar--open) .sidebar-user .user-text-content {
+        max-width: 0;
+        opacity: 0;
+        overflow: hidden;
+        pointer-events: none; /* Deshabilita interacciones */
+        margin-left: 0;
+        transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out, margin-left 0.3s ease-in-out;
+    }
+    /* Muestra el texto del usuario cuando la sidebar está abierta */
+    &--open .sidebar-user .user-text-content {
+        max-width: 150px; /* Ancho para el texto */
+        opacity: 1;
+        margin-left: 5px; /* Pequeño margen entre avatar y texto */
+        transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out, margin-left 0.3s ease-in-out;
     }
 
     .sidebar-user .dropdown-content {
         display: none; /* Se maneja con JS para mostrar/ocultar */
         position: absolute;
-        bottom: 150px;
-        background-color: $color-primary;
+        bottom: 150px; /* Ajustar posición si es necesario */
+        background-color: $sidebar-hover-bg;
         min-width: 160px;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         z-index: 1;
         border-radius: $border-radius;
         overflow: hidden;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     .sidebar-user .dropdown-content a {
-        color: $color-white; /* Color del texto de los elementos del dropdown */
+        color: $sidebar-text-light;
         padding: 12px 16px;
         text-decoration: none;
         display: block;
         text-align: left;
-        font-family: "Inter", sans-serif;
+        font-family: "Montserrat", sans-serif;
     }
 
     .sidebar-user .dropdown-content a:hover {
-        background-color: $color-accent;
-    }
-
-    .sidebar-user .dropdown-content a i {
-        margin-right: 10px;
+        background-color: lighten($sidebar-hover-bg, 5%);
     }
 
     .sidebar-user .dropdown-content.show {
         display: block;
+    }
+}
+
+/* Media Queries para responsividad */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        z-index: 1001;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        margin: 0; /* Eliminar márgenes en móvil */
+        border-radius: 0; /* Eliminar bordes redondeados en móvil */
+        width: 250px; /* Siempre abierta a un ancho fijo en móvil */
+        padding-top: 20px; /* Restaurar padding superior */
+    }
+    .sidebar.sidebar--open {
+        transform: translateX(0);
+    }
+
+    .sidebar__toggle-button {
+        display: block; /* Mostrar el botón de toggle en móvil */
+        position: absolute;
+        top: 20px;
+        right: 10px; /* Posicionar en la esquina superior derecha */
+        left: auto;
+        transform: none;
+        font-size: 1.2rem;
+        padding: 8px 12px;
+    }
+
+    .sidebar__logo-container {
+        justify-content: flex-start; /* Asegurar que el logo completo se vea */
+        padding-left: 20px;
+    }
+
+    .sidebar__logo-container img {
+        filter: brightness(0) invert(1); /* Asegurar que el logo sea blanco */
+    }
+
+    .sidebar .logo-compact {
+        display: none; /* Siempre ocultar el logo compacto en móvil */
+    }
+    .sidebar .logo-full {
+        display: block; /* Siempre mostrar el logo completo en móvil */
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .sidebar__nav {
+        padding: 0 15px; /* Ajustar padding para navegación en móvil */
+    }
+
+    .sidebar__nav a span {
+        max-width: 180px; /* Asegurar que el texto se muestre */
+        opacity: 1;
+        margin-left: 10px;
+    }
+
+    .sidebar__nav a i {
+        margin-right: 10px; /* Asegurar margen para iconos */
+    }
+
+    .company-switcher {
+        opacity: 1; /* Siempre visible en móvil */
+        pointer-events: auto;
+        height: auto;
+        margin-bottom: 20px;
+        padding: 0 15px;
+    }
+
+    .sidebar-user {
+        max-width: 100%; /* Ocupa todo el ancho en móvil */
+        padding: 15px;
+        justify-content: flex-start; /* Alinear a la izquierda */
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .sidebar-user .user-text-content {
+        max-width: 150px; /* Ancho para el texto */
+        opacity: 1;
+        margin-left: 10px; /* Margen entre avatar y texto */
+        pointer-events: auto;
     }
 }

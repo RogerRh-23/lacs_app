@@ -36,10 +36,13 @@
         <span class="avatar">
             <img src="https://cdn-icons-png.flaticon.com/512/4794/4794936.png" alt="Avatar">
         </span>
-        <button class="username dropbtn" id="user-menu-btn" type="button">Usuario</button>
+        <div class="user-text-content"> <!-- Nuevo contenedor para el texto del usuario -->
+            <span class="username">Usuario</span>
+            <span class="user-role-text">Web Developer</span> <!-- Nuevo span para el rol -->
+        </div>
         <div class="dropdown-content" id="user-dropdown">
             <a onclick="loadPageContent('/Frontend/html/profile.html')"><i class="fas fa-user-circle"></i> Perfil</a>
-            <a onclick="loadPageContent('/Frontend/html/settings.html')"><i class="fas fa-cog"></i> Configuración</a>
+            <a onclick="loadPageContent('/Frontend/html/settings.html')"><i class="fas fa-cog"></i> Configuracion</a>
             <a href="#" id="sidebar-logout-button"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
         </div>
     </div>
