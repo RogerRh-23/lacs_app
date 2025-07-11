@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 0;
+  padding: 20px 0; /* Padding superior e inferior general de la sidebar */
   transition: width 0.3s ease-in-out, margin 0.3s ease-in-out;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
   overflow: hidden;
@@ -85,7 +85,7 @@
 .sidebar__nav a {
   display: flex;
   align-items: center; /* Alinea verticalmente icono y texto */
-  padding: 12px 10px; /* ¡Padding ajustado para pegar al borde izquierdo! */
+  padding: 12px 10px; /* Padding para el efecto "pill" */
   color: #e0e0e0; /* Color del texto e iconos */
   text-decoration: none;
   font-size: 1rem; /* Tamaño base para el icono en ambos estados */
@@ -112,17 +112,13 @@
 }
 .sidebar:not(.sidebar--open) .sidebar__nav a span {
   display: none; /* ¡Cambio a display: none para ocultar completamente! */
-  opacity: 0; /* Por si acaso, aunque display: none lo anula */
-  max-width: 0; /* Por si acaso */
-  overflow: hidden; /* Por si acaso */
-  margin-left: 0; /* Por si acaso */
 }
 .sidebar--open .sidebar__nav a span {
   display: inline-block; /* Vuelve a mostrarlo */
   max-width: 180px; /* Un ancho máximo para que se muestre */
   opacity: 1;
   margin-left: 10px; /* Espacio entre icono y texto cuando está abierto */
-  font-size: 1.2rem; /* ¡Texto más grande! */
+  font-size: 1rem; /* ¡Texto unificado a 1rem! */
   transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out, margin-left 0.3s ease-in-out, font-size 0.3s ease-in-out;
 }
 .sidebar:not(.sidebar--open) .sidebar__nav a i {
@@ -159,7 +155,7 @@
   padding: 12px 10px; /* Mismo padding que otros enlaces */
   color: #e0e0e0;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 1rem; /* Unificado a 1rem */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: clip;
@@ -168,7 +164,7 @@
   border-radius: 10px;
   cursor: pointer;
   width: 100%;
-  position: relative; /* Para el icono de flecha */
+  position: relative; /* Para el posicionamiento del dropdown */
 }
 .sidebar .employees-dropdown-toggle:hover {
   background-color: #3e3d4f;
@@ -185,12 +181,8 @@
   max-width: 180px;
   opacity: 1;
   margin-left: 10px;
-  font-size: 1.2rem;
+  font-size: 1rem; /* Unificado a 1rem */
   transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out, margin-left 0.3s ease-in-out, font-size 0.3s ease-in-out;
-}
-.sidebar .employees-dropdown-toggle .dropdown-arrow {
-  margin-left: auto; /* Empuja la flecha a la derecha */
-  transition: transform 0.3s ease-in-out;
 }
 .sidebar:not(.sidebar--open) .employees-dropdown-toggle {
   justify-content: center; /* Centrar icono cuando está cerrada */
@@ -201,9 +193,6 @@
 }
 .sidebar:not(.sidebar--open) .employees-dropdown-toggle span {
   display: none; /* ¡Cambio a display: none para ocultar completamente! */
-}
-.sidebar:not(.sidebar--open) .employees-dropdown-toggle .dropdown-arrow {
-  display: none; /* Ocultar la flecha cuando está cerrada */
 }
 .sidebar .employees-dropdown-content {
   display: none; /* Oculto por defecto */
@@ -226,14 +215,14 @@
 }
 .sidebar .employees-dropdown-content li a {
   padding: 10px 15px 10px 40px; /* Indentación para sub-opciones */
-  font-size: 1.1rem; /* Un poco más pequeño que las opciones principales */
+  font-size: 0.95rem; /* Un poco más pequeño que las opciones principales */
 }
 .sidebar .employees-dropdown-content li a:hover {
   background-color: #3e3d4f;
 }
 .sidebar .company-switcher {
   position: relative; /* Cambiar a relative para que fluya con el contenido */
-  margin-top: auto; /* Empuja hacia abajo */
+  margin-top: 20px; /* Ajuste para subir los botones */
   margin-bottom: 20px; /* Espacio antes del usuario */
   display: flex;
   flex-direction: column;
@@ -272,28 +261,29 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al hover */
 }
 .sidebar .sidebar-user {
-  margin-top: 20px; /* Espacio superior para la tarjeta de usuario */
-  padding: 15px;
+  margin-top: auto; /* Empuja hacia abajo para que quede al final */
+  margin-bottom: 10px; /* Margen inferior para que no pegue al borde */
+  padding: 10px; /* Ajustado para que el avatar no se corte */
   width: calc(100% - 20px); /* Ocupa el ancho del padding de la sidebar */
-  background-color: transparent; /* ¡Eliminado el fondo blanco! */
-  border-radius: 10px; /* Bordes redondeados */
-  box-shadow: none; /* ¡Eliminado la sombra! */
+  background-color: transparent;
+  border-radius: 10px;
+  box-shadow: none;
   display: flex;
   align-items: center;
   gap: 10px;
   white-space: nowrap;
   overflow: hidden;
-  flex-shrink: 0; /* Evita que se encoja */
+  flex-shrink: 0;
   transition: background-color 0.2s ease-in-out, opacity 0.3s ease-in-out, max-width 0.3s ease-in-out, padding 0.3s ease-in-out;
-  cursor: pointer; /* Para el hover */
-  position: relative; /* Necesario para posicionar el dropdown */
+  cursor: pointer;
+  position: relative;
 }
 .sidebar .sidebar-user:hover {
-  background-color: #3e3d4f; /* Fondo al hacer hover */
+  background-color: #3e3d4f;
 }
 .sidebar .sidebar-user:hover .username, .sidebar .sidebar-user:hover .user-role-text, .sidebar .sidebar-user:hover .avatar img {
-  color: #ffffff; /* Texto e icono blanco puro al hacer hover */
-  border-color: #ffffff; /* Borde del avatar blanco puro al hacer hover */
+  color: #ffffff;
+  border-color: #ffffff;
 }
 .sidebar:not(.sidebar--open) .sidebar-user {
   max-width: 45px; /* Solo muestra el avatar */
@@ -303,17 +293,21 @@
   flex-direction: column; /* Para centrar verticalmente si hay múltiples elementos */
   justify-content: center; /* Centrar verticalmente */
   align-items: center; /* Centrar horizontalmente */
-  margin: 0 auto; /* Centrar el contenedor del avatar horizontalmente */
+  margin: 0 auto 10px auto; /* Centrar el contenedor del avatar horizontalmente y margen inferior */
   overflow: hidden;
 }
+.sidebar:not(.sidebar--open) .sidebar-user .avatar img {
+  width: 30px; /* Avatar más pequeño cuando la sidebar está cerrada */
+  height: 30px;
+}
 .sidebar .sidebar-user .avatar img {
-  width: 40px;
+  width: 40px; /* Tamaño por defecto cuando la sidebar está abierta */
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #e0e0e0; /* Borde del avatar, color inicial */
   flex-shrink: 0; /* Evita que el avatar se encoja */
-  transition: border-color 0.2s ease-in-out; /* Transición para el borde del avatar */
+  transition: border-color 0.2s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out; /* Transición para el borde y tamaño */
 }
 .sidebar .sidebar-user .user-text-content {
   display: flex;
@@ -331,13 +325,12 @@
   text-overflow: ellipsis; /* Añadir elipsis si el texto es muy largo */
   white-space: nowrap;
   display: block; /* Para que cada span ocupe su propia línea si es necesario */
+  font-size: 0.95rem; /* Unificado a 0.95rem */
 }
 .sidebar .sidebar-user .username {
-  font-size: 1rem;
   margin-bottom: 2px; /* Espacio entre nombre y rol */
 }
 .sidebar .sidebar-user .user-role-text {
-  font-size: 0.8rem;
   font-weight: 400;
   opacity: 0.8;
 }
@@ -449,7 +442,7 @@
     max-width: 180px; /* Asegurar que el texto se muestre */
     opacity: 1;
     margin-left: 10px;
-    font-size: 1.2rem; /* Mantener tamaño grande en móvil */
+    font-size: 1rem; /* Mantener tamaño grande en móvil */
   }
   .sidebar__nav a i {
     margin-right: 10px; /* Asegurar margen para iconos */

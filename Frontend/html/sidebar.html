@@ -12,8 +12,6 @@
     <ul>
         <li><a onclick="loadPageContent('/Frontend/html/home.html')"><i class="fas fa-home"></i> <span>Inicio</span></a>
         </li>
-        <li><a onclick="loadPageContent('/Frontend/html/incidencias.html')"><i class="fas fa-exclamation-triangle"></i>
-                <span>Incidencias</span></a></li>
         <li><a onclick="loadPageContent('/Frontend/html/logs.html')"><i class="fas fa-bell"></i>
                 <span>Notificaciones</span></a>
         </li>
@@ -21,11 +19,13 @@
 
     <div class="sidebar__section-title">General</div>
     <ul>
+        <li><a onclick="loadPageContent('/Frontend/html/incidencias.html')"><i class="fas fa-exclamation-triangle"></i>
+                <span>Incidencias</span></a>
+            </li>
         <li>
             <a id="employees-dropdown-toggle" class="employees-dropdown-toggle">
                 <i class="fas fa-users"></i>
                 <span>Empleados</span>
-                <i class="fas fa-chevron-down dropdown-arrow"></i>
             </a>
             <ul id="employees-dropdown-content" class="employees-dropdown-content">
                 <li><a onclick="loadPageContent('/Frontend/html/listEmp.html')"><i class="fas fa-list"></i> <span>Lista de empleados</span></a></li>

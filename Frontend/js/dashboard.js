@@ -265,126 +265,116 @@ function applySidebarBehavior() {
 async function initDashboard() {
     await loadSidebarHtml();
 
+    // Asegurarse de que los elementos existan antes de adjuntar listeners
+    // Se usa setTimeout para dar tiempo al DOM a renderizarse después de innerHTML
     setTimeout(() => {
         if (_getSidebarElements()) {
             applySidebarBehavior();
+
+            const registerEmployeesLink = document.getElementById('register-employees-link');
+            const logoutButton = document.getElementById('sidebar-logout-button');
+            const usernameDisplay = document.querySelector('.sidebar-user .username');
+            const userRoleText = document.querySelector('.sidebar-user .user-role-text');
+            const userDropdown = document.getElementById('user-dropdown');
+            const userMenuBtn = document.querySelector('.sidebar-user');
+
+            const employeesDropdownToggle = document.getElementById('employees-dropdown-toggle');
+            const employeesDropdownContent = document.getElementById('employees-dropdown-content');
+
+            function checkAuthAndRole() {
+                const jwtToken = localStorage.getItem('accessToken');
+                const userRole = localStorage.getItem('role');
+                const username = localStorage.getItem('username');
+
+                if (registerEmployeesLink) {
+                    registerEmployeesLink.style.display = 'none';
+                }
+
+                if (!jwtToken || !userRole || !username) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                if (usernameDisplay) {
+                    usernameDisplay.textContent = username;
+                }
+
+                if (userRoleText) {
+                    userRoleText.textContent = userRole;
+                }
+
+                if (userRole === 'admin') {
+                    if (registerEmployeesLink) {
+                        registerEmployeesLink.style.display = 'block';
+                    }
+                }
+            }
+
+            if (logoutButton) {
+                logoutButton.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    localStorage.removeItem('accessToken');
+                    localStorage.removeItem('role');
+                    localStorage.removeItem('username');
+                    window.location.href = 'login.html';
+                });
+            } else {
+                console.warn("[initDashboard] Botón de cerrar sesión con ID 'sidebar-logout-button' no encontrado después de cargar la barra lateral.");
+            }
+
+            // Lógica para el dropdown del usuario
+            if (userMenuBtn && userDropdown) {
+                userMenuBtn.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    userDropdown.classList.toggle('show');
+                });
+
+                document.addEventListener('click', (event) => {
+                    if (!userMenuBtn.contains(event.target) && !userDropdown.contains(event.target)) {
+                        userDropdown.classList.remove('show');
+                    }
+                });
+            }
+
+            // Lógica para el dropdown de Empleados
+            if (employeesDropdownToggle && employeesDropdownContent) {
+                employeesDropdownToggle.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    employeesDropdownContent.classList.toggle('show');
+                    // No hay flecha para rotar, así que se elimina la lógica de la flecha
+                });
+
+                document.addEventListener('click', (event) => {
+                    if (!employeesDropdownToggle.contains(event.target) && !employeesDropdownContent.contains(event.target)) {
+                        employeesDropdownContent.classList.remove('show');
+                    }
+                });
+            }
+
+            loadScript('/Frontend/js/animations.js', 'animationsScript');
+            checkAuthAndRole();
+
+            const currentPath = window.location.pathname;
+            const currentHash = window.location.hash.substring(1);
+            const lastSegment = currentPath.substring(currentPath.lastIndexOf('/') + 1);
+
+            if (lastSegment && lastSegment.endsWith('.html') && lastSegment !== 'index.html') {
+                loadPageContent(`/Frontend/html/${lastSegment}`);
+            } else if (currentPath.includes('persInfo.html') && currentHash) {
+                loadPageContent('/Frontend/html/persInfo.html');
+            } else {
+                loadPageContent('/Frontend/html/home.html');
+            }
         } else {
             console.error("[initDashboard] No se pudieron obtener los elementos de la sidebar después de la carga inicial.");
         }
-    }, 50);
+    }, 100); // Aumentar el tiempo de espera si es necesario
 
 
     window.addEventListener('resize', () => {
         applySidebarBehavior();
         if (window.initCustomScrollbar) { setTimeout(window.initCustomScrollbar, 50); }
     });
-
-    const registerEmployeesLink = document.getElementById('register-employees-link');
-    const logoutButton = document.getElementById('sidebar-logout-button');
-    const usernameDisplay = document.querySelector('.sidebar-user .username'); // Selector actualizado
-    const userRoleText = document.querySelector('.sidebar-user .user-role-text'); // Selector para el rol
-    const userDropdown = document.getElementById('user-dropdown'); // Selector para el dropdown
-    const userMenuBtn = document.querySelector('.sidebar-user'); // El elemento .sidebar-user completo será el activador del dropdown
-
-    // Nuevos selectores para el dropdown de Empleados
-    const employeesDropdownToggle = document.getElementById('employees-dropdown-toggle');
-    const employeesDropdownContent = document.getElementById('employees-dropdown-content');
-
-
-    function checkAuthAndRole() {
-        const jwtToken = localStorage.getItem('accessToken');
-        const userRole = localStorage.getItem('role');
-        const username = localStorage.getItem('username');
-
-        if (registerEmployeesLink) {
-            registerEmployeesLink.style.display = 'none';
-        }
-
-        if (!jwtToken || !userRole || !username) {
-            window.location.href = 'login.html';
-            return;
-        }
-
-        if (usernameDisplay) {
-            usernameDisplay.textContent = username;
-        }
-
-        if (userRoleText) {
-            userRoleText.textContent = userRole; // Asumiendo que el rol se guarda en localStorage
-        }
-
-        if (userRole === 'admin') {
-            if (registerEmployeesLink) {
-                registerEmployeesLink.style.display = 'block';
-            }
-        }
-    }
-
-    if (logoutButton) {
-        logoutButton.addEventListener('click', (event) => {
-            event.preventDefault();
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('role');
-            localStorage.removeItem('username');
-            window.location.href = 'login.html';
-        });
-    } else {
-        console.warn("[initDashboard] Botón de cerrar sesión con ID 'sidebar-logout-button' no encontrado después de cargar la barra lateral.");
-    }
-
-    // Lógica para el dropdown del usuario
-    if (userMenuBtn && userDropdown) {
-        userMenuBtn.addEventListener('click', (event) => {
-            event.stopPropagation(); // Evita que el clic se propague y cierre el dropdown inmediatamente
-            userDropdown.classList.toggle('show');
-        });
-
-        // Cerrar el dropdown si se hace clic fuera
-        document.addEventListener('click', (event) => {
-            if (!userMenuBtn.contains(event.target) && !userDropdown.contains(event.target)) {
-                userDropdown.classList.remove('show');
-            }
-        });
-    }
-
-    // Lógica para el dropdown de Empleados
-    if (employeesDropdownToggle && employeesDropdownContent) {
-        employeesDropdownToggle.addEventListener('click', (event) => {
-            event.stopPropagation(); // Evita que el clic se propague
-            employeesDropdownContent.classList.toggle('show');
-            const arrowIcon = employeesDropdownToggle.querySelector('.dropdown-arrow');
-            if (employeesDropdownContent.classList.contains('show')) {
-                arrowIcon.style.transform = 'rotate(180deg)';
-            } else {
-                arrowIcon.style.transform = 'rotate(0deg)';
-            }
-        });
-
-        // Cerrar el dropdown de Empleados si se hace clic fuera
-        document.addEventListener('click', (event) => {
-            if (!employeesDropdownToggle.contains(event.target) && !employeesDropdownContent.contains(event.target)) {
-                employeesDropdownContent.classList.remove('show');
-                employeesDropdownToggle.querySelector('.dropdown-arrow').style.transform = 'rotate(0deg)';
-            }
-        });
-    }
-
-
-    loadScript('/Frontend/js/animations.js', 'animationsScript');
-
-    checkAuthAndRole();
-
-    const currentPath = window.location.pathname;
-    const currentHash = window.location.hash.substring(1);
-    const lastSegment = currentPath.substring(currentPath.lastIndexOf('/') + 1);
-
-    if (lastSegment && lastSegment.endsWith('.html') && lastSegment !== 'index.html') {
-        loadPageContent(`/Frontend/html/${lastSegment}`);
-    } else if (currentPath.includes('persInfo.html') && currentHash) {
-        loadPageContent('/Frontend/html/persInfo.html');
-    } else {
-        loadPageContent('/Frontend/html/home.html');
-    }
 }
 
 window.addEventListener('popstate', (event) => {
