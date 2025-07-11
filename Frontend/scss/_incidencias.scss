@@ -62,9 +62,7 @@
     background-color: $color-white;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     box-sizing: border-box;
-    /* Ajustes de padding para la etiqueta flotante y el icono */
     padding: 1.5rem 15px 0.8rem 45px;
-    /* top right bottom left */
 }
 
 .input-group input:focus,

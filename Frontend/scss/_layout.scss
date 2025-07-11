@@ -6,7 +6,6 @@
     height: 100vh;
     overflow: hidden;
     align-items: stretch;
-    /* Asegura que los elementos hijos se estiren para llenar la altura */
 }
 
 .main-content {
@@ -16,22 +15,16 @@
     overflow-y: auto;
     transition: margin-left 0.3s ease-in-out;
     height: 100%;
-    /* Asegura que main-content ocupe el 100% de la altura de su padre flex item */
 }
 
-/* Margen para el contenido principal cuando la sidebar está cerrada */
 .app-layout-wrapper.sidebar-closed .main-content {
     margin-left: calc(55px + 10px + 10px);
-    /* Ancho de sidebar cerrada (55px) + margen izquierdo de sidebar (10px) + un extra para compensar el margen derecho de la sidebar */
 }
 
-/* Margen para el contenido principal cuando la sidebar está abierta */
 .app-layout-wrapper:not(.sidebar-closed) .main-content {
     margin-left: calc(220px + 10px + 10px);
-    /* Ancho de sidebar abierta (220px) + margen izquierdo de sidebar (10px) + un extra */
 }
 
-/* Estas reglas ya están en style.scss o se manejan por el layout flex */
 html,
 body {
     margin: 0;
@@ -40,11 +33,6 @@ body {
     height: 100%;
     overflow: hidden;
 }
-
-/* La altura de la sidebar se define en _sidebar.scss */
-/* .sidebar {
-    height: 100%;
-} */
 
 @media (max-width: 768px) {
     .app-layout-wrapper {

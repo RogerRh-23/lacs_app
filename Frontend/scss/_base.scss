@@ -9,7 +9,7 @@ body {
 
 body {
     font-family: "Montserrat", sans-serif;
-    background: linear-gradient(135deg, $color-gradient-start, $color-gradient-middle-1, $color-gradient-middle-2, $color-gradient-end);
+    background: linear-gradient(135deg, $color-gradient-start, $color-gradient-middle-1, $color-gradient-middle-2,$color-gradient-end);
     background-size: 400% 400%;
     animation: gradientAnimation 30s ease infinite;
     box-sizing: border-box;

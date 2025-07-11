@@ -1,4 +1,3 @@
-@charset "UTF-8";
 .sidebar {
   width: 55px;
   background-color: rgba(225, 223, 234, 0.8);
@@ -279,7 +278,6 @@ html {
   height: 100vh;
   overflow: hidden;
   align-items: stretch;
-  /* Asegura que los elementos hijos se estiren para llenar la altura */
 }
 
 .main-content {
@@ -289,22 +287,16 @@ html {
   overflow-y: auto;
   transition: margin-left 0.3s ease-in-out;
   height: 100%;
-  /* Asegura que main-content ocupe el 100% de la altura de su padre flex item */
 }
 
-/* Margen para el contenido principal cuando la sidebar está cerrada */
 .app-layout-wrapper.sidebar-closed .main-content {
   margin-left: 75px;
-  /* Ancho de sidebar cerrada (55px) + margen izquierdo de sidebar (10px) + un extra para compensar el margen derecho de la sidebar */
 }
 
-/* Margen para el contenido principal cuando la sidebar está abierta */
 .app-layout-wrapper:not(.sidebar-closed) .main-content {
   margin-left: 240px;
-  /* Ancho de sidebar abierta (220px) + margen izquierdo de sidebar (10px) + un extra */
 }
 
-/* Estas reglas ya están en style.scss o se manejan por el layout flex */
 html,
 body {
   margin: 0;
@@ -314,10 +306,6 @@ body {
   overflow: hidden;
 }
 
-/* La altura de la sidebar se define en _sidebar.scss */
-/* .sidebar {
-    height: 100%;
-} */
 @media (max-width: 768px) {
   .app-layout-wrapper {
     flex-direction: column;
@@ -648,7 +636,6 @@ body {
     font-size: 0.95rem;
   }
 }
-/* Estilos generales para las secciones de formulario */
 .form-section {
   background-color: #e1dfea;
   padding: 30px;
@@ -681,26 +668,21 @@ body {
   position: relative;
 }
 
-/* Contenedor relativo para el icono y el input */
 .input-group .relative {
   position: relative;
   width: 100%;
 }
 
-/* Estilos para los iconos dentro del input-group */
 .input-group .relative i {
   position: absolute;
   left: 15px;
-  /* Posición del icono desde la izquierda */
   top: 50%;
   transform: translateY(-50%);
   color: #6b7280;
   font-size: 1.1rem;
   z-index: 2;
-  /* Asegura que el icono esté por encima del input */
 }
 
-/* Estilos para los campos de entrada (input, select, textarea) */
 .input-group input[type=text],
 .input-group input[type=number],
 .input-group input[type=email],
@@ -716,9 +698,7 @@ body {
   background-color: #e1dfea;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   box-sizing: border-box;
-  /* Ajustes de padding para la etiqueta flotante y el icono */
   padding: 1.5rem 15px 0.8rem 45px;
-  /* top right bottom left */
 }
 
 .input-group input:focus,
@@ -729,43 +709,29 @@ body {
   outline: none;
 }
 
-/* Estilos para la etiqueta flotante */
 .input-label {
   position: absolute;
   left: 45px;
-  /* Alineado con el padding del input para el texto */
   top: 0.8rem;
-  /* Posición inicial de la etiqueta (arriba, pequeña) */
   color: #6b7280;
   font-size: 0.75rem;
-  /* Tamaño inicial de la etiqueta (pequeña) */
   pointer-events: none;
-  /* Permite hacer clic a través de la etiqueta */
   transition: all 0.2s cubic-bezier(0.4, 0, 0.7, 1);
   background-color: #e1dfea;
-  /* Fondo para que "corte" el borde del input */
   padding: 0 5px;
   z-index: 1;
-  /* Asegura que la etiqueta esté sobre el input */
   transform: translateY(0);
-  /* Evita transformaciones iniciales no deseadas */
 }
 
-/* Estilo para la etiqueta cuando el input está vacío y NO enfocado (placeholder visible) */
 .input-group input:placeholder-shown + .input-label,
 .input-group select:placeholder-shown + .input-label,
 .input-group textarea:placeholder-shown + .input-label {
   top: 50%;
-  /* Posición cuando el placeholder está visible (centrado verticalmente) */
   font-size: 1rem;
-  /* Tamaño normal */
   transform: translateY(-50%);
-  /* Centrar verticalmente */
   background: transparent;
-  /* Sin fondo */
 }
 
-/* Estilo para la etiqueta cuando el input tiene contenido O está enfocado */
 .input-group input:not(:placeholder-shown) + .input-label,
 .input-group input:focus + .input-label,
 .input-group select:not([value=""]) + .input-label,
@@ -773,17 +739,13 @@ body {
 .input-group textarea:not(:placeholder-shown) + .input-label,
 .input-group textarea:focus + .input-label {
   top: 0.8rem;
-  /* Posición cuando está flotando (arriba, pequeña) */
   font-size: 0.75rem;
-  /* Tamaño pequeño */
   color: #2e4d50;
-  /* Color al flotar */
   background-color: #e1dfea;
   padding: 0 5px;
   transform: translateY(0);
 }
 
-/* Asegúrate de que el placeholder sea transparente cuando la etiqueta está flotando */
 .input-group input:focus::placeholder,
 .input-group input:not(:placeholder-shown)::placeholder,
 .input-group select:focus::placeholder,
@@ -793,67 +755,50 @@ body {
   color: transparent;
 }
 
-/* Estilos para pestañas de navegación (ej. Datos Personales, Contacto y Domicilio) */
 .tab-navigation {
   display: flex;
   justify-content: flex-start;
-  /* Alinea las pestañas a la izquierda */
   margin-bottom: 20px;
   background-color: #2e4d50;
-  /* Fondo de la barra de pestañas (color de la sidebar) */
   border-radius: 0.8rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   overflow: hidden;
-  /* Para que los bordes redondeados se vean bien */
 }
 
 .tab-navigation .tab-button {
   padding: 15px 25px;
   cursor: pointer;
   background-color: #2e4d50;
-  /* Fondo de los botones (color de la sidebar) */
   color: #e1dfea;
-  /* Texto de los botones */
   font-size: 1rem;
   font-weight: 600;
   border: none;
   border-bottom: 3px solid transparent;
-  /* Borde inferior para el estado activo */
   transition: all 0.3s ease;
   flex-grow: 1;
-  /* Permite que las pestañas se distribuyan uniformemente */
   text-align: center;
   white-space: nowrap;
-  /* Evita que el texto se rompa en varias líneas */
 }
 
 .tab-navigation .tab-button:hover {
   background-color: #376063;
-  /* Fondo al pasar el ratón */
   color: #e1dfea;
 }
 
 .tab-navigation .tab-button.active {
   background-color: #376063;
-  /* Fondo de la pestaña activa */
   color: #e1dfea;
-  /* Texto de la pestaña activa */
   border-bottom-color: #e1dfea;
-  /* Borde inferior blanco para resaltar */
 }
 
-/* Estilos para el contenido de las pestañas */
 .tab-content {
   display: none;
-  /* Ocultar contenido de pestañas por defecto */
 }
 
 .tab-content.active {
   display: block;
-  /* Mostrar contenido de la pestaña activa */
 }
 
-/* Estilos para botones de acción en formularios */
 .form-actions {
   display: flex;
   justify-content: center;
