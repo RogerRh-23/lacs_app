@@ -281,8 +281,10 @@ async function initDashboard() {
 
     const registerEmployeesLink = document.getElementById('register-employees-link');
     const logoutButton = document.getElementById('sidebar-logout-button');
-    const usernameDisplay = document.querySelector('.sidebar-user .username .user-name-text'); // ACTUALIZADO: Selector para el nombre de usuario
-    const userMenuBtn = document.getElementById('user-menu-btn'); // Referencia al botón del usuario
+    const usernameDisplay = document.querySelector('.sidebar-user .username'); // Selector actualizado
+    const userRoleText = document.querySelector('.sidebar-user .user-role-text'); // Selector para el rol
+    const userDropdown = document.getElementById('user-dropdown'); // Selector para el dropdown
+    const userMenuBtn = document.querySelector('.sidebar-user'); // El elemento .sidebar-user completo será el activador del dropdown
 
     function checkAuthAndRole() {
         const jwtToken = localStorage.getItem('accessToken');
@@ -302,8 +304,6 @@ async function initDashboard() {
             usernameDisplay.textContent = username;
         }
 
-        // Si existe el elemento user-role-text, actualízalo también
-        const userRoleText = document.querySelector('.sidebar-user .user-role-text');
         if (userRoleText) {
             userRoleText.textContent = userRole; // Asumiendo que el rol se guarda en localStorage
         }
@@ -327,22 +327,19 @@ async function initDashboard() {
         console.warn("[initDashboard] Botón de cerrar sesión con ID 'sidebar-logout-button' no encontrado después de cargar la barra lateral.");
     }
 
-    // Lógica para el dropdown del usuario (simplificada, si se necesita un dropdown real, se puede expandir)
-    if (userMenuBtn) {
-        const userDropdown = document.getElementById('user-dropdown');
-        if (userDropdown) {
-            userMenuBtn.addEventListener('click', (event) => {
-                event.stopPropagation(); // Evita que el clic se propague y cierre el dropdown inmediatamente
-                userDropdown.classList.toggle('show');
-            });
+    // Lógica para el dropdown del usuario
+    if (userMenuBtn && userDropdown) {
+        userMenuBtn.addEventListener('click', (event) => {
+            event.stopPropagation(); // Evita que el clic se propague y cierre el dropdown inmediatamente
+            userDropdown.classList.toggle('show');
+        });
 
-            // Cerrar el dropdown si se hace clic fuera
-            document.addEventListener('click', (event) => {
-                if (!userMenuBtn.contains(event.target) && !userDropdown.contains(event.target)) {
-                    userDropdown.classList.remove('show');
-                }
-            });
-        }
+        // Cerrar el dropdown si se hace clic fuera
+        document.addEventListener('click', (event) => {
+            if (!userMenuBtn.contains(event.target) && !userDropdown.contains(event.target)) {
+                userDropdown.classList.remove('show');
+            }
+        });
     }
 
 

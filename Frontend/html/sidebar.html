@@ -1,5 +1,4 @@
-<!-- Frontend/html/sidebar.html -->
-<nav id="sidebar" class="sidebar sidebar--closed"> <!-- Clase inicial corregida -->
+<nav id="sidebar" class="sidebar sidebar--closed">
     <div class="sidebar__logo-container">
         <img id="logo-compact" src="" alt="Logo Compacto" class="logo-compact">
         <img id="logo-full" src="" alt="Logo Completo" class="logo-full">
@@ -9,6 +8,7 @@
         <span id="sidebar-icon">&#9776;</span>
     </button>
 
+    <div class="sidebar__section-title">Menú Principal</div>
     <ul>
         <li><a onclick="loadPageContent('/Frontend/html/home.html')"><i class="fas fa-home"></i> <span>Inicio</span></a>
         </li>
@@ -17,6 +17,10 @@
         <li><a onclick="loadPageContent('/Frontend/html/logs.html')"><i class="fas fa-bell"></i>
                 <span>Notificaciones</span></a>
         </li>
+    </ul>
+
+    <div class="sidebar__section-title">General</div>
+    <ul>
         <li><a onclick="loadPageContent('/Frontend/html/listEmp.html')"><i class="fas fa-users"></i>
                 <span>Lista de empleados</span></a></li>
         <li id="register-employees-link" style="display: none;"><a
@@ -27,6 +31,7 @@
         </li>
     </ul>
 
+    <div class="sidebar__section-title">Empresas</div>
     <div id="company-switcher" class="company-switcher">
         <button id="lacs-button">LACS</button>
         <button id="dornish-button">DORNISH</button>
@@ -36,13 +41,13 @@
         <span class="avatar">
             <img src="https://cdn-icons-png.flaticon.com/512/4794/4794936.png" alt="Avatar">
         </span>
-        <div class="user-text-content"> <!-- Nuevo contenedor para el texto del usuario -->
+        <div class="user-text-content">
             <span class="username">Usuario</span>
-            <span class="user-role-text">Web Developer</span> <!-- Nuevo span para el rol -->
+            <span class="user-role-text">Web Developer</span>
         </div>
         <div class="dropdown-content" id="user-dropdown">
             <a onclick="loadPageContent('/Frontend/html/profile.html')"><i class="fas fa-user-circle"></i> Perfil</a>
-            <a onclick="loadPageContent('/Frontend/html/settings.html')"><i class="fas fa-cog"></i> Configuracion</a>
+            <a onclick="loadPageContent('/Frontend/html/settings.html')"><i class="fas fa-cog"></i> Configuración</a>
             <a href="#" id="sidebar-logout-button"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
         </div>
     </div>
