@@ -245,6 +245,12 @@
         border-radius: 10px;
         margin-top: 5px;
         overflow: hidden; /* Para animaciones de altura */
+        position: absolute; /* Posicionamiento absoluto */
+        left: calc(100% + 10px); /* ¡Desplegar a la derecha! */
+        top: 0; /* Alinear con el elemento padre */
+        min-width: 200px; /* Ancho mínimo para el dropdown */
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
+        z-index: 1002;
 
         &.show {
             display: block;
@@ -280,23 +286,25 @@
     }
 
     .company-switcher button {
-        background-color: $sidebar-hover-bg; /* Color de fondo para los botones */
-        color: $sidebar-text-light;
-        border: 1px solid $sidebar-hover-bg;
-        border-radius: 8px; /* Bordes ligeramente redondeados */
-        padding: 8px 12px;
+        background-color: $sidebar-bg-dark; /* Fondo oscuro, como la sidebar */
+        color: $sidebar-text-light; /* Texto claro */
+        border: 1px solid $sidebar-text-light; /* Borde claro */
+        border-radius: 10px; /* Bordes redondeados */
+        padding: 12px 10px; /* Mismo padding que los enlaces de navegación */
         cursor: pointer;
-        font-size: 0.9rem;
+        font-size: 1rem; /* Mismo tamaño de fuente que los iconos de navegación */
+        font-weight: 600; /* Negrita como los textos de navegación */
         white-space: nowrap;
-        transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra sutil */
         width: 100%; /* Asegura que ocupen el 100% del contenedor */
-    }
 
-    .company-switcher button:hover {
-        background-color: lighten($sidebar-hover-bg, 5%);
-        border-color: $sidebar-active-text;
-        color: $sidebar-active-text;
+        &:hover {
+            background-color: $sidebar-hover-bg; /* Fondo de hover */
+            color: $sidebar-active-text; /* Texto blanco puro */
+            border-color: $sidebar-active-text; /* Borde blanco puro */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Sombra más pronunciada al hover */
+        }
     }
 
     .sidebar-user {
@@ -400,9 +408,13 @@
         z-index: 1002; /* Asegura que esté por encima de todo */
         border-radius: $border-radius;
         overflow: hidden;
-        left: 50%;
-        transform: translateX(-50%);
+        left: calc(100% + 10px); /* ¡Desplegar a la derecha! */
+        transform: translateX(0); /* Eliminar transform X para despliegue a la derecha */
         padding: 5px 0; /* Padding interno */
+
+        &.show {
+            display: block;
+        }
     }
 
     .sidebar-user .dropdown-content a {
@@ -430,10 +442,6 @@
         i {
             color: $sidebar-active-text;
         }
-    }
-
-    .sidebar-user .dropdown-content.show {
-        display: block;
     }
 }
 
@@ -530,5 +538,13 @@
         opacity: 1;
         margin-left: 10px; /* Margen entre avatar y texto */
         pointer-events: auto;
+    }
+
+    /* Ajuste para dropdowns en móvil si se despliegan a la derecha */
+    .employees-dropdown-content,
+    .sidebar-user .dropdown-content {
+        left: 100%; /* Despliega a la derecha del 100% del ancho de la sidebar */
+        transform: translateX(0); /* Asegurar que no haya traslación extra */
+        min-width: 180px; /* Mantener ancho mínimo */
     }
 }
