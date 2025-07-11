@@ -1,29 +1,21 @@
-﻿@import 'variables';
-
-html::-webkit-scrollbar,
-body::-webkit-scrollbar {
-    display: none;
-    width: 0;
-    height: 0;
-}
-
-html {
-    scrollbar-width: none;
+﻿html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    /* ¡Asegura 100% de altura! */
+    overflow: hidden;
+    /* Evita scrollbars en el nivel más alto */
 }
 
 body {
-    margin: 0;
     font-family: "Montserrat", sans-serif;
     background: linear-gradient(135deg, $color-gradient-start, $color-gradient-middle-1, $color-gradient-middle-2, $color-gradient-end);
     background-size: 400% 400%;
     animation: gradientAnimation 30s ease infinite;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    padding: 0;
     box-sizing: border-box;
-    color: $color-dark-text;
-    overflow: hidden;
+    color: $color-text-dark;
     -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
@@ -41,7 +33,14 @@ body {
     }
 }
 
+/* Estas reglas ya están en html, body arriba, o se manejan por scrollbar.js */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
 html {
-    overflow-y: hidden;
-    height: 100%;
+    scrollbar-width: none;
 }

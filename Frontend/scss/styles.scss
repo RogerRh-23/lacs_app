@@ -1,8 +1,9 @@
 ﻿@import 'variables';
+@import 'sidebar';
 @import 'base';
 @import 'layout';
-@import 'sidebar';
-@import 'persInfo';
 @import 'login';
-@import 'incidencias';
+@import 'mixins';
+@import 'persInfo';
+@import 'reset';
 @import 'scrollbar';
