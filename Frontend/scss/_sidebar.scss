@@ -111,6 +111,21 @@
     }
 
     &__nav a i {
+
+// Oculta el texto de los enlaces cuando la sidebar está cerrada
+.sidebar:not(.sidebar--open) .sidebar__nav a span {
+  display: none;
+}
+
+// Muestra el texto cuando la sidebar está abierta
+.sidebar.sidebar--open .sidebar__nav a span {
+  display: inline-block;
+  max-width: 180px;
+  opacity: 1;
+  margin-left: 10px;
+  font-size: 1rem;
+  transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out, margin-left 0.3s ease-in-out, font-size 0.3s ease-in-out;
+}
         font-size: 1.2rem; /* Tamaño explícito para el icono */
         flex-shrink: 0;
         color: $sidebar-text-light; /* Color de icono por defecto */
@@ -124,18 +139,18 @@
     }
 
     /* Oculta el texto (span) cuando la sidebar NO tiene la clase --open */
-    &:not(.sidebar--open) .sidebar__nav a span {
-  display: none;
-}
+    &:not(.sidebar--open) &__nav a span {
+        display: none; /* ¡Cambio a display: none para ocultar completamente! */
+    }
     /* Muestra el texto cuando la sidebar SÍ tiene la clase --open */
-    &.sidebar--open .sidebar__nav a span {
-  display: inline-block;
-  max-width: 180px;
-  opacity: 1;
-  margin-left: 10px;
-  font-size: 1rem;
-  transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out, margin-left 0.3s ease-in-out, font-size 0.3s ease-in-out;
-}
+    &--open &__nav a span {
+        display: inline-block; /* Vuelve a mostrarlo */
+        max-width: 180px; /* Un ancho máximo para que se muestre */
+        opacity: 1;
+        margin-left: 10px; /* Espacio entre icono y texto cuando está abierto */
+        font-size: 1rem; /* ¡Texto unificado a 1rem! */
+        transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out, margin-left 0.3s ease-in-out, font-size 0.3s ease-in-out;
+    }
 
     /* Controla el margin-right del icono basado en el estado de la sidebar */
     &:not(.sidebar--open) &__nav a i {

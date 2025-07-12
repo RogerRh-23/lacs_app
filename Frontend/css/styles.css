@@ -107,18 +107,29 @@
   z-index: 1;
   transition: margin-right 0.3s ease-in-out, color 0.2s ease-in-out;
 }
-.sidebar__nav a:hover i, .sidebar__nav a.active i {
-  color: #ffffff; /* Icono blanco puro al hacer hover/activo */
-}
-.sidebar:not(.sidebar--open) .sidebar__nav a span {
+.sidebar__nav a i .sidebar:not(.sidebar--open) .sidebar__nav a span {
   display: none;
 }
-.sidebar.sidebar--open .sidebar__nav a span {
+.sidebar__nav a i .sidebar.sidebar--open .sidebar__nav a span {
   display: inline-block;
   max-width: 180px;
   opacity: 1;
   margin-left: 10px;
   font-size: 1rem;
+  transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out, margin-left 0.3s ease-in-out, font-size 0.3s ease-in-out;
+}
+.sidebar__nav a:hover i, .sidebar__nav a.active i {
+  color: #ffffff; /* Icono blanco puro al hacer hover/activo */
+}
+.sidebar:not(.sidebar--open) .sidebar__nav a span {
+  display: none; /* ¡Cambio a display: none para ocultar completamente! */
+}
+.sidebar--open .sidebar__nav a span {
+  display: inline-block; /* Vuelve a mostrarlo */
+  max-width: 180px; /* Un ancho máximo para que se muestre */
+  opacity: 1;
+  margin-left: 10px; /* Espacio entre icono y texto cuando está abierto */
+  font-size: 1rem; /* ¡Texto unificado a 1rem! */
   transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out, margin-left 0.3s ease-in-out, font-size 0.3s ease-in-out;
 }
 .sidebar:not(.sidebar--open) .sidebar__nav a i {
