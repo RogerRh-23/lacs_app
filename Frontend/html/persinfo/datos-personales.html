@@ -1,5 +1,5 @@
-<h3 class="section-title">Información General del Empleado</h3>
-<div class="form-section">
+<form class="form-section" id="form-datos-personales">
+    <h3 class="section-title">Información General del Empleado</h3>
     <div class="form-row">
         <div class="input-group">
             <div class="relative">
@@ -63,7 +63,7 @@
                     <option value="" disabled selected></option>
                     <option value="masculino">Masculino</option>
                     <option value="femenino">Femenino</option>
-                    <option value="femenino">Otro</option>
+                    <option value="otro">Otro</option>
                 </select>
                 <label for="pers-sex" class="input-label">Sexo:</label>
             </div>
@@ -83,5 +83,8 @@
             </div>
         </div>
     </div>
-</div>
-<button type="submit" class="submit-button">Guardar Datos Personales</button>
+    <div class="form-actions">
+        <button type="submit" class="submit-button">Guardar Datos Personales</button>
+        <button type="reset" class="cancel-button">Cancelar</button>
+    </div>
+</form>

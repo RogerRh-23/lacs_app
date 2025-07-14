@@ -1,4 +1,4 @@
-@import 'variables';
+@use 'variables';
 
 .app-layout-wrapper {
     display: flex;
@@ -11,7 +11,7 @@
 .main-content {
     flex-grow: 1;
     padding: 20px;
-    background-color: $color-background-light;
+    background-color: variables.$color-background-light;
     overflow-y: auto;
     transition: margin-left 0.3s ease-in-out;
     height: 100%; /* Asegura que main-content ocupe el 100% de la altura de su padre flex item */
@@ -35,11 +35,6 @@ html, body {
     height: 100%;
     overflow: hidden;
 }
-
-/* La altura de la sidebar se define en _sidebar.scss */
-/* .sidebar {
-    height: 100%;
-} */
 
 @media (max-width: 768px) {
     .app-layout-wrapper {

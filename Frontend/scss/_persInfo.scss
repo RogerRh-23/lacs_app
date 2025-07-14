@@ -1,21 +1,31 @@
-@import 'variables';
+@use 'variables';
+@use 'sass:color';
 
 .form-section {
-    background-color: $color-white;
-    padding: 30px;
-    border-radius: $border-radius;
-    box-shadow: 0 4px 15px $color-shadow-medium;
-    margin-bottom: 30px;
+    display: block;
+    position: relative;
+    z-index: 1002;
+    background-color: variables.$color-white !important;
+    opacity: 1 !important;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+    border: 1px solid variables.$color-border-light;
+}
+
+body {
+    overflow-y: auto;
 }
 
 .section-title {
-    color: $color-primary;
-    font-size: 1.8rem;
+    color: variables.$color-primary;
+    font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
     text-align: center;
-    border-bottom: 2px solid $color-primary;
-    padding-bottom: 10px;
+    border-bottom: 3px solid variables.$color-primary;
+    padding-bottom: 15px;
     margin-top: 0;
 }
 
@@ -42,7 +52,7 @@
     left: 15px;
     top: 50%;
     transform: translateY(-50%);
-    color: $color-gray-text;
+    color: variables.$color-gray-text;
     font-size: 1.1rem;
     z-index: 2;
 }
@@ -55,11 +65,12 @@
 .input-group select,
 .input-group textarea {
     width: 100%;
-    border: 1px solid $color-border-light;
-    border-radius: $border-radius;
+    border: 1px solid variables.$color-border-light;
+    border-radius: 10px;
+    padding: 15px;
     font-size: 1rem;
-    color: $color-gray-dark-text;
-    background-color: $color-white;
+    color: variables.$color-gray-dark-text;
+    background-color: variables.$color-background-light;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     box-sizing: border-box;
     padding: 1.5rem 15px 0.8rem 45px;
@@ -68,8 +79,8 @@
 .input-group input:focus,
 .input-group select:focus,
 .input-group textarea:focus {
-    border-color: $color-primary;
-    box-shadow: 0 0 0 3px rgba(46, 77, 80, 0.2);
+    border-color: variables.$color-primary;
+    box-shadow: 0 0 5px rgba(variables.$color-primary, 0.5);
     outline: none;
 }
 
@@ -77,11 +88,11 @@
     position: absolute;
     left: 45px;
     top: 0.8rem;
-    color: $color-gray-text;
+    color: variables.$color-gray-text;
     font-size: 0.75rem;
     pointer-events: none;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.7, 1);
-    background-color: $color-white;
+    background-color: variables.$color-white;
     padding: 0 5px;
     z-index: 1;
     transform: translateY(0);
@@ -104,8 +115,8 @@
 .input-group textarea:focus+.input-label {
     top: 0.8rem;
     font-size: 0.75rem;
-    color: $color-primary;
-    background-color: $color-white;
+    color: variables.$color-primary;
+    background-color: variables.$color-white;
     padding: 0 5px;
     transform: translateY(0);
 }
@@ -123,8 +134,8 @@
     display: flex;
     justify-content: flex-start;
     margin-bottom: 20px;
-    background-color: $color-primary;
-    border-radius: $border-radius;
+    background-color: variables.$color-primary;
+    border-radius: variables.$border-radius;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     overflow: hidden;
 }
@@ -132,8 +143,8 @@
 .tab-navigation .tab-button {
     padding: 15px 25px;
     cursor: pointer;
-    background-color: $color-primary;
-    color: $color-white;
+    background-color: variables.$color-primary;
+    color: variables.$color-white;
     font-size: 1rem;
     font-weight: 600;
     border: none;
@@ -145,14 +156,14 @@
 }
 
 .tab-navigation .tab-button:hover {
-    background-color: $color-accent;
-    color: $color-white;
+    background-color: variables.$color-accent;
+    color: variables.$color-white;
 }
 
 .tab-navigation .tab-button.active {
-    background-color: $color-accent;
-    color: $color-white;
-    border-bottom-color: $color-white;
+    background-color: variables.$color-accent;
+    color: variables.$color-white;
+    border-bottom-color: variables.$color-white;
 }
 
 .tab-content {
@@ -160,7 +171,9 @@
 }
 
 .tab-content.active {
-    display: block;
+    display: block !important;
+    opacity: 1 !important;
+    z-index: 1002;
 }
 
 
@@ -172,34 +185,39 @@
 }
 
 .form-actions button {
-    padding: 12px 25px;
-    border-radius: $border-radius;
-    font-size: 1rem;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .form-actions .submit-button {
-    background-color: $color-primary;
-    color: $color-white;
+    background-color: variables.$color-primary;
+    color: variables.$color-white;
     border: none;
 }
 
 .form-actions .submit-button:hover {
-    background-color: $color-accent;
-    transform: translateY(-2px);
+    background-color: variables.$color-accent;
+    transform: translateY(-3px);
 }
 
 .form-actions .cancel-button {
-    background-color: $color-background-light;
-    color: $color-dark-text;
-    border: 1px solid $color-border-light;
+    background-color: variables.$color-background-light;
+    color: variables.$color-dark-text;
+    border: 1px solid variables.$color-border-light;
 }
 
 .form-actions .cancel-button:hover {
-    background-color: darken($color-background-light, 5%);
-    transform: translateY(-2px);
+    background-color: color.adjust(variables.$color-background-light, $lightness: -5%);
+    transform: translateY(-3px);
+}
+
+.login-page-container, .main-content, body {
+    z-index: 1;
+    position: relative;
 }
 
 @media (max-width: 768px) {
@@ -235,7 +253,7 @@
         -webkit-overflow-scrolling: touch;
         white-space: nowrap;
         justify-content: flex-start;
-        border-radius: $border-radius;
+        border-radius: variables.$border-radius;
     }
 
     .tab-navigation .tab-button {
@@ -250,9 +268,9 @@
     }
 
     .tab-navigation .tab-button.active {
-        border-bottom-color: $color-white;
-        background-color: $color-accent;
-        color: $color-white;
+        border-bottom-color: variables.$color-white;
+        background-color: variables.$color-accent;
+        color: variables.$color-white;
         border-left: none;
     }
 }

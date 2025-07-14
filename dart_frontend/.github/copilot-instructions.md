@@ -1,0 +1,3 @@
+<!-- Use this file to provide workspace-specific custom instructions to Copilot. For more details, visit https://code.visualstudio.com/docs/copilot/copilot-customization#_use-a-githubcopilotinstructionsmd-file -->
+
+Este proyecto es una migración de un frontend web (HTML, CSS, JS) a Flutter para web y desktop. Utiliza Material Design, navegación lateral (sidebar), pestañas y formularios. Genera widgets reutilizables y adapta la lógica JS a Dart usando controladores y el sistema de estado de Flutter. Usa nombres de variables y campos fieles a los originales para facilitar la migración de formularios y lógica de negocio.

@@ -1,9 +1,10 @@
-@import 'variables';
+@use 'variables';
+@use 'sass:color';
 
 .sidebar {
     width: 55px; /* Más fina cuando está cerrada */
-    background-color: $sidebar-bg-dark; /* Fondo oscuro de la sidebar */
-    color: $sidebar-text-light; /* Color principal del texto de la sidebar */
+    background-color: variables.$sidebar-bg-dark; /* Fondo oscuro de la sidebar */
+    color: variables.$sidebar-text-light; /* Color principal del texto de la sidebar */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -91,69 +92,92 @@
 
     &__nav a {
         display: flex;
-        align-items: center; /* Alinea verticalmente icono y texto */
-        padding: 12px 10px; /* Padding para el efecto "pill" */
-        color: $sidebar-text-light; /* Color del texto e iconos */
+        align-items: center;
+        justify-content: flex-start;
+        padding: 12px 10px;
+        color: variables.$sidebar-text-light;
         text-decoration: none;
-        font-size: 1rem; /* Tamaño base para el icono en ambos estados */
+        font-size: 1rem;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: clip;
         transition: background-color 0.2s ease-in-out, border-radius 0.2s ease-in-out, color 0.2s ease-in-out;
         font-family: "Montserrat", sans-serif;
-        border-radius: 10px; /* Bordes redondeados para el efecto "pill" */
+        border-radius: 10px;
+    }
+
+    // Centrar íconos horizontalmente cuando la sidebar está cerrada
+    &:not(.sidebar--open) &__nav a {
+        justify-content: center;
+    }
+
+    // Centrar el avatar del usuario
+    .sidebar-user {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+    .sidebar-user .avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        margin: 0 auto 10px auto;
+    }
+    .sidebar-user .avatar img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
     }
 
     &__nav a:hover,
     &__nav a.active { /* Aplicar hover a las opciones de navegación */
-        background-color: $sidebar-hover-bg;
-        color: $sidebar-active-text; /* Blanco puro al hacer hover */
+        background-color: variables.$sidebar-hover-bg;
+        color: variables.$sidebar-active-text; /* Blanco puro al hacer hover */
     }
 
+
     &__nav a i {
-
-// Oculta el texto de los enlaces cuando la sidebar está cerrada
-.sidebar:not(.sidebar--open) .sidebar__nav a span {
-  display: none;
-}
-
-// Muestra el texto cuando la sidebar está abierta
-.sidebar.sidebar--open .sidebar__nav a span {
-  display: inline-block;
-  max-width: 180px;
-  opacity: 1;
-  margin-left: 10px;
-  font-size: 1rem;
-  transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out, margin-left 0.3s ease-in-out, font-size 0.3s ease-in-out;
-}
-        font-size: 1.2rem; /* Tamaño explícito para el icono */
+        font-size: 1.2rem;
         flex-shrink: 0;
-        color: $sidebar-text-light; /* Color de icono por defecto */
+        color: variables.$sidebar-text-light;
         z-index: 1;
         transition: margin-right 0.3s ease-in-out, color 0.2s ease-in-out;
+        margin-right: 0;
     }
 
     &__nav a:hover i,
     &__nav a.active i {
-        color: $sidebar-active-text; /* Icono blanco puro al hacer hover/activo */
+        color: variables.$sidebar-active-text; /* Icono blanco puro al hacer hover/activo */
     }
 
-    /* Oculta el texto (span) cuando la sidebar NO tiene la clase --open */
-    &:not(.sidebar--open) &__nav a span {
-        display: none; /* ¡Cambio a display: none para ocultar completamente! */
+    // Por defecto, oculta el texto
+    &__nav a span {
+        display: none;
+        max-width: 0;
+        opacity: 0;
+        margin-left: 0;
+        font-size: 0;
+        pointer-events: none;
+        white-space: nowrap;
+        transition: max-width 0.3s, opacity 0.3s, margin-left 0.3s, font-size 0.3s;
     }
-    /* Muestra el texto cuando la sidebar SÍ tiene la clase --open */
+    // Solo muestra el texto cuando la sidebar está abierta
     &--open &__nav a span {
-        display: inline-block; /* Vuelve a mostrarlo */
-        max-width: 180px; /* Un ancho máximo para que se muestre */
+        display: inline-block;
+        max-width: 180px;
         opacity: 1;
-        margin-left: 10px; /* Espacio entre icono y texto cuando está abierto */
-        font-size: 1rem; /* ¡Texto unificado a 1rem! */
-        transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out, margin-left 0.3s ease-in-out, font-size 0.3s ease-in-out;
+        margin-left: 10px;
+        font-size: 1rem;
+        pointer-events: auto;
+        transition: max-width 0.3s, opacity 0.3s, margin-left 0.3s, font-size 0.3s;
     }
-
-    /* Controla el margin-right del icono basado en el estado de la sidebar */
-    &:not(.sidebar--open) &__nav a i {
+    // Controla el margin-right del icono basado en el estado de la sidebar
+    &__nav a i {
         margin-right: 0;
     }
     &--open &__nav a i {
@@ -164,7 +188,7 @@
     .sidebar__section-title {
         font-size: 0.9rem;
         font-weight: 600;
-        color: rgba($sidebar-text-light, 0.6); /* Color más tenue */
+        color: rgba(variables.$sidebar-text-light, 0.6); /* Color más tenue */
         text-transform: uppercase;
         margin-top: 20px;
         margin-bottom: 10px;
@@ -183,6 +207,45 @@
         margin-top: 0;
         margin-bottom: 0;
         padding-left: 0;
+        display: none;
+    }
+
+    // Mantener los triggers de los dropdowns visibles y funcionales en sidebar cerrada
+    &:not(.sidebar--open) .employees-dropdown-toggle,
+    &:not(.sidebar--open) .sidebar-user {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        cursor: pointer;
+        pointer-events: auto;
+        background: none;
+        padding: 0;
+        min-width: 0;
+        min-height: 0;
+        max-width: 100%;
+        overflow: visible;
+    }
+
+    // Ocultar el texto y contenido de los dropdowns en sidebar cerrada
+    &:not(.sidebar--open) .employees-dropdown-toggle span,
+    &:not(.sidebar--open) .sidebar-user .user-text-content {
+        display: none !important;
+    }
+
+    // Ocultar el contenido desplegable de los dropdowns en sidebar cerrada, pero permitir que .show lo sobrescriba
+    &:not(.sidebar--open) .employees-dropdown-content,
+    &:not(.sidebar--open) .sidebar-user .dropdown-content {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    &:not(.sidebar--open) .employees-dropdown-content.show,
+    &:not(.sidebar--open) .sidebar-user .dropdown-content.show {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
     }
 
     /* Estilos para el dropdown de "Empleados" */
@@ -190,7 +253,7 @@
         display: flex;
         align-items: center;
         padding: 12px 10px; /* Mismo padding que otros enlaces */
-        color: $sidebar-text-light;
+        color: variables.$sidebar-text-light;
         text-decoration: none;
         font-size: 1rem; /* Unificado a 1rem */
         white-space: nowrap;
@@ -204,14 +267,14 @@
         position: relative; /* Para el posicionamiento del dropdown */
 
         &:hover {
-            background-color: $sidebar-hover-bg;
-            color: $sidebar-active-text;
+            background-color: variables.$sidebar-hover-bg;
+            color: variables.$sidebar-active-text;
         }
 
         i {
             font-size: 1.2rem;
             flex-shrink: 0;
-            color: $sidebar-text-light;
+            color: variables.$sidebar-text-light;
             z-index: 1;
             transition: margin-right 0.3s ease-in-out, color 0.2s ease-in-out;
         }
@@ -238,31 +301,38 @@
     }
 
     .employees-dropdown-content {
-        display: none; /* Oculto por defecto */
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s;
         list-style: none;
         padding: 5px 0;
         margin: 0;
-        background-color: lighten($sidebar-bg-dark, 5%); /* Fondo ligeramente más claro */
+        background-color: color.adjust(variables.$sidebar-bg-dark, $lightness: 5%); /* Fondo ligeramente más claro */
         border-radius: 10px;
         margin-top: 5px;
         overflow: hidden; /* Para animaciones de altura */
         position: absolute; /* Posicionamiento absoluto */
-        left: calc(100% + 10px); /* ¡Desplegar a la derecha! */
-        top: 0; /* Alinear con el elemento padre */
+        left: 0; /* Desplegar debajo del botón */
+        top: 100%; /* Justo debajo del botón */
         min-width: 200px; /* Ancho mínimo para el dropdown */
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
-        z-index: 1002;
+        z-index: 2000;
+    }
+    .employees-dropdown-content.show {
+        opacity: 1;
+        pointer-events: auto;
+        display: block; /* Asegura que el dropdown sea visible */
+        position: absolute; /* Evita que afecte el flujo del documento */
+        z-index: 10; /* Asegura que esté por encima de otros elementos */
+        transition: opacity 0.2s ease-in-out;
+    }
 
-        &.show {
-            display: block;
-        }
 
-        li a {
-            padding: 10px 15px 10px 40px; /* Indentación para sub-opciones */
-            font-size: 0.95rem; /* Un poco más pequeño que las opciones principales */
-            &:hover {
-                background-color: $sidebar-hover-bg;
-            }
+    li a {
+        padding: 10px 15px 10px 40px; /* Indentación para sub-opciones */
+        font-size: 0.95rem; /* Un poco más pequeño que las opciones principales */
+        &:hover {
+            background-color: variables.$sidebar-hover-bg;
         }
     }
 
@@ -284,11 +354,13 @@
         pointer-events: none;
         height: 0; /* Colapsa la altura cuando está cerrado */
         margin-bottom: 0;
+        max-width: 0;
+        display: none;
     }
 
     .company-switcher button {
         background-color: transparent; /* Fondo transparente para que se vea el fondo de la sidebar */
-        color: $sidebar-text-light; /* Texto claro */
+        color: variables.$sidebar-text-light; /* Texto claro */
         border: none; /* Sin borde */
         border-radius: 10px; /* Bordes redondeados */
         padding: 12px 10px; /* Mismo padding que los enlaces de navegación */
@@ -304,8 +376,8 @@
         justify-content: flex-start; /* Alineación a la izquierda por defecto */
 
         &:hover {
-            background-color: $sidebar-hover-bg; /* Fondo de hover */
-            color: $sidebar-active-text; /* Texto blanco puro */
+            background-color: variables.$sidebar-hover-bg; /* Fondo de hover */
+            color: variables.$sidebar-active-text; /* Texto blanco puro */
             box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Sombra más pronunciada al hover */
         }
     }
@@ -329,28 +401,40 @@
         position: relative;
 
         &:hover {
-            background-color: $sidebar-hover-bg;
+            background-color: variables.$sidebar-hover-bg;
             .username, .user-role-text, .avatar img {
-                color: $sidebar-active-text;
-                border-color: $sidebar-active-text;
+                color: variables.$sidebar-active-text;
+                border-color: variables.$sidebar-active-text;
             }
         }
     }
 
     &:not(.sidebar--open) .sidebar-user {
-        max-width: 45px; /* Solo muestra el avatar */
-        height: 45px; /* Asegura una altura fija para centrar */
-        padding: 0; /* Eliminar padding para centrado más preciso */
-        display: flex; /* Usar flexbox para centrar */
-        flex-direction: column; /* Para centrar verticalmente si hay múltiples elementos */
-        justify-content: center; /* Centrar verticalmente */
-        align-items: center; /* Centrar horizontalmente */
-        margin: 0 auto 10px auto; /* Centrar el contenedor del avatar horizontalmente y margen inferior */
-        overflow: hidden;
+        max-width: 55px; /* Igual que el ancho de la sidebar */
+        height: 55px; /* Igual que el ancho para círculo perfecto */
+        min-width: 55px;
+        min-height: 55px;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto 10px auto;
+        overflow: visible;
 
+        .avatar {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         .avatar img {
-            width: 30px; /* Avatar más pequeño cuando la sidebar está cerrada */
-            height: 30px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid variables.$sidebar-text-light;
         }
     }
 
@@ -359,7 +443,7 @@
         height: 40px;
         border-radius: 50%;
         object-fit: cover;
-        border: 2px solid $sidebar-text-light; /* Borde del avatar, color inicial */
+        border: 2px solid variables.$sidebar-text-light; /* Borde del avatar, color inicial */
         flex-shrink: 0; /* Evita que el avatar se encoja */
         transition: border-color 0.2s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out; /* Transición para el borde y tamaño */
     }
@@ -374,7 +458,7 @@
 
     .sidebar-user .username,
     .sidebar-user .user-role-text {
-        color: $sidebar-text-light; /* Color del texto del usuario */
+        color: variables.$sidebar-text-light; /* Color del texto del usuario */
         font-weight: 600;
         transition: color 0.2s ease-in-out, max-width 0.3s ease-in-out, opacity 0.3s ease-in-out;
         overflow: hidden;
@@ -412,49 +496,55 @@
     }
 
     .sidebar-user .dropdown-content {
-        display: none; /* Se maneja con JS para mostrar/ocultar */
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s;
         position: absolute;
-        bottom: auto; /* Eliminar bottom para que se posicione con top */
-        top: 0; /* Alinear con la parte superior del .sidebar-user */
-        background-color: $sidebar-bg-dark; /* Fondo oscuro para el dropdown */
+        left: 0; /* Desplegar debajo del avatar */
+        top: 100%; /* Justo debajo del avatar */
+        background-color: variables.$sidebar-bg-dark; /* Fondo oscuro para el dropdown */
         min-width: 180px; /* Ancho mínimo para el dropdown */
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4); /* Sombra más oscura */
-        z-index: 1002; /* Asegura que esté por encima de todo */
-        border-radius: $border-radius;
+        z-index: 3000; /* Aumentar z-index para asegurar que esté por encima de otros elementos */
+        border: 1px solid color.adjust(variables.$sidebar-bg-dark, $lightness: 5%); /* Añadir borde para mejor definición visual */
+        padding: 15px; /* Aumentar padding para mejor espaciado */
+        border-radius: 12px; /* Bordes más redondeados para consistencia visual */
         overflow: hidden;
-        left: calc(100% + 10px); /* ¡Desplegar a la derecha! */
-        transform: translateX(0); /* Eliminar transform X para despliegue a la derecha */
-        padding: 5px 0; /* Padding interno */
+        transform: none;
+    }
+    .sidebar-user .dropdown-content.show {
+        opacity: 1;
+        pointer-events: auto;
+        display: block; /* Asegura que el dropdown sea visible */
+        position: absolute; /* Evita que afecte el flujo del documento */
+        z-index: 10; /* Asegura que esté por encima de otros elementos */
+        transition: opacity 0.2s ease-in-out;
+    }
 
-        &.show {
-            display: block;
+    .sidebar-user .dropdown-content a {
+        color: variables.$sidebar-text-light; /* Texto igual al de la sidebar */
+        font-size: 1rem; /* Aumentar tamaño de fuente para mejor legibilidad */
+        padding: 10px 15px; /* Espaciado uniforme */
+        text-decoration: none;
+        display: flex; /* Para alinear icono y texto */
+        align-items: center;
+        text-align: left;
+        font-family: "Montserrat", sans-serif;
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+
+        i {
+            margin-right: 10px;
+            font-size: 1rem;
+            color: variables.$sidebar-text-light;
+            transition: color 0.2s ease-in-out;
         }
+    }
 
-        a {
-            color: $sidebar-text-light;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: flex; /* Para alinear icono y texto */
-            align-items: center;
-            text-align: left;
-            font-family: "Montserrat", sans-serif;
-            font-size: 0.95rem; /* Tamaño de fuente para los elementos del dropdown */
-            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-
-            i {
-                margin-right: 10px;
-                font-size: 1rem;
-                color: $sidebar-text-light;
-                transition: color 0.2s ease-in-out;
-            }
-        }
-
-        a:hover {
-            background-color: $sidebar-hover-bg; /* Hover oscuro para los elementos del dropdown */
-            color: $sidebar-active-text;
-            i {
-                color: $sidebar-active-text;
-            }
+    .sidebar-user .dropdown-content a:hover {
+        background-color: variables.$sidebar-hover-bg; /* Hover igual al de la sidebar */
+        color: variables.$sidebar-active-text; /* Texto blanco puro en hover */
+        i {
+            color: variables.$sidebar-active-text;
         }
     }
 }
@@ -473,92 +563,109 @@
         border-radius: 0; /* Eliminar bordes redondeados en móvil */
         width: 250px; /* Siempre abierta a un ancho fijo en móvil */
         padding-top: 20px; /* Restaurar padding superior */
-    }
-    .sidebar.sidebar--open {
-        transform: translateX(0);
-    }
 
-    .sidebar__toggle-button {
-        display: block; /* Mostrar el botón de toggle en móvil */
-        position: absolute;
-        top: 20px;
-        right: 10px; /* Posicionar en la esquina superior derecha */
-        left: auto;
-        transform: none;
-        font-size: 1.2rem;
-        padding: 8px 12px;
-    }
-
-    .sidebar__logo-container {
-        justify-content: flex-start; /* Asegurar que el logo completo se vea */
-        padding-left: 20px;
-    }
-
-    .sidebar__logo-container img {
-        filter: brightness(0) invert(1); /* Asegurar que el logo sea blanco */
-    }
-
-    .sidebar .logo-compact {
-        display: none; /* Siempre ocultar el logo compacto en móvil */
-    }
-    .sidebar .logo-full {
-        display: block; /* Siempre mostrar el logo completo en móvil */
-        opacity: 1;
-        transform: scale(1);
-    }
-
-    .sidebar__nav {
-        padding: 0 15px; /* Ajustar padding para navegación en móvil */
-    }
-
-    .sidebar__nav a span {
-        max-width: 180px; /* Asegurar que el texto se muestre */
-        opacity: 1;
-        margin-left: 10px;
-        font-size: 1rem; /* Mantener tamaño grande en móvil */
-    }
-
-    .sidebar__nav a i {
-        margin-right: 10px; /* Asegurar margen para iconos */
-    }
-
-    .sidebar__section-title {
-        opacity: 1;
-        max-width: 100%;
-        margin-top: 20px;
-        margin-bottom: 10px;
-        padding-left: 15px;
-        pointer-events: auto;
-    }
-
-    .company-switcher {
-        opacity: 1; /* Siempre visible en móvil */
-        pointer-events: auto;
-        height: auto;
-        margin-bottom: 20px;
-        padding: 0 15px;
-    }
-
-    .sidebar-user {
-        max-width: 100%; /* Ocupa todo el ancho en móvil */
-        padding: 15px;
-        justify-content: flex-start; /* Alinear a la izquierda */
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    .sidebar-user .user-text-content {
-        max-width: 150px; /* Ancho para el texto */
-        opacity: 1;
-        margin-left: 10px; /* Margen entre avatar y texto */
-        pointer-events: auto;
-    }
-
-    /* Ajuste para dropdowns en móvil si se despliegan a la derecha */
-    .employees-dropdown-content,
-    .sidebar-user .dropdown-content {
-        left: 100%; /* Despliega a la derecha del 100% del ancho de la sidebar */
-        transform: translateX(0); /* Asegurar que no haya traslación extra */
-        min-width: 180px; /* Mantener ancho mínimo */
+        &__logo-container {
+            justify-content: flex-start;
+            padding-left: 20px;
+        }
+        &__logo-container img {
+            filter: brightness(0) invert(1);
+        }
+        .logo-compact {
+            display: none;
+        }
+        .logo-full {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
+        }
+        &__nav {
+            padding: 0 15px;
+            a span {
+                display: none;
+                max-width: 0;
+                opacity: 0;
+                margin-left: 0;
+                font-size: 0;
+                pointer-events: none;
+                white-space: nowrap;
+                transition: max-width 0.3s, opacity 0.3s, margin-left 0.3s, font-size 0.3s;
+            }
+            a i {
+                font-size: 1.2rem;
+                flex-shrink: 0;
+                color: variables.$sidebar-text-light;
+                z-index: 1;
+                transition: margin-right 0.3s, color 0.2s;
+                margin-right: 0;
+            }
+        }
+        &--open {
+            transform: translateX(0);
+            & .logo-compact {
+                display: none;
+            }
+            & .logo-full {
+                display: block;
+                opacity: 1;
+                transform: scale(1);
+            }
+            &__nav a span {
+                display: inline-block;
+                max-width: 180px;
+                opacity: 1;
+                margin-left: 10px;
+                font-size: 1rem;
+                pointer-events: auto;
+            }
+            &__nav a i {
+                margin-right: 10px;
+            }
+        }
+        .sidebar__section-title {
+            opacity: 1;
+            max-width: 100%;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            padding-left: 15px;
+            pointer-events: auto;
+            transition: opacity 0.3s, max-width 0.3s;
+        }
+        &:not(&--open) .sidebar__section-title {
+            max-width: 0;
+            opacity: 0;
+            pointer-events: none;
+            margin-top: 0;
+            margin-bottom: 0;
+            padding-left: 0;
+        }
+        .company-switcher {
+            opacity: 1;
+            pointer-events: auto;
+            height: auto;
+            margin-bottom: 20px;
+            padding: 0 15px;
+        }
+        .sidebar-user {
+            max-width: 100%;
+            padding: 15px;
+            justify-content: flex-start;
+            margin-left: 0;
+            margin-right: 0;
+            .user-text-content {
+                max-width: 150px;
+                opacity: 1;
+                margin-left: 10px;
+                pointer-events: auto;
+            }
+        }
+        /* Elimina el ajuste que desplazaba los dropdowns a la derecha en móvil */
+        .employees-dropdown-content,
+        .sidebar-user .dropdown-content {
+            left: 0;
+            top: 100%;
+            min-width: 180px;
+            z-index: 2000;
+        }
     }
 }

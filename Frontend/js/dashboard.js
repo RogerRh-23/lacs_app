@@ -113,6 +113,11 @@ async function loadSidebarHtml() {
 
         if (loadedSidebarElement) {
             sidebarPlaceholder.appendChild(loadedSidebarElement);
+            setTimeout(() => {
+                if (typeof setupSidebarDropdowns === 'function') {
+                    setupSidebarDropdowns();
+                }
+            }, 100);
         } else {
             console.error("Error: El elemento #sidebar no se encontró dentro del contenido de sidebar.html.");
         }
@@ -131,8 +136,8 @@ function loadScript(src, id, callback) {
             if (callback) callback();
         };
         document.body.appendChild(scriptElement);
-    } else {
-        if (callback) callback();
+    const usernameDisplay = document.querySelector('.sidebar-user .username');
+    const userRoleText = document.querySelector('.sidebar-user .user-role-text');
     }
 }
 
@@ -262,6 +267,193 @@ function applySidebarBehavior() {
 }
 
 
+
+function setupSidebarDropdowns() {
+    if (!_getSidebarElements()) return;
+
+    const registerEmployeesLink = document.getElementById('register-employees-link');
+    const logoutButton = document.getElementById('sidebar-logout-button');
+    const usernameDisplay = document.querySelector('.sidebar-user .username');
+    const userRoleText = document.querySelector('.sidebar-user .user-role-text');
+    const userDropdown = sidebarElement.querySelector('#user-dropdown');
+    const empContent = sidebarElement.querySelector('#employees-dropdown-content');
+
+    function checkAuthAndRole() {
+        const jwtToken = localStorage.getItem('accessToken');
+        const userRole = localStorage.getItem('role');
+        const username = localStorage.getItem('username');
+
+        if (registerEmployeesLink) {
+            registerEmployeesLink.style.display = 'none';
+        }
+
+        if (!jwtToken || !userRole || !username) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        if (usernameDisplay) {
+            usernameDisplay.textContent = username;
+        }
+
+        if (userRoleText) {
+            userRoleText.textContent = userRole;
+        }
+
+        if (userRole === 'admin') {
+            if (registerEmployeesLink) {
+                registerEmployeesLink.style.display = 'block';
+            }
+        }
+    }
+
+    if (logoutButton) {
+        logoutButton.onclick = (event) => {
+            event.preventDefault();
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('role');
+            localStorage.removeItem('username');
+            window.location.href = 'login.html';
+        };
+    } else {
+        console.warn("[setupSidebarDropdowns] Botón de cerrar sesión con ID 'sidebar-logout-button' no encontrado después de cargar la barra lateral.");
+    }
+
+    // Delegación de eventos para dropdowns (robusta y con logs)
+    if (sidebarElement) {
+        sidebarElement.onclick = null;
+        document.onclick = null;
+
+        console.log('[setupSidebarDropdowns] Estado inicial de dropdowns:', {
+            userDropdown: userDropdown ? userDropdown.classList : 'No encontrado',
+            empContent: empContent ? empContent.classList : 'No encontrado'
+        });
+
+        sidebarElement.addEventListener('click', function(event) {
+            console.log('[DEBUG] Click detectado en sidebarElement:', event.target);
+            const userDropdown = sidebarElement.querySelector('#user-dropdown');
+            const empContent = sidebarElement.querySelector('#employees-dropdown-content');
+
+            if (userDropdown) {
+                console.log('[DEBUG] Estado actual de userDropdown:', {
+                    classList: userDropdown.classList,
+                    styles: window.getComputedStyle(userDropdown)
+                });
+            }
+
+            if (empContent) {
+                console.log('[DEBUG] Estado actual de empContent:', {
+                    classList: empContent.classList,
+                    styles: window.getComputedStyle(empContent)
+                });
+            }
+
+            // Usuario: click en avatar o bloque principal
+            if (event.target.closest('.sidebar-user')) {
+                console.log('[DEBUG] Click en .sidebar-user');
+                if (!event.target.closest('#user-dropdown')) {
+                    event.stopPropagation();
+                    if (userDropdown) {
+                        userDropdown.classList.toggle('show');
+                        if (userDropdown.classList.contains('show')) {
+                            document.body.appendChild(userDropdown); // Mover al final del body
+                            userDropdown.style.position = 'absolute';
+                            userDropdown.style.top = `${event.target.getBoundingClientRect().bottom}px`;
+                            userDropdown.style.left = `${sidebarElement.getBoundingClientRect().left + 10}px`; // Ajustar posición horizontal
+                            userDropdown.style.display = 'block';
+                            userDropdown.style.opacity = '1';
+                            userDropdown.style.zIndex = '9999'; // Forzar z-index
+                        } else {
+                            sidebarElement.appendChild(userDropdown); // Restaurar al contenedor original
+                            userDropdown.style.display = 'none';
+                            userDropdown.style.opacity = '0';
+                            userDropdown.style.zIndex = '';
+                        }
+                        console.log('[Dropdown] Usuario: toggle show', userDropdown.classList);
+                    }
+                }
+                return;
+            }
+            // Empleados: click en botón
+            if (event.target.closest('#employees-dropdown-toggle')) {
+                console.log('[DEBUG] Click en #employees-dropdown-toggle');
+                if (!event.target.closest('#employees-dropdown-content')) {
+                    event.stopPropagation();
+                    if (empContent) {
+                        empContent.classList.toggle('show');
+                        if (empContent.classList.contains('show')) {
+                            document.body.appendChild(empContent); // Mover al final del body
+                            empContent.style.position = 'absolute';
+                            empContent.style.top = `${event.target.getBoundingClientRect().bottom}px`;
+                            empContent.style.left = `${sidebarElement.getBoundingClientRect().left + 10}px`; // Ajustar posición horizontal
+                            empContent.style.display = 'block';
+                            empContent.style.opacity = '1';
+                            empContent.style.zIndex = '9999'; // Forzar z-index
+                        } else {
+                            sidebarElement.appendChild(empContent); // Restaurar al contenedor original
+                            empContent.style.display = 'none';
+                            empContent.style.opacity = '0';
+                            empContent.style.zIndex = '';
+                        }
+                        console.log('[Dropdown] Empleados: toggle show', empContent.classList);
+                    }
+                }
+                return;
+            }
+        });
+
+        document.addEventListener('click', function(event) {
+            console.log('[DEBUG] Click detectado en document:', event.target);
+            const userDropdown = sidebarElement.querySelector('#user-dropdown');
+            const empContent = sidebarElement.querySelector('#employees-dropdown-content');
+            if (userDropdown && !userDropdown.contains(event.target) && !event.target.closest('.sidebar-user')) {
+                userDropdown.classList.remove('show');
+                console.log('[Dropdown] Usuario: close');
+            }
+            if (empContent && !empContent.contains(event.target) && !event.target.closest('#employees-dropdown-toggle')) {
+                empContent.classList.remove('show');
+                console.log('[Dropdown] Empleados: close');
+            }
+        });
+    }
+
+    // Cierra ambos dropdowns al cerrar la sidebar
+    function closeDropdownsOnSidebarClose() {
+        const userDropdown = sidebarElement.querySelector('#user-dropdown');
+        const empContent = sidebarElement.querySelector('#employees-dropdown-content');
+        if (!sidebarElement.classList.contains('sidebar--open')) {
+            if (userDropdown) userDropdown.classList.remove('show');
+            if (empContent) empContent.classList.remove('show');
+        }
+    }
+    // Observa cambios de clase en la sidebar para ocultar dropdowns
+    const observer = new MutationObserver(() => {
+        if (!sidebarElement.classList.contains('sidebar--open')) {
+            const userDropdown = sidebarElement.querySelector('#user-dropdown');
+            const empContent = sidebarElement.querySelector('#employees-dropdown-content');
+            if (userDropdown && userDropdown.classList.contains('show')) {
+                userDropdown.classList.remove('show');
+                sidebarElement.appendChild(userDropdown); // Restaurar al contenedor original
+                userDropdown.style.display = 'none';
+                userDropdown.style.opacity = '0';
+                userDropdown.style.zIndex = '';
+            }
+            if (empContent && empContent.classList.contains('show')) {
+                empContent.classList.remove('show');
+                sidebarElement.appendChild(empContent); // Restaurar al contenedor original
+                empContent.style.display = 'none';
+                empContent.style.opacity = '0';
+                empContent.style.zIndex = '';
+            }
+        }
+    });
+
+    observer.observe(sidebarElement, { attributes: true, attributeFilter: ['class'] });
+
+    loadScript('/Frontend/js/animations.js', 'animationsScript');
+    checkAuthAndRole();
+}
+
 async function initDashboard() {
     await loadSidebarHtml();
 
@@ -270,89 +462,7 @@ async function initDashboard() {
     setTimeout(() => {
         if (_getSidebarElements()) {
             applySidebarBehavior();
-
-            const registerEmployeesLink = document.getElementById('register-employees-link');
-            const logoutButton = document.getElementById('sidebar-logout-button');
-            const usernameDisplay = document.querySelector('.sidebar-user .username');
-            const userRoleText = document.querySelector('.sidebar-user .user-role-text');
-            const userDropdown = document.getElementById('user-dropdown');
-            const userMenuBtn = document.querySelector('.sidebar-user');
-
-            const employeesDropdownToggle = document.getElementById('employees-dropdown-toggle');
-            const employeesDropdownContent = document.getElementById('employees-dropdown-content');
-
-            function checkAuthAndRole() {
-                const jwtToken = localStorage.getItem('accessToken');
-                const userRole = localStorage.getItem('role');
-                const username = localStorage.getItem('username');
-
-                if (registerEmployeesLink) {
-                    registerEmployeesLink.style.display = 'none';
-                }
-
-                if (!jwtToken || !userRole || !username) {
-                    window.location.href = 'login.html';
-                    return;
-                }
-
-                if (usernameDisplay) {
-                    usernameDisplay.textContent = username;
-                }
-
-                if (userRoleText) {
-                    userRoleText.textContent = userRole;
-                }
-
-                if (userRole === 'admin') {
-                    if (registerEmployeesLink) {
-                        registerEmployeesLink.style.display = 'block';
-                    }
-                }
-            }
-
-            if (logoutButton) {
-                logoutButton.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    localStorage.removeItem('accessToken');
-                    localStorage.removeItem('role');
-                    localStorage.removeItem('username');
-                    window.location.href = 'login.html';
-                });
-            } else {
-                console.warn("[initDashboard] Botón de cerrar sesión con ID 'sidebar-logout-button' no encontrado después de cargar la barra lateral.");
-            }
-
-            // Lógica para el dropdown del usuario
-            if (userMenuBtn && userDropdown) {
-                userMenuBtn.addEventListener('click', (event) => {
-                    event.stopPropagation();
-                    userDropdown.classList.toggle('show');
-                });
-
-                document.addEventListener('click', (event) => {
-                    if (!userMenuBtn.contains(event.target) && !userDropdown.contains(event.target)) {
-                        userDropdown.classList.remove('show');
-                    }
-                });
-            }
-
-            // Lógica para el dropdown de Empleados
-            if (employeesDropdownToggle && employeesDropdownContent) {
-                employeesDropdownToggle.addEventListener('click', (event) => {
-                    event.stopPropagation();
-                    employeesDropdownContent.classList.toggle('show');
-                    // No hay flecha para rotar, así que se elimina la lógica de la flecha
-                });
-
-                document.addEventListener('click', (event) => {
-                    if (!employeesDropdownToggle.contains(event.target) && !employeesDropdownContent.contains(event.target)) {
-                        employeesDropdownContent.classList.remove('show');
-                    }
-                });
-            }
-
-            loadScript('/Frontend/js/animations.js', 'animationsScript');
-            checkAuthAndRole();
+            setupSidebarDropdowns();
 
             const currentPath = window.location.pathname;
             const currentHash = window.location.hash.substring(1);
@@ -370,9 +480,9 @@ async function initDashboard() {
         }
     }, 100); // Aumentar el tiempo de espera si es necesario
 
-
     window.addEventListener('resize', () => {
         applySidebarBehavior();
+        setupSidebarDropdowns();
         if (window.initCustomScrollbar) { setTimeout(window.initCustomScrollbar, 50); }
     });
 }

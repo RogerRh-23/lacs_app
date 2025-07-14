@@ -34,4 +34,17 @@
     <div id="adicional-beneficiarios" class="tab-content">
         <!-- Contenido de adicional-beneficiarios.html se cargará aquí -->
     </div>
+
+    <script src="/Frontend/js/persInfoTabLoader.js"></script>
+    <script src="/Frontend/js/persInfo.js"></script>
+    <script src="/Frontend/js/animations.js"></script>
+    <script>
+      if (window.initPersInfoTabs) {
+        window.initPersInfoTabs();
+      } else {
+        document.addEventListener('DOMContentLoaded', function() {
+          if (window.initPersInfoTabs) window.initPersInfoTabs();
+        });
+      }
+    </script>
 </div>

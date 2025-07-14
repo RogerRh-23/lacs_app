@@ -6,6 +6,7 @@
         "DORNISH",
         "LACS",
         "pers"
-    ]
+    ],
+    "liveshare.languages.allowGuestCommandControl": true
 }
 //oda
